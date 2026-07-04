@@ -38,7 +38,7 @@ function App() {
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><path d="M22 6l-10 7L2 6" /></svg>
               </a>
               {/* CV / Resume */}
-              <a href="./Cattoni_Resume.pdf" target="_blank" rel="noreferrer" className="social-icon" aria-label="Curriculum Vitae">
+              <a href="./Cattoni_Resume.pdf?v=2" target="_blank" rel="noreferrer" className="social-icon" aria-label="Curriculum Vitae">
                 <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v6h6v10H6zm2-8h8v2H8v-2zm0 4h5v2H8v-2z" /></svg>
               </a>
               {/* Instagram */}
