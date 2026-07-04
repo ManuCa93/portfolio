@@ -158,7 +158,7 @@ function App() {
             </div>
             <div className="link-content">
               <div className="link-title">Pomodoro Timer</div>
-              <div className="link-desc">A minimalist web application implementing the Pomodoro technique for better productivity. Allows users to easily manage focus sessions.</div>
+              <div className="link-desc">A minimalist web application implementing the Pomodoro technique for better productivity. It manages focus sessions and securely stores your data locally in the browser.</div>
             </div>
             <div className="link-arrow">
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
