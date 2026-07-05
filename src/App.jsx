@@ -54,7 +54,7 @@ function App() {
         <h2 className="section-title">Data & AI Projects</h2>
         <div className="grid">
           {/* 1. MotoGP */}
-          <a href="https://github.com/ManuCa93/motogp_estimate_position" target="_blank" rel="noreferrer" className="link-card">
+          <a href="https://motogp-analytics.onrender.com/" target="_blank" rel="noreferrer" className="link-card">
             <span className="card-badge">For Fun</span>
             <div className="link-icon-wrapper">
               <img src={motogpHelmet} alt="MotoGP Helmet" />
