@@ -55,7 +55,7 @@ function App() {
         <div className="grid">
           {/* 1. MotoGP */}
           <a href="https://motogp-analytics.onrender.com/" target="_blank" rel="noreferrer" className="link-card">
-            <span className="card-badge">For Fun</span>
+            <span className="card-badge badge-ended">Ended</span>
             <div className="link-icon-wrapper">
               <img src={motogpHelmet} alt="MotoGP Helmet" />
             </div>
@@ -70,7 +70,7 @@ function App() {
 
           {/* 2. Football */}
           <a href="https://github.com/ManuCa93/top-5-football-leagues-predictions" target="_blank" rel="noreferrer" className="link-card">
-            <span className="card-badge">For Fun</span>
+            <span className="card-badge badge-ended">Ended</span>
             <div className="link-icon-wrapper">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="12" cy="12" r="10" />
@@ -88,7 +88,7 @@ function App() {
 
           {/* 3. F1 */}
           <a href="https://github.com/ManuCa93/F1_pred_2024" target="_blank" rel="noreferrer" className="link-card">
-            <span className="card-badge">For Fun</span>
+            <span className="card-badge badge-ended">Ended</span>
             <div className="link-icon-wrapper">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
@@ -106,6 +106,7 @@ function App() {
 
           {/* 4. University Projects */}
           <a href="https://github.com/ManuCa93?tab=repositories" target="_blank" rel="noreferrer" className="link-card">
+            <span className="card-badge badge-in-progress">In Progress</span>
             <div className="link-icon-wrapper">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
@@ -127,7 +128,7 @@ function App() {
         <h2 className="section-title">Mobile Apps</h2>
         <div className="grid">
           <a href="https://github.com/ManuCa93/when_can_I_drive_app" target="_blank" rel="noreferrer" className="link-card">
-            <span className="card-badge">For Fun</span>
+            <span className="card-badge badge-to-publish">To Publish</span>
             <div className="link-icon-wrapper">
               <img src={appIcon} alt="When Can I Drive Icon" style={{ transform: 'scale(1.5)' }} />
             </div>
@@ -141,7 +142,7 @@ function App() {
           </a>
 
           <a href="https://github.com/ManuCa93/flutter_alimenti" target="_blank" rel="noreferrer" className="link-card">
-            <span className="card-badge">For Fun</span>
+            <span className="card-badge badge-in-progress">In Progress</span>
             <div className="link-icon-wrapper">
               <img src={logoImg} alt="FreshTrack Icon" style={{ transform: 'scale(1.5)' }} />
             </div>
@@ -160,7 +161,7 @@ function App() {
         <h2 className="section-title">Websites</h2>
         <div className="grid">
           <a href="https://manuca93.github.io/pomodoroTimer/" target="_blank" rel="noreferrer" className="link-card">
-            <span className="card-badge">For Fun</span>
+            <span className="card-badge badge-ended">Ended</span>
             <div className="link-icon-wrapper">
               <img src={iconIco} alt="Pomodoro Timer Icon" style={{ transform: 'scale(1.5)' }} />
             </div>
@@ -174,7 +175,7 @@ function App() {
           </a>
 
           <a href="https://github.com/ManuCa93/price-tracker" target="_blank" rel="noreferrer" className="link-card">
-            <span className="card-badge">For Fun</span>
+            <span className="card-badge badge-ended">Ended</span>
             <div className="link-icon-wrapper" style={{ position: 'relative' }}>
               {/* Python SVG */}
               <svg viewBox="0 0 24 24" fill="#3776AB" width="24" height="24" style={{ position: 'absolute' }}>
@@ -204,7 +205,7 @@ function App() {
         <h2 className="section-title">Games & Fun</h2>
         <div className="grid">
           <a href="https://github.com/ManuCa93/brickbrakers-F1" target="_blank" rel="noreferrer" className="link-card">
-            <span className="card-badge">For Fun</span>
+            <span className="card-badge badge-ended">Ended</span>
             <div className="link-icon-wrapper">
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </div>

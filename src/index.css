@@ -222,6 +222,21 @@ body {
   text-transform: uppercase;
 }
 
+.badge-ended {
+  background: #34c759;
+  color: #000;
+}
+
+.badge-in-progress {
+  background: #ffcc00;
+  color: #000;
+}
+
+.badge-to-publish {
+  background: #ff9500;
+  color: #000;
+}
+
 /* Animations */
 .fade-in {
   animation: fadeIn 0.6s ease-out forwards;
