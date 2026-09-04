@@ -135,20 +135,27 @@ body {
 /* Link Cards */
 .link-card {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   background-color: var(--card-bg);
   border-radius: 12px;
-  padding: 0.75rem;
   text-decoration: none;
   color: var(--text-primary);
   transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
+  border: 1px solid transparent;
 }
 
 .link-card:hover {
   background-color: var(--card-hover);
-  transform: scale(1.02);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.link-card-header {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
 }
 
 .link-icon-wrapper {
@@ -180,7 +187,7 @@ body {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding-right: 1.5rem; /* slightly less padding */
+  padding-right: 1.5rem;
 }
 
 .link-title {
@@ -193,20 +200,54 @@ body {
   font-size: 0.85rem;
   color: var(--text-secondary);
   line-height: 1.4;
-  /* Removed line-clamp to allow text to flow naturally */
 }
 
 .link-arrow {
   position: absolute;
   right: 1rem;
+  top: 1.5rem;
   color: var(--text-secondary);
   display: flex;
   align-items: center;
   opacity: 0.5;
+  transition: transform 0.3s ease;
 }
 
 .link-card:hover .link-arrow {
   opacity: 1;
+}
+
+.link-details {
+  padding: 0 1.5rem 1.5rem 4.75rem; /* align with text */
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  animation: slideDown 0.3s ease-out forwards;
+}
+
+.tech-stack {
+  margin-bottom: 0.75rem;
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+
+.external-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+}
+
+.external-link-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .card-badge {
@@ -237,6 +278,34 @@ body {
   color: #000;
 }
 
+/* Language Switcher */
+.language-switcher {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.lang-btn {
+  background: transparent;
+  border: 1px solid var(--text-secondary);
+  color: var(--text-secondary);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.lang-btn.active, .lang-btn:hover {
+  background: var(--text-primary);
+  color: var(--bg-color);
+  border-color: var(--text-primary);
+}
+
 /* Animations */
 .fade-in {
   animation: fadeIn 0.6s ease-out forwards;
@@ -253,4 +322,9 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
