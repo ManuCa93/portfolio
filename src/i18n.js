@@ -66,7 +66,7 @@ const resources = {
         },
         adosDashboard: {
           title: "ADOS Clinical Dashboard (Thesis)",
-          summary: "The final deliverable of my Master's thesis on autism-screening research: an offline clinical dashboard letting psychologists review a toddler's ADOS-2 session — video, IMU toy sensors and behavioral annotations — on one synchronized timeline.",
+          summary: "The final deliverable of my Bachelor's thesis on autism-screening research: an offline clinical dashboard letting psychologists review a toddler's ADOS-2 session — video, IMU toy sensors and behavioral annotations — on one synchronized timeline.",
           techStack: "Python, Dash/Plotly, Flask, Pandas, scikit-learn, Quill.js",
           details: "This dashboard is the presentation-facing layer of a much larger thesis pipeline: the IMU signal processing, feature engineering, the sensor-only ADOS risk model (RandomForest, evaluated out-of-fold) and the statistical analysis behind every number shown here all happen upstream, largely offline. What's pictured is the finished interface a clinician would actually use, handling sensitive health data of minors under GDPR Art. 9 with no outbound network calls.",
           highlights: [
@@ -238,10 +238,10 @@ const resources = {
           details: "Un portfolio diversificato di incarichi accademici incentrati su algoritmi, sistemi distribuiti e principi di ingegneria del software. Questi progetti dimostrano una solida base teorica applicata a sfide pratiche di programmazione."
         },
         adosDashboard: {
-          title: "ADOS Clinical Dashboard",
-          summary: "Una dashboard clinica offline per la ricerca sullo screening dell'autismo, che permette a psicologi di rivedere una sessione ADOS-2 di un bambino — video, sensori IMU sui giochi e annotazioni comportamentali — su un'unica timeline sincronizzata.",
+          title: "ADOS Clinical Dashboard (Tesi)",
+          summary: "L'output finale della mia tesi di Bachelor sulla ricerca nello screening dell'autismo: una dashboard clinica offline che permette a psicologi di rivedere una sessione ADOS-2 di un bambino — video, sensori IMU sui giochi e annotazioni comportamentali — su un'unica timeline sincronizzata.",
           techStack: "Python, Dash/Plotly, Flask, Pandas, scikit-learn, Quill.js",
-          details: "Sviluppata per una tesi universitaria che gestisce dati sanitari sensibili di minori secondo il GDPR Art. 9, la dashboard gira interamente su localhost senza alcuna chiamata di rete in uscita. Oltre alla revisione completa delle sessioni, una vista di screening sensor-only valuta i soli dati IMU di un bambino confrontandoli con l'evidenza out-of-fold della coorte, ed evidenzia i problemi di qualità dei dati invece di nasconderli dietro un singolo numero.",
+          details: "Questa dashboard è lo strato presentativo di una pipeline di tesi molto più ampia: l'elaborazione del segnale IMU, il feature engineering, il modello di rischio ADOS basato solo sui sensori (RandomForest, valutato out-of-fold) e l'analisi statistica dietro ogni numero mostrato avvengono a monte, in gran parte offline. Quello che si vede è l'interfaccia finita che un clinico userebbe davvero, progettata per gestire dati sanitari sensibili di minori secondo il GDPR Art. 9 senza alcuna chiamata di rete in uscita.",
           highlights: [
             "Patient Detail sincronizzato — riproduzione video collegata bidirezionalmente a una timeline interattiva delle etichette e al grafico del segnale IMU grezzo; giocattolo e angolo camera si selezionano indipendentemente per sessione.",
             "Sensor-Only Analysis (novità) — applica il modello di rischio ADOS basato solo sui sensori ai dati di movimento del bambino, confrontandolo con la coorte e con i pari a rischio simile, con tre timeline di movimento sovrapposte che confrontano il rilevamento automatico con il dato umano.",
@@ -411,10 +411,10 @@ const resources = {
           details: "Ein vielfältiges Portfolio akademischer Aufgaben mit Schwerpunkt auf Algorithmen, verteilten Systemen und Prinzipien der Softwareentwicklung. Diese Projekte demonstrieren ein solides theoretisches Fundament, das auf praktische Programmierherausforderungen angewendet wird."
         },
         adosDashboard: {
-          title: "ADOS Clinical Dashboard",
-          summary: "Ein offline-fähiges klinisches Dashboard für die Autismus-Screening-Forschung, mit dem Psycholog:innen eine ADOS-2-Sitzung eines Kleinkinds — Video, IMU-Spielzeugsensoren und Verhaltensannotationen — auf einer synchronisierten Zeitleiste überprüfen können.",
+          title: "ADOS Clinical Dashboard (Bachelorarbeit)",
+          summary: "Das finale Ergebnis meiner Bachelorarbeit zur Autismus-Screening-Forschung: ein offline-fähiges klinisches Dashboard, mit dem Psycholog:innen eine ADOS-2-Sitzung eines Kleinkinds — Video, IMU-Spielzeugsensoren und Verhaltensannotationen — auf einer synchronisierten Zeitleiste überprüfen können.",
           techStack: "Python, Dash/Plotly, Flask, Pandas, scikit-learn, Quill.js",
-          details: "Entwickelt für eine Universitätsabschlussarbeit, die sensible Gesundheitsdaten von Minderjährigen gemäß DSGVO Art. 9 verarbeitet; das Dashboard läuft vollständig auf localhost ohne ausgehende Netzwerkaufrufe. Neben der vollständigen Sitzungsansicht bewertet eine Sensor-Only-Screening-Ansicht die IMU-Daten eines Kindes allein gegen die Out-of-Fold-Evidenz der Kohorte und zeigt Datenqualitätsprobleme offen an, statt sie hinter einer einzelnen Zahl zu verstecken.",
+          details: "Dieses Dashboard ist die präsentationsseitige Schicht einer deutlich größeren Thesis-Pipeline: die IMU-Signalverarbeitung, das Feature Engineering, das rein sensorbasierte ADOS-Risikomodell (RandomForest, out-of-fold evaluiert) und die statistische Analyse hinter jeder gezeigten Zahl laufen vorgelagert, größtenteils offline, ab. Zu sehen ist die fertige Oberfläche, die eine Klinikerin tatsächlich nutzen würde — ausgelegt für sensible Gesundheitsdaten von Minderjährigen gemäß DSGVO Art. 9, ganz ohne ausgehende Netzwerkaufrufe.",
           highlights: [
             "Synchronisierte Patientenansicht — Videowiedergabe bidirektional mit einer interaktiven Label-Zeitleiste und dem rohen IMU-Signalplot verknüpft; Spielzeug und Kamerawinkel werden pro Sitzung unabhängig ausgewählt.",
             "Sensor-Only-Analyse (neu) — wendet das rein sensorbasierte ADOS-Risikomodell auf die Bewegungsdaten eines Kindes an, verglichen mit der Kohorte und gleich-risikoreichen Peers, mit drei überlagerten Bewegungszeitleisten, die automatische Erkennung mit dem menschlichen Protokoll vergleichen.",
