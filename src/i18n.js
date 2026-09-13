@@ -172,7 +172,9 @@ const resources = {
       },
       ui: {
         visit_project: "Visit Project",
-        coming_soon: "Coming soon"
+        coming_soon: "Coming soon",
+        lightbox_zoom_in: "Click image to zoom in",
+        lightbox_zoom_reset: "Click image to reset zoom"
       }
     }
   },
@@ -345,7 +347,9 @@ const resources = {
       },
       ui: {
         visit_project: "Visita il Progetto",
-        coming_soon: "Presto online"
+        coming_soon: "Presto online",
+        lightbox_zoom_in: "Clicca sull'immagine per ingrandire",
+        lightbox_zoom_reset: "Clicca sull'immagine per azzerare lo zoom"
       }
     }
   },
@@ -518,7 +522,9 @@ const resources = {
       },
       ui: {
         visit_project: "Projekt besuchen",
-        coming_soon: "Demnächst verfügbar"
+        coming_soon: "Demnächst verfügbar",
+        lightbox_zoom_in: "Bild anklicken zum Vergrößern",
+        lightbox_zoom_reset: "Bild anklicken, um Zoom zurückzusetzen"
       }
     }
   }

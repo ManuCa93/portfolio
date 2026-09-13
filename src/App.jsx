@@ -75,20 +75,32 @@ const enjoyGallery = [
   { src: enjoyDashboard, captionKey: 'dashboard' }
 ];
 
+const ZOOM_LEVELS = [1, 1.6, 2.4, 3.2];
+
 const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
   const { t } = useTranslation();
   const [index, setIndex] = useState(startIndex);
-  const [zoomed, setZoomed] = useState(false);
+  const [zoomStep, setZoomStep] = useState(0);
+  const [zoomOrigin, setZoomOrigin] = useState('center center');
+  const zoomed = zoomStep > 0;
 
   const goNext = useCallback(() => {
-    setZoomed(false);
+    setZoomStep(0);
     setIndex(i => (i + 1) % gallery.length);
   }, [gallery.length]);
 
   const goPrev = useCallback(() => {
-    setZoomed(false);
+    setZoomStep(0);
     setIndex(i => (i - 1 + gallery.length) % gallery.length);
   }, [gallery.length]);
+
+  const handleImageClick = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const originX = ((e.clientX - rect.left) / rect.width) * 100;
+    const originY = ((e.clientY - rect.top) / rect.height) * 100;
+    setZoomOrigin(`${originX}% ${originY}%`);
+    setZoomStep(s => (s + 1) % ZOOM_LEVELS.length);
+  };
 
   useEffect(() => {
     const handleKey = (e) => {
@@ -124,11 +136,15 @@ const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
             src={img.src}
             alt={caption}
             className={`lightbox-img ${zoomed ? 'zoomed' : ''}`}
-            onClick={() => setZoomed(z => !z)}
+            style={{ transform: `scale(${ZOOM_LEVELS[zoomStep]})`, transformOrigin: zoomOrigin }}
+            onClick={handleImageClick}
           />
         </div>
         {caption && <p className="lightbox-caption">{caption}</p>}
-        {gallery.length > 1 && <div className="lightbox-counter">{index + 1} / {gallery.length}</div>}
+        <div className="lightbox-meta">
+          <span className="lightbox-counter">{index + 1} / {gallery.length}</span>
+          <span className="lightbox-zoom-hint">{zoomStep === ZOOM_LEVELS.length - 1 ? t('ui.lightbox_zoom_reset') : t('ui.lightbox_zoom_in')}</span>
+        </div>
       </div>
       {gallery.length > 1 && (
         <button className="lightbox-nav lightbox-next" onClick={(e) => { e.stopPropagation(); goNext(); }} aria-label="Next image">
