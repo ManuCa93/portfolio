@@ -70,11 +70,24 @@ const resources = {
           techStack: "Flutter, Dart",
           details: "A mobile utility that helps users calculate when they can safely drive after consuming alcohol. It uses standard pharmacokinetic formulas to estimate BAC (Blood Alcohol Concentration) decay over time based on user inputs."
         },
-        freshtrack: {
-          title: "FreshTrack",
-          summary: "A food inventory app to track expiration dates and reduce food waste.",
-          techStack: "Flutter, Firebase, SQLite",
-          details: "An intuitive mobile application designed to manage home food inventory. It allows users to scan or manually enter items, track their expiration dates, and receive timely notifications to consume food before it spoils."
+        pantrypilot: {
+          title: "PantryPilot",
+          summary: "An ultra-premium, AI-driven app that merges diet tracking, grocery planning and pantry inventory into one breathtakingly minimalist Flutter experience.",
+          techStack: "Flutter, Riverpod, Hive, Google Gemini 2.5 Flash, Node.js",
+          details: "PantryPilot uses Gemini 2.5 Flash to read diets straight from a photo or PDF, then turns that plan into a priced grocery list, a live pantry inventory and zero-waste recipes — all inside one glassmorphic, dual-tab analytics dashboard.",
+          highlights: [
+            "Multimodal Diet Scanner — imports diets straight from a photo or PDF via Gemini 2.5 Flash, handling OCR, translation and portion sizing.",
+            "Smart Price Estimation — estimates the precise cost of any grocery list across multiple countries (IT, DE, CH).",
+            "Zero-Waste Recipe Generator (\"Svuota Frigo\") — turns expiring pantry items into recipes that minimize food waste.",
+            "Unified Analytics Dashboard — a dual-tab view tracking both macronutrients and grocery spending.",
+            "Magic Pantry (new) — automatically deducts recipe ingredients from inventory and merges duplicate foods, now with diet reuse via a calendar and a smart allergens backend.",
+            "Premium minimalist UI — glassmorphic navigation, immersive cooking mode, zero emojis."
+          ],
+          gallery: {
+            dashboard: "Unified analytics dashboard — health and spending at a glance",
+            diet_calendar: "Diet reuse and calendar integration",
+            analytics: "Dual-tab analytics: macronutrients vs. grocery spending"
+          }
         },
         polify: {
           title: "Polify",
@@ -99,9 +112,22 @@ const resources = {
         },
         pomodoro: {
           title: "Pomodoro Timer",
-          summary: "A minimalist web app implementing the Pomodoro productivity technique.",
-          techStack: "React, LocalStorage | GitHub Pages",
-          details: "A web application that helps users maintain focus using the Pomodoro technique. It manages work and break sessions, offers customizable timers, and securely stores user session data locally in the browser."
+          summary: "A highly customizable Pomodoro timer and study analytics dashboard, available as a web app and an Electron desktop app.",
+          techStack: "Vanilla JS, Electron, Chart.js, LocalStorage | GitHub Pages",
+          details: "Goes beyond simple countdowns: a mini-timer widget, a Notion-style task board and a full analytics dashboard turn the classic Pomodoro flow into a lightweight study companion, on the web or as a desktop app.",
+          highlights: [
+            "Mini-Timer Widget (new) — a floating, always-on-top window (desktop) or popup (web) that keeps you aware of time while working in other apps.",
+            "Notion-Style Task Board (new) — set a macro-subject, outline topics and manage tasks in an interactive, keyboard-navigable table, saved automatically.",
+            "Info & Settings Panel (new) — adjust durations, fully customize the color theme, and toggle aesthetic background bubbles.",
+            "Analytics Dashboard — track daily, weekly, monthly and lifetime progress with interactive Chart.js charts.",
+            "Core Timer — classic work → short break → long break flow with a responsive circular progress indicator."
+          ],
+          gallery: {
+            main_timer: "Main timer view with circular progress indicator",
+            tasks_panel: "Notion-style task board",
+            info_settings: "Info & settings panel with theme customization",
+            mini_timer: "Floating mini-timer widget"
+          }
         },
         priceTracker: {
           title: "Price Tracker",
@@ -189,11 +215,24 @@ const resources = {
           techStack: "Flutter, Dart",
           details: "Un'utilità mobile che aiuta gli utenti a calcolare quando possono guidare in sicurezza dopo aver consumato alcol. Utilizza formule farmacocinetiche standard per stimare il decadimento del tasso alcolemico (BAC) nel tempo in base ai dati inseriti dall'utente."
         },
-        freshtrack: {
-          title: "FreshTrack",
-          summary: "Un'app per l'inventario alimentare per tracciare le scadenze e ridurre gli sprechi.",
-          techStack: "Flutter, Firebase, SQLite",
-          details: "Un'applicazione mobile intuitiva progettata per gestire l'inventario alimentare domestico. Permette agli utenti di scansionare o inserire manualmente gli articoli, tracciare le date di scadenza e ricevere notifiche tempestive per consumare il cibo prima che si deteriori."
+        pantrypilot: {
+          title: "PantryPilot",
+          summary: "Un'app ultra-premium basata su AI che unisce tracciamento della dieta, pianificazione della spesa e inventario della dispensa in un'esperienza Flutter minimalista e curatissima.",
+          techStack: "Flutter, Riverpod, Hive, Google Gemini 2.5 Flash, Node.js",
+          details: "PantryPilot usa Gemini 2.5 Flash per leggere le diete direttamente da una foto o un PDF, trasformando il piano in una lista della spesa con prezzi stimati, un inventario della dispensa sempre aggiornato e ricette a spreco zero — il tutto in una dashboard analitica glassmorphic a doppia scheda.",
+          highlights: [
+            "Scanner Dieta Multimodale — importa diete direttamente da foto o PDF tramite Gemini 2.5 Flash, gestendo OCR, traduzione e porzioni.",
+            "Stima Intelligente dei Prezzi — calcola il costo preciso di qualsiasi lista della spesa in più paesi (IT, DE, CH).",
+            "Generatore di Ricette a Spreco Zero (\"Svuota Frigo\") — trasforma gli alimenti in scadenza in ricette che riducono lo spreco.",
+            "Dashboard Analitica Unificata — vista a doppia scheda che traccia sia i macronutrienti sia la spesa.",
+            "Magic Pantry (novità) — scala automaticamente gli ingredienti delle ricette dall'inventario e unisce alimenti duplicati, ora con riutilizzo delle diete via calendario e un backend intelligente per gli allergeni.",
+            "UI Premium Minimalista — navigazione glassmorphic, modalità cucina immersiva, zero emoji."
+          ],
+          gallery: {
+            dashboard: "Dashboard analitica unificata — salute e spesa a colpo d'occhio",
+            diet_calendar: "Riutilizzo delle diete e integrazione con il calendario",
+            analytics: "Analisi a doppia scheda: macronutrienti vs spesa alimentare"
+          }
         },
         polify: {
           title: "Polify",
@@ -218,9 +257,22 @@ const resources = {
         },
         pomodoro: {
           title: "Pomodoro Timer",
-          summary: "Un'app web minimalista che implementa la tecnica di produttività del Pomodoro.",
-          techStack: "React, LocalStorage | GitHub Pages",
-          details: "Un'applicazione web che aiuta gli utenti a mantenere la concentrazione utilizzando la tecnica del Pomodoro. Gestisce le sessioni di lavoro e di pausa, offre timer personalizzabili e memorizza in modo sicuro i dati delle sessioni dell'utente localmente nel browser."
+          summary: "Un timer Pomodoro altamente personalizzabile e una dashboard di analisi dello studio, disponibile come web app e come app desktop Electron.",
+          techStack: "Vanilla JS, Electron, Chart.js, LocalStorage | GitHub Pages",
+          details: "Va oltre il semplice conto alla rovescia: un widget mini-timer, una bacheca delle attività in stile Notion e una dashboard analitica completa trasformano il classico flusso Pomodoro in un compagno di studio leggero, sul web o come app desktop.",
+          highlights: [
+            "Widget Mini-Timer (novità) — una finestra flottante sempre in primo piano (desktop) o un popup (web) per restare consapevoli del tempo anche lavorando in altre app.",
+            "Bacheca Attività stile Notion (novità) — imposta una macro-materia, delinea gli argomenti e gestisci le attività in una tabella interattiva navigabile da tastiera, salvata automaticamente.",
+            "Pannello Info & Impostazioni (novità) — regola le durate, personalizza completamente il tema colore e attiva le bolle di sfondo decorative.",
+            "Dashboard Analitica — tieni traccia dei progressi giornalieri, settimanali, mensili e complessivi con grafici interattivi Chart.js.",
+            "Timer Principale — il classico flusso lavoro → pausa breve → pausa lunga con un indicatore di progresso circolare responsive."
+          ],
+          gallery: {
+            main_timer: "Vista principale del timer con indicatore di progresso circolare",
+            tasks_panel: "Bacheca delle attività in stile Notion",
+            info_settings: "Pannello info e impostazioni con personalizzazione del tema",
+            mini_timer: "Widget mini-timer flottante"
+          }
         },
         priceTracker: {
           title: "Price Tracker",
@@ -308,11 +360,24 @@ const resources = {
           techStack: "Flutter, Dart",
           details: "Ein mobiles Dienstprogramm, das Benutzern hilft zu berechnen, wann sie nach Alkoholkonsum sicher fahren können. Es verwendet standardmäßige pharmakokinetische Formeln, um den Abbau der Blutalkoholkonzentration (BAK) im Laufe der Zeit basierend auf Benutzereingaben zu schätzen."
         },
-        freshtrack: {
-          title: "FreshTrack",
-          summary: "Eine App für Lebensmittelbestände zur Verfolgung von Verfallsdaten und Reduzierung von Verschwendung.",
-          techStack: "Flutter, Firebase, SQLite",
-          details: "Eine intuitive mobile Anwendung zur Verwaltung des Lebensmittelbestands zu Hause. Sie ermöglicht Benutzern das Scannen oder manuelle Eingeben von Artikeln, das Verfolgen von Verfallsdaten und den Erhalt rechtzeitiger Benachrichtigungen, um Lebensmittel vor dem Verderben zu konsumieren."
+        pantrypilot: {
+          title: "PantryPilot",
+          summary: "Eine ultra-premium, KI-gestützte App, die Diät-Tracking, Einkaufsplanung und Vorratsverwaltung in einer minimalistischen Flutter-Erfahrung vereint.",
+          techStack: "Flutter, Riverpod, Hive, Google Gemini 2.5 Flash, Node.js",
+          details: "PantryPilot liest Diätpläne direkt von einem Foto oder PDF mittels Gemini 2.5 Flash und verwandelt sie in eine bepreiste Einkaufsliste, ein aktuelles Vorratsinventar und Zero-Waste-Rezepte — alles in einem glasmorphen Dual-Tab-Analytics-Dashboard.",
+          highlights: [
+            "Multimodaler Diät-Scanner — importiert Diäten direkt von Foto oder PDF via Gemini 2.5 Flash, inklusive OCR, Übersetzung und Portionsgrößen.",
+            "Intelligente Preisschätzung — berechnet die genauen Kosten jeder Einkaufsliste in mehreren Ländern (IT, DE, CH).",
+            "Zero-Waste-Rezeptgenerator (\"Svuota Frigo\") — verwandelt ablaufende Vorräte in Rezepte, die Lebensmittelverschwendung minimieren.",
+            "Einheitliches Analytics-Dashboard — Dual-Tab-Ansicht für Makronährstoffe und Ausgaben.",
+            "Magic Pantry (neu) — zieht Rezeptzutaten automatisch vom Inventar ab und führt doppelte Lebensmittel zusammen, jetzt mit Diät-Wiederverwendung per Kalender und einem intelligenten Allergene-Backend.",
+            "Premium minimalistisches UI — glasmorphe Navigation, immersiver Kochmodus, keine Emojis."
+          ],
+          gallery: {
+            dashboard: "Einheitliches Analytics-Dashboard — Gesundheit und Ausgaben auf einen Blick",
+            diet_calendar: "Diät-Wiederverwendung und Kalenderintegration",
+            analytics: "Dual-Tab-Analyse: Makronährstoffe vs. Lebensmittelausgaben"
+          }
         },
         polify: {
           title: "Polify",
@@ -337,9 +402,22 @@ const resources = {
         },
         pomodoro: {
           title: "Pomodoro Timer",
-          summary: "Eine minimalistische Web-App zur Umsetzung der Pomodoro-Produktivitätstechnik.",
-          techStack: "React, LocalStorage | GitHub Pages",
-          details: "Eine Webanwendung, die Benutzern hilft, mithilfe der Pomodoro-Technik den Fokus zu behalten. Sie verwaltet Arbeits- und Pausensitzungen, bietet anpassbare Timer und speichert Benutzer-Sitzungsdaten sicher lokal im Browser."
+          summary: "Ein hochgradig anpassbarer Pomodoro-Timer und ein Lern-Analytics-Dashboard, verfügbar als Web-App und als Electron-Desktop-App.",
+          techStack: "Vanilla JS, Electron, Chart.js, LocalStorage | GitHub Pages",
+          details: "Geht über einfaches Herunterzählen hinaus: ein Mini-Timer-Widget, ein Notion-artiges Aufgabenboard und ein vollständiges Analytics-Dashboard machen aus dem klassischen Pomodoro-Ablauf einen leichten Lernbegleiter, im Web oder als Desktop-App.",
+          highlights: [
+            "Mini-Timer-Widget (neu) — ein schwebendes, immer im Vordergrund bleibendes Fenster (Desktop) oder Popup (Web), das dich auch in anderen Apps über die Zeit informiert.",
+            "Notion-artiges Aufgabenboard (neu) — lege ein Hauptthema fest, gliedere Themen und verwalte Aufgaben in einer interaktiven, per Tastatur navigierbaren Tabelle, automatisch gespeichert.",
+            "Info- & Einstellungspanel (neu) — passe Zeiten an, personalisiere das Farbthema vollständig und schalte dekorative Hintergrundblasen ein.",
+            "Analytics-Dashboard — verfolge täglichen, wöchentlichen, monatlichen und Gesamtfortschritt mit interaktiven Chart.js-Diagrammen.",
+            "Haupttimer — der klassische Ablauf Arbeit → kurze Pause → lange Pause mit einer responsiven kreisförmigen Fortschrittsanzeige."
+          ],
+          gallery: {
+            main_timer: "Haupttimer-Ansicht mit kreisförmiger Fortschrittsanzeige",
+            tasks_panel: "Notion-artiges Aufgabenboard",
+            info_settings: "Info- und Einstellungspanel mit Themenanpassung",
+            mini_timer: "Schwebendes Mini-Timer-Widget"
+          }
         },
         priceTracker: {
           title: "Price Tracker",

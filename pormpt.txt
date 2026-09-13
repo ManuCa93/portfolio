@@ -7,4 +7,4 @@ Prepara un pacchetto "portfolio" per questo progetto, da usare in un dropdown/ac
 5. Zippala e mandamela come file scaricabile, non lasciarla solo su disco.
 
 Non toccare il codice sorgente del progetto, non fare commit, non pubblicare nulla online.
-(in inglese e salva lo zip nella cartella e con il nome tipo progetto_portfolio_package)
+(in inglese e salva lo zip nella cartella e con il nome tipo nomeprogetto_portfolio_package)

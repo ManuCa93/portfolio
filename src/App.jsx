@@ -20,6 +20,8 @@ import polifySondaggio from './assets/polify/sondaggio-01-scala-con-spiegazione.
 import polifyRisultati from './assets/polify/risultati-breve.png';
 import polifyRisultatiMobile from './assets/polify/risultati-mobile.png';
 import polifySfida from './assets/polify/sfida-confronto.png';
+import pomodoroMainTimer from './assets/pomodoro/main_timer.png';
+import pomodoroInfoSettings from './assets/pomodoro/info_settings.png';
 
 const motogpGallery = [
   { src: motogpTimeAttack, captionKey: 'time_attack' },
@@ -41,6 +43,11 @@ const polifyGallery = [
   { src: polifySfida, captionKey: 'sfida' }
 ];
 
+const pomodoroGallery = [
+  { src: pomodoroMainTimer, captionKey: 'main_timer' },
+  { src: pomodoroInfoSettings, captionKey: 'info_settings' }
+];
+
 const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, gallery, hasHighlights }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -55,7 +62,7 @@ const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, ga
         <span className={`card-badge ${badgeClass}`}>{t(`badges.${badgeKey}`)}</span>
         <div className="link-icon-wrapper">
           {iconType === 'img' ? (
-            <img src={iconContent} alt={id} style={id === 'freshtrack' || id === 'pomodoro' || id === 'driving' ? {transform: 'scale(1.5)'} : {}} />
+            <img src={iconContent} alt={id} style={id === 'pantrypilot' || id === 'pomodoro' || id === 'driving' ? {transform: 'scale(1.5)'} : {}} />
           ) : (
             iconContent
           )}
@@ -115,12 +122,12 @@ const dataAiProjects = [
 
 const mobileProjects = [
   { id: 'driving', link: 'https://github.com/ManuCa93/when_can_I_drive_app', badgeKey: 'to_publish', badgeClass: 'badge-to-publish', iconType: 'img', iconContent: appIcon },
-  { id: 'freshtrack', link: 'https://github.com/ManuCa93/flutter_alimenti', badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'img', iconContent: logoImg }
+  { id: 'pantrypilot', link: 'https://github.com/ManuCa93/flutter_alimenti', badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'img', iconContent: logoImg, hasHighlights: true }
 ];
 
 const webProjects = [
   { id: 'polify', link: null, badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'svg', gallery: polifyGallery, hasHighlights: true, iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L3 7v2h18V7L12 2z" /><path d="M5 9v9M9 9v9M15 9v9M19 9v9" /><path d="M3 20h18" /></svg> },
-  { id: 'pomodoro', link: 'https://manuca93.github.io/pomodoroTimer/', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'img', iconContent: iconIco },
+  { id: 'pomodoro', link: 'https://manuca93.github.io/pomodoroTimer/', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'img', iconContent: iconIco, gallery: pomodoroGallery, hasHighlights: true },
   { id: 'priceTracker', link: 'https://github.com/ManuCa93/price-tracker', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', iconContent: (
     <div style={{ position: 'relative', width: '24px', height: '24px' }}>
       <svg viewBox="0 0 24 24" fill="#3776AB" width="24" height="24" style={{ position: 'absolute' }}>
