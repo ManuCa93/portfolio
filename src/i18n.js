@@ -25,8 +25,26 @@ const resources = {
         motogp: {
           title: "MotoGP Position Estimator",
           summary: "Machine learning models featuring race pace estimation and qualifying simulation.",
-          techStack: "Python, scikit-learn, Pandas | Render",
-          details: "A comprehensive project aiming to estimate rider positions in MotoGP races. It utilizes machine learning techniques to analyze historical lap times, simulate qualifying results, and provide post-hoc statistical analysis of rider performance to predict expected race outcomes."
+          techStack: "Python, Flask, scikit-learn, XGBoost, Pandas, SQLite | Render",
+          details: "A machine learning suite acting as a \"Virtual Pit Wall\": it predicts live lap times, grid positions, race pace and tyre strategy for MotoGP, built on a SQLite pipeline ingesting real PDF timing sheets (2024-2026 seasons, 34 riders, 23 circuits, ~73k laps).",
+          highlights: [
+            "Live Lap Time & Position Predictor — estimates a rider's final lap time and live leaderboard position at each sector, using an ensemble of 5 regressors (XGBoost, SVR, Neural Network, Ridge, AdaBoost).",
+            "Race Pace & Tyre Strategy Engine — predicts average race pace, tyre degradation and likely compound choice from Free Practice telemetry and weather conditions.",
+            "Race Weekend Analysis (new) — per-session report card, an \"ideal lap\" execution score, and lap-by-lap position/pace charts.",
+            "Analytics Dashboard — algorithmic rider ratings, momentum indicator, circuit breakdown, head-to-head comparison, team performance trends.",
+            "Advanced EDA — 3D environmental mapping, Random Forest feature importance, K-Means/PCA circuit clustering."
+          ],
+          gallery: {
+            time_attack: "Live session replay — Time Attack mode",
+            race_pace: "Pre-race AI pace prediction",
+            weekend_overview: "Race Weekend Analysis — overview & report card",
+            weekend_charts: "Race Weekend Analysis — lap-by-lap position & pace",
+            analytics: "Advanced Analytics — algorithmic rider grades",
+            rider_profile: "Rider profile",
+            circuit_breakdown: "Circuit breakdown",
+            team_performance: "Team & constructor performance",
+            eda: "Environmental data exploration (EDA)"
+          }
         },
         football: {
           title: "Football Predictions",
@@ -104,8 +122,26 @@ const resources = {
         motogp: {
           title: "MotoGP Position Estimator",
           summary: "Modelli di machine learning per la stima del passo gara e simulazione delle qualifiche.",
-          techStack: "Python, scikit-learn, Pandas | Render",
-          details: "Un progetto completo volto a stimare le posizioni dei piloti nelle gare di MotoGP. Utilizza tecniche di machine learning per analizzare i tempi sul giro storici, simulare i risultati delle qualifiche e fornire un'analisi statistica post-hoc delle prestazioni per prevedere i risultati attesi della gara."
+          techStack: "Python, Flask, scikit-learn, XGBoost, Pandas, SQLite | Render",
+          details: "Una suite di machine learning che funge da \"box radio virtuale\": prevede tempi sul giro, posizioni in griglia, passo gara e strategia gomme in MotoGP, basata su una pipeline SQLite che elabora fogli tempi PDF reali (stagioni 2024-2026, 34 piloti, 23 circuiti, ~73mila giri).",
+          highlights: [
+            "Predittore di tempo sul giro e posizione live — stima il tempo finale e la posizione in classifica a ogni settore, tramite un ensemble di 5 regressori (XGBoost, SVR, rete neurale, Ridge, AdaBoost).",
+            "Motore di passo gara e strategia gomme — prevede il passo gara medio, il degrado gomme e la mescola più probabile a partire dalla telemetria delle prove libere e dal meteo.",
+            "Analisi del weekend di gara (novità) — pagella per sessione, punteggio di \"giro ideale\" e grafici giro per giro di posizione e passo.",
+            "Dashboard analitica — pagelle algoritmiche dei piloti, indicatore di momentum, analisi circuiti, confronto testa a testa, trend di squadra.",
+            "EDA avanzata — mappatura ambientale 3D, importanza delle feature, clustering dei circuiti con K-Means/PCA."
+          ],
+          gallery: {
+            time_attack: "Replay della sessione live — modalità Time Attack",
+            race_pace: "Previsione AI del passo gara pre-gara",
+            weekend_overview: "Analisi weekend di gara — panoramica e pagella",
+            weekend_charts: "Analisi weekend di gara — grafici giro per giro",
+            analytics: "Analisi avanzata — pagelle algoritmiche dei piloti",
+            rider_profile: "Profilo pilota",
+            circuit_breakdown: "Analisi circuito",
+            team_performance: "Prestazioni di squadra e costruttori",
+            eda: "Esplorazione dati ambientali (EDA)"
+          }
         },
         football: {
           title: "Football Predictions",
@@ -183,8 +219,26 @@ const resources = {
         motogp: {
           title: "MotoGP Position Estimator",
           summary: "Machine-Learning-Modelle für Rennpace-Schätzung und Qualifying-Simulation.",
-          techStack: "Python, scikit-learn, Pandas | Render",
-          details: "Ein umfassendes Projekt zur Schätzung der Fahrerpositionen in MotoGP-Rennen. Es nutzt maschinelles Lernen, um historische Rundenzeiten zu analysieren, Qualifying-Ergebnisse zu simulieren und eine statistische Post-hoc-Analyse der Fahrerleistung durchzuführen, um erwartete Rennergebnisse vorherzusagen."
+          techStack: "Python, Flask, scikit-learn, XGBoost, Pandas, SQLite | Render",
+          details: "Eine Machine-Learning-Suite als \"virtuelle Boxenwand\": sie sagt Rundenzeiten, Startpositionen, Rennpace und Reifenstrategie für MotoGP voraus, basierend auf einer SQLite-Pipeline, die echte PDF-Zeitmessblätter verarbeitet (Saisons 2024-2026, 34 Fahrer, 23 Strecken, ~73.000 Runden).",
+          highlights: [
+            "Live-Rundenzeit- & Positionsvorhersage — schätzt die finale Rundenzeit und die Live-Position an jedem Sektor mittels eines Ensembles aus 5 Regressoren (XGBoost, SVR, neuronales Netz, Ridge, AdaBoost).",
+            "Rennpace- & Reifenstrategie-Engine — sagt die durchschnittliche Rennpace, den Reifenabbau und die wahrscheinliche Mischungswahl anhand von Freien-Training-Telemetrie und Wetter voraus.",
+            "Rennwochenend-Analyse (neu) — Bewertung pro Session, ein \"Ideal-Lap\"-Score sowie Runde-für-Runde-Diagramme zu Position und Pace.",
+            "Analytics-Dashboard — algorithmische Fahrerbewertungen, Momentum-Indikator, Streckenanalyse, direkter Vergleich, Team-Performance-Trends.",
+            "Erweiterte EDA — 3D-Umweltmapping, Feature-Importance, K-Means/PCA-Streckenclustering."
+          ],
+          gallery: {
+            time_attack: "Live-Session-Replay — Time-Attack-Modus",
+            race_pace: "KI-Vorhersage der Rennpace vor dem Rennen",
+            weekend_overview: "Rennwochenend-Analyse — Übersicht & Bewertung",
+            weekend_charts: "Rennwochenend-Analyse — Runde-für-Runde-Diagramme",
+            analytics: "Erweiterte Analyse — algorithmische Fahrerbewertungen",
+            rider_profile: "Fahrerprofil",
+            circuit_breakdown: "Streckenanalyse",
+            team_performance: "Team- und Konstrukteursleistung",
+            eda: "Umweltdaten-Exploration (EDA)"
+          }
         },
         football: {
           title: "Football Predictions",

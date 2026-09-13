@@ -6,14 +6,36 @@ import logoImg from './assets/logo.png';
 import telegramPython from './assets/telegram_python.jpg';
 import motogpHelmet from './assets/motogp_helmet.png';
 import githubIcon from './assets/github_icon.png';
+import motogpTimeAttack from './assets/motogp/dashboard_time_attack.png';
+import motogpRacePace from './assets/motogp/dashboard_race_pace.png';
+import motogpWeekendOverview from './assets/motogp/race_weekend_analysis_overview.png';
+import motogpWeekendCharts from './assets/motogp/race_weekend_analysis_charts.png';
+import motogpAnalytics from './assets/motogp/analytics_overview.png';
+import motogpRiderProfile from './assets/motogp/rider_profile_modal.png';
+import motogpCircuitBreakdown from './assets/motogp/circuit_breakdown.png';
+import motogpTeamPerformance from './assets/motogp/team_performance_charts.png';
+import motogpEda from './assets/motogp/eda_report.png';
 
-const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent }) => {
+const motogpGallery = [
+  { src: motogpTimeAttack, captionKey: 'time_attack' },
+  { src: motogpRacePace, captionKey: 'race_pace' },
+  { src: motogpWeekendOverview, captionKey: 'weekend_overview' },
+  { src: motogpWeekendCharts, captionKey: 'weekend_charts' },
+  { src: motogpAnalytics, captionKey: 'analytics' },
+  { src: motogpRiderProfile, captionKey: 'rider_profile' },
+  { src: motogpCircuitBreakdown, captionKey: 'circuit_breakdown' },
+  { src: motogpTeamPerformance, captionKey: 'team_performance' },
+  { src: motogpEda, captionKey: 'eda' }
+];
+
+const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, gallery, hasHighlights }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+  const highlights = hasHighlights ? t(`projects.${id}.highlights`, { returnObjects: true }) : null;
 
   return (
     <div className={`link-card ${isOpen ? 'expanded' : ''}`} onClick={(e) => {
-        if(e.target.closest('.external-link-btn')) return;
+        if(e.target.closest('.external-link-btn') || e.target.closest('.gallery-item')) return;
         setIsOpen(!isOpen);
     }}>
       <div className="link-card-header">
@@ -39,6 +61,21 @@ const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent }) 
         <div className="link-details">
           <div className="tech-stack"><strong>Tech Stack:</strong> {t(`projects.${id}.techStack`)}</div>
           <p>{t(`projects.${id}.details`)}</p>
+          {Array.isArray(highlights) && (
+            <ul className="project-highlights">
+              {highlights.map((item, i) => <li key={i}>{item}</li>)}
+            </ul>
+          )}
+          {Array.isArray(gallery) && gallery.length > 0 && (
+            <div className="project-gallery">
+              {gallery.map((img, i) => (
+                <figure className="gallery-item" key={i}>
+                  <img src={img.src} alt={t(`projects.${id}.gallery.${img.captionKey}`)} loading="lazy" />
+                  <figcaption>{t(`projects.${id}.gallery.${img.captionKey}`)}</figcaption>
+                </figure>
+              ))}
+            </div>
+          )}
           <a href={link} target="_blank" rel="noreferrer" className="external-link-btn">
             {t('ui.visit_project')}
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
@@ -50,7 +87,7 @@ const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent }) 
 };
 
 const dataAiProjects = [
-  { id: 'motogp', link: 'https://motogp-analytics.onrender.com/', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'img', iconContent: motogpHelmet },
+  { id: 'motogp', link: 'https://motogp-analytics.onrender.com/', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'img', iconContent: motogpHelmet, gallery: motogpGallery, hasHighlights: true },
   { id: 'football', link: 'https://github.com/ManuCa93/top-5-football-leagues-predictions', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 12l2 3h4M12 12l-2 3H6M12 12V7.5M7 4.5l2 3M17 4.5l-2 3M19.5 16l-3.5-1M4.5 16l3.5-1" /></svg> },
   { id: 'f1', link: 'https://github.com/ManuCa93/F1_pred_2024', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" y1="22" x2="4" y2="15" /></svg> },
   { id: 'uni', link: 'https://github.com/ManuCa93?tab=repositories', badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'svg', iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" /></svg> }
