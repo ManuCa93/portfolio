@@ -290,6 +290,13 @@ body {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
+.coming-soon-btn {
+  background-color: transparent;
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  color: var(--text-secondary);
+  cursor: default;
+}
+
 .card-badge {
   position: absolute;
   top: 0;

@@ -15,6 +15,11 @@ import motogpRiderProfile from './assets/motogp/rider_profile_modal.png';
 import motogpCircuitBreakdown from './assets/motogp/circuit_breakdown.png';
 import motogpTeamPerformance from './assets/motogp/team_performance_charts.png';
 import motogpEda from './assets/motogp/eda_report.png';
+import polifyHome from './assets/polify/home-desktop-scuro.png';
+import polifySondaggio from './assets/polify/sondaggio-01-scala-con-spiegazione.png';
+import polifyRisultati from './assets/polify/risultati-breve.png';
+import polifyRisultatiMobile from './assets/polify/risultati-mobile.png';
+import polifySfida from './assets/polify/sfida-confronto.png';
 
 const motogpGallery = [
   { src: motogpTimeAttack, captionKey: 'time_attack' },
@@ -26,6 +31,14 @@ const motogpGallery = [
   { src: motogpCircuitBreakdown, captionKey: 'circuit_breakdown' },
   { src: motogpTeamPerformance, captionKey: 'team_performance' },
   { src: motogpEda, captionKey: 'eda' }
+];
+
+const polifyGallery = [
+  { src: polifyHome, captionKey: 'home' },
+  { src: polifySondaggio, captionKey: 'sondaggio' },
+  { src: polifyRisultati, captionKey: 'risultati' },
+  { src: polifyRisultatiMobile, captionKey: 'risultati_mobile' },
+  { src: polifySfida, captionKey: 'sfida' }
 ];
 
 const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, gallery, hasHighlights }) => {
@@ -76,10 +89,17 @@ const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, ga
               ))}
             </div>
           )}
-          <a href={link} target="_blank" rel="noreferrer" className="external-link-btn">
-            {t('ui.visit_project')}
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-          </a>
+          {link ? (
+            <a href={link} target="_blank" rel="noreferrer" className="external-link-btn">
+              {t('ui.visit_project')}
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </a>
+          ) : (
+            <span className="external-link-btn coming-soon-btn">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              {t('ui.coming_soon')}
+            </span>
+          )}
         </div>
       )}
     </div>
@@ -99,6 +119,7 @@ const mobileProjects = [
 ];
 
 const webProjects = [
+  { id: 'polify', link: null, badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'svg', gallery: polifyGallery, hasHighlights: true, iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L3 7v2h18V7L12 2z" /><path d="M5 9v9M9 9v9M15 9v9M19 9v9" /><path d="M3 20h18" /></svg> },
   { id: 'pomodoro', link: 'https://manuca93.github.io/pomodoroTimer/', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'img', iconContent: iconIco },
   { id: 'priceTracker', link: 'https://github.com/ManuCa93/price-tracker', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', iconContent: (
     <div style={{ position: 'relative', width: '24px', height: '24px' }}>

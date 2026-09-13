@@ -76,6 +76,27 @@ const resources = {
           techStack: "Flutter, Firebase, SQLite",
           details: "An intuitive mobile application designed to manage home food inventory. It allows users to scan or manually enter items, track their expiration dates, and receive timely notifications to consume food before it spoils."
         },
+        polify: {
+          title: "Polify",
+          summary: "A political matching test that explains every question before you answer, scoring your affinity with Italian and international parties across 68 real, documented issues.",
+          techStack: "Next.js 16, React 19, Tailwind CSS v4, shadcn/ui, GSAP",
+          details: "Polify walks you through 68 documented political issues, weighting each answer against 239+ verified party positions to compute your affinity — nationally and, for the first time, across 10 other countries.",
+          highlights: [
+            "Transparent, documented scoring engine — matches answers against 239+ verified, locked party positions, weighted by source reliability (e.g. parliamentary vote vs. statement).",
+            "International Match (new) — discover your closest ideologies and matching parties across 10 different countries.",
+            "Area-by-area analysis — separate rankings across 9 topic areas (economy, rights, etc.), because no one agrees with a single party on everything.",
+            "Separated-newsroom architecture — a local text editor (on a dedicated port) lets editors write and score questions in real time, watching the impact on the model, with no code.",
+            "Privacy-first results & sharing — encrypted comparison via URL (\"Challenge\"); the server stores nothing, every calculation happens in the browser, GDPR-friendly.",
+            "Premium aesthetics & UX — modern black-and-white interface with native dark mode, smooth micro-animations, single-column layout, and a built-in glossary for complex terms."
+          ],
+          gallery: {
+            home: "Animated dark-mode home page, with custom-made ink portraits.",
+            sondaggio: "Transparent explanation and pop-up glossary before answering.",
+            risultati: "Results with the leading group (accounting for statistical margin of error) and the new international match.",
+            risultati_mobile: "Mobile detail view to see affinity on individual topics.",
+            sfida: "Challenge mode: share your unique link and find points of agreement and divergence."
+          }
+        },
         pomodoro: {
           title: "Pomodoro Timer",
           summary: "A minimalist web app implementing the Pomodoro productivity technique.",
@@ -96,7 +117,8 @@ const resources = {
         }
       },
       ui: {
-        visit_project: "Visit Project"
+        visit_project: "Visit Project",
+        coming_soon: "Coming soon"
       }
     }
   },
@@ -173,6 +195,27 @@ const resources = {
           techStack: "Flutter, Firebase, SQLite",
           details: "Un'applicazione mobile intuitiva progettata per gestire l'inventario alimentare domestico. Permette agli utenti di scansionare o inserire manualmente gli articoli, tracciare le date di scadenza e ricevere notifiche tempestive per consumare il cibo prima che si deteriori."
         },
+        polify: {
+          title: "Polify",
+          summary: "Un test politico che ti spiega ogni domanda prima di porla, calcolando quanto sei vicino a ciascun partito italiano e internazionale su 68 temi reali e documentati.",
+          techStack: "Next.js 16, React 19, Tailwind CSS v4, shadcn/ui, GSAP",
+          details: "Polify ti guida attraverso 68 temi politici documentati, confrontando ogni risposta con oltre 239 posizioni di partito verificate per calcolare la tua affinità — a livello nazionale e, per la prima volta, anche in altre 10 nazioni.",
+          highlights: [
+            "Motore di calcolo trasparente e documentato — confronta le risposte con oltre 239 posizioni di partito verificate e bloccate, pesate in base all'affidabilità della fonte (es. voto parlamentare vs. dichiarazione).",
+            "Match Internazionale (novità) — scopri le tue ideologie affini e i partiti corrispondenti in 10 nazioni diverse.",
+            "Analisi area per area — classifiche separate su 9 temi (economia, diritti, ecc.), perché nessuno è d'accordo su tutto con un solo partito.",
+            "Architettura a redazione separata — editor testuale locale per creare e valutare le domande in tempo reale, senza toccare codice.",
+            "Risultati e condivisione privacy-first — confronto crittografato via URL (\"Sfida\"); tutti i calcoli restano nel browser, nessun dato salvato sul server.",
+            "Estetica e UX Premium — interfaccia bianco e nero con dark mode nativa, micro-animazioni fluide, layout a colonna singola e glossario integrato per i termini complessi."
+          ],
+          gallery: {
+            home: "La home page animata in tema scuro, con ritratti a inchiostro creati appositamente.",
+            sondaggio: "Spiegazione trasparente e glossario a comparsa prima di prendere una decisione.",
+            risultati: "I risultati con il gruppo di testa e il nuovo matching internazionale.",
+            risultati_mobile: "Dettaglio su scala mobile per l'affinità sulle singole tematiche.",
+            sfida: "Modalità Sfida: condividi il link univoco e scopri punti di contatto e divergenza."
+          }
+        },
         pomodoro: {
           title: "Pomodoro Timer",
           summary: "Un'app web minimalista che implementa la tecnica di produttività del Pomodoro.",
@@ -193,7 +236,8 @@ const resources = {
         }
       },
       ui: {
-        visit_project: "Visita il Progetto"
+        visit_project: "Visita il Progetto",
+        coming_soon: "Presto online"
       }
     }
   },
@@ -270,6 +314,27 @@ const resources = {
           techStack: "Flutter, Firebase, SQLite",
           details: "Eine intuitive mobile Anwendung zur Verwaltung des Lebensmittelbestands zu Hause. Sie ermöglicht Benutzern das Scannen oder manuelle Eingeben von Artikeln, das Verfolgen von Verfallsdaten und den Erhalt rechtzeitiger Benachrichtigungen, um Lebensmittel vor dem Verderben zu konsumieren."
         },
+        polify: {
+          title: "Polify",
+          summary: "Ein politischer Matching-Test, der jede Frage vor der Beantwortung erklärt und deine Übereinstimmung mit italienischen und internationalen Parteien anhand von 68 realen, dokumentierten Themen berechnet.",
+          techStack: "Next.js 16, React 19, Tailwind CSS v4, shadcn/ui, GSAP",
+          details: "Polify führt dich durch 68 dokumentierte politische Themen und vergleicht jede Antwort mit über 239 geprüften Parteipositionen, um deine Übereinstimmung zu berechnen — national und erstmals auch in 10 weiteren Ländern.",
+          highlights: [
+            "Transparente, dokumentierte Berechnungs-Engine — vergleicht Antworten mit über 239 geprüften, fixierten Parteipositionen, gewichtet nach Quellenzuverlässigkeit.",
+            "Internationaler Abgleich (neu) — entdecke deine nächstliegenden Ideologien und passende Parteien in 10 verschiedenen Ländern.",
+            "Analyse nach Themenbereich — getrennte Ranglisten für 9 Themenbereiche (Wirtschaft, Rechte usw.), denn niemand stimmt bei allem mit nur einer Partei überein.",
+            "Getrennte Redaktionsarchitektur — ein lokaler Text-Editor (auf eigenem Port) lässt Redakteure Fragen in Echtzeit erstellen und bewerten, ganz ohne Code.",
+            "Datenschutzfreundliche Ergebnisse & Teilen — verschlüsselter Vergleich per URL (\"Challenge\"); der Server speichert nichts, alle Berechnungen laufen im Browser, DSGVO-konform.",
+            "Premium-Ästhetik & UX — modernes Schwarz-Weiß-Interface mit nativem Dark Mode, flüssige Mikroanimationen, einspaltiges Layout und integriertes Glossar für komplexe Begriffe."
+          ],
+          gallery: {
+            home: "Animierte Startseite im Dark Mode mit eigens erstellten Tuschezeichnungen-Portraits.",
+            sondaggio: "Transparente Erklärung und Popup-Glossar vor jeder Antwort.",
+            risultati: "Ergebnisse mit der Führungsgruppe (unter Berücksichtigung der statistischen Fehlermarge) und dem neuen internationalen Abgleich.",
+            risultati_mobile: "Mobile Detailansicht zur Affinität bei einzelnen Themen.",
+            sfida: "Challenge-Modus: teile deinen eigenen Link und entdecke Gemeinsamkeiten und Unterschiede."
+          }
+        },
         pomodoro: {
           title: "Pomodoro Timer",
           summary: "Eine minimalistische Web-App zur Umsetzung der Pomodoro-Produktivitätstechnik.",
@@ -290,7 +355,8 @@ const resources = {
         }
       },
       ui: {
-        visit_project: "Projekt besuchen"
+        visit_project: "Projekt besuchen",
+        coming_soon: "Demnächst verfügbar"
       }
     }
   }
