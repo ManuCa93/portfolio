@@ -384,18 +384,13 @@ body {
   overflow: hidden;
 }
 
-.lightbox-content.is-zoomed .lightbox-img-wrap {
-  overflow: auto;
-  max-width: 92vw;
-}
-
 .lightbox-img {
   max-width: 88vw;
   max-height: 75vh;
   object-fit: contain;
   border-radius: 6px;
   cursor: zoom-in;
-  transition: transform 0.2s ease;
+  transition: transform 0.15s ease-out;
   display: block;
 }
 

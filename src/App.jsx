@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import iconIco from './assets/icon.ico';
@@ -83,6 +83,8 @@ const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
   const [zoomStep, setZoomStep] = useState(0);
   const [zoomOrigin, setZoomOrigin] = useState('center center');
   const zoomed = zoomStep > 0;
+  const wrapRef = useRef(null);
+  const rafRef = useRef(null);
 
   const goNext = useCallback(() => {
     setZoomStep(0);
@@ -94,12 +96,23 @@ const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
     setIndex(i => (i - 1 + gallery.length) % gallery.length);
   }, [gallery.length]);
 
+  const originFromEvent = (e) => {
+    const rect = wrapRef.current.getBoundingClientRect();
+    const x = Math.min(100, Math.max(0, ((e.clientX - rect.left) / rect.width) * 100));
+    const y = Math.min(100, Math.max(0, ((e.clientY - rect.top) / rect.height) * 100));
+    return `${x}% ${y}%`;
+  };
+
   const handleImageClick = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const originX = ((e.clientX - rect.left) / rect.width) * 100;
-    const originY = ((e.clientY - rect.top) / rect.height) * 100;
-    setZoomOrigin(`${originX}% ${originY}%`);
+    setZoomOrigin(originFromEvent(e));
     setZoomStep(s => (s + 1) % ZOOM_LEVELS.length);
+  };
+
+  const handleMouseMove = (e) => {
+    if (zoomStep === 0) return;
+    const origin = originFromEvent(e);
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => setZoomOrigin(origin));
   };
 
   useEffect(() => {
@@ -114,6 +127,7 @@ const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
     return () => {
       window.removeEventListener('keydown', handleKey);
       document.body.style.overflow = prevOverflow;
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, [goNext, goPrev, onClose]);
 
@@ -131,7 +145,7 @@ const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
         </button>
       )}
       <div className={`lightbox-content ${zoomed ? 'is-zoomed' : ''}`} onClick={(e) => e.stopPropagation()}>
-        <div className="lightbox-img-wrap">
+        <div className="lightbox-img-wrap" ref={wrapRef} onMouseMove={handleMouseMove}>
           <img
             src={img.src}
             alt={caption}
