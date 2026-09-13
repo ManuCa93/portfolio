@@ -82,12 +82,7 @@ const resources = {
             "Unified Analytics Dashboard — a dual-tab view tracking both macronutrients and grocery spending.",
             "Magic Pantry (new) — automatically deducts recipe ingredients from inventory and merges duplicate foods, now with diet reuse via a calendar and a smart allergens backend.",
             "Premium minimalist UI — glassmorphic navigation, immersive cooking mode, zero emojis."
-          ],
-          gallery: {
-            dashboard: "Unified analytics dashboard — health and spending at a glance",
-            diet_calendar: "Diet reuse and calendar integration",
-            analytics: "Dual-tab analytics: macronutrients vs. grocery spending"
-          }
+          ]
         },
         polify: {
           title: "Polify",
@@ -124,9 +119,7 @@ const resources = {
           ],
           gallery: {
             main_timer: "Main timer view with circular progress indicator",
-            tasks_panel: "Notion-style task board",
-            info_settings: "Info & settings panel with theme customization",
-            mini_timer: "Floating mini-timer widget"
+            info_settings: "Info & settings panel with theme customization"
           }
         },
         priceTracker: {
