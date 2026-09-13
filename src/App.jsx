@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import appIcon from './assets/app_icon.png';
 import iconIco from './assets/icon.ico';
 import logoImg from './assets/logo.png';
 import telegramPython from './assets/telegram_python.jpg';
@@ -22,6 +21,17 @@ import polifyRisultatiMobile from './assets/polify/risultati-mobile.png';
 import polifySfida from './assets/polify/sfida-confronto.png';
 import pomodoroMainTimer from './assets/pomodoro/main_timer.png';
 import pomodoroInfoSettings from './assets/pomodoro/info_settings.png';
+import adosOverview from './assets/ados/01_dashboard_overview.png';
+import adosLabelStats from './assets/ados/02_dashboard_label_toy_stats.png';
+import adosPatientComplete from './assets/ados/03_patient_card_complete_data.png';
+import adosSensorOnly from './assets/ados/04_sensor_only_analysis.png';
+import adosPatientPending from './assets/ados/05_patient_card_pending_labels.png';
+import adosSensorFlags from './assets/ados/06_sensor_only_analysis_data_quality_flags.png';
+import adosNotesEditor from './assets/ados/07_clinician_notes_editor.png';
+import adosToyLeaderboard from './assets/ados/08_toy_analytics_leaderboard.png';
+import adosToyEntropy from './assets/ados/09_toy_analytics_entropy_intentionality.png';
+import enjoyLogo from './assets/enjoythenight/logo.png';
+import enjoyDashboard from './assets/enjoythenight/dashboard.png';
 
 const motogpGallery = [
   { src: motogpTimeAttack, captionKey: 'time_attack' },
@@ -46,6 +56,22 @@ const polifyGallery = [
 const pomodoroGallery = [
   { src: pomodoroMainTimer, captionKey: 'main_timer' },
   { src: pomodoroInfoSettings, captionKey: 'info_settings' }
+];
+
+const adosGallery = [
+  { src: adosOverview, captionKey: 'overview' },
+  { src: adosLabelStats, captionKey: 'label_stats' },
+  { src: adosPatientComplete, captionKey: 'patient_complete' },
+  { src: adosSensorOnly, captionKey: 'sensor_only' },
+  { src: adosPatientPending, captionKey: 'patient_pending' },
+  { src: adosSensorFlags, captionKey: 'sensor_flags' },
+  { src: adosNotesEditor, captionKey: 'notes_editor' },
+  { src: adosToyLeaderboard, captionKey: 'toy_leaderboard' },
+  { src: adosToyEntropy, captionKey: 'toy_entropy' }
+];
+
+const enjoyGallery = [
+  { src: enjoyDashboard, captionKey: 'dashboard' }
 ];
 
 const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, gallery, hasHighlights }) => {
@@ -114,14 +140,15 @@ const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, ga
 };
 
 const dataAiProjects = [
+  { id: 'adosDashboard', link: null, badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', gallery: adosGallery, hasHighlights: true, iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6" /></svg> },
   { id: 'motogp', link: 'https://motogp-analytics.onrender.com/', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'img', iconContent: motogpHelmet, gallery: motogpGallery, hasHighlights: true },
+  { id: 'uni', link: 'https://github.com/ManuCa93?tab=repositories', badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'svg', iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" /></svg> },
   { id: 'football', link: 'https://github.com/ManuCa93/top-5-football-leagues-predictions', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 12l2 3h4M12 12l-2 3H6M12 12V7.5M7 4.5l2 3M17 4.5l-2 3M19.5 16l-3.5-1M4.5 16l3.5-1" /></svg> },
-  { id: 'f1', link: 'https://github.com/ManuCa93/F1_pred_2024', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" y1="22" x2="4" y2="15" /></svg> },
-  { id: 'uni', link: 'https://github.com/ManuCa93?tab=repositories', badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'svg', iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" /></svg> }
+  { id: 'f1', link: 'https://github.com/ManuCa93/F1_pred_2024', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" y1="22" x2="4" y2="15" /></svg> }
 ];
 
 const mobileProjects = [
-  { id: 'driving', link: 'https://github.com/ManuCa93/when_can_I_drive_app', badgeKey: 'to_publish', badgeClass: 'badge-to-publish', iconType: 'img', iconContent: appIcon },
+  { id: 'driving', link: 'https://github.com/ManuCa93/when_can_I_drive_app', badgeKey: 'to_publish', badgeClass: 'badge-to-publish', iconType: 'img', iconContent: enjoyLogo, gallery: enjoyGallery, hasHighlights: true },
   { id: 'pantrypilot', link: 'https://github.com/ManuCa93/flutter_alimenti', badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'img', iconContent: logoImg, hasHighlights: true }
 ];
 

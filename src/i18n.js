@@ -64,11 +64,46 @@ const resources = {
           techStack: "Java, C++, Python, SQL",
           details: "A diverse portfolio of academic assignments focusing on algorithms, distributed systems, and software engineering principles. These projects demonstrate a solid theoretical foundation applied to practical coding challenges."
         },
+        adosDashboard: {
+          title: "ADOS Clinical Dashboard (Thesis)",
+          summary: "The final deliverable of my Master's thesis on autism-screening research: an offline clinical dashboard letting psychologists review a toddler's ADOS-2 session — video, IMU toy sensors and behavioral annotations — on one synchronized timeline.",
+          techStack: "Python, Dash/Plotly, Flask, Pandas, scikit-learn, Quill.js",
+          details: "This dashboard is the presentation-facing layer of a much larger thesis pipeline: the IMU signal processing, feature engineering, the sensor-only ADOS risk model (RandomForest, evaluated out-of-fold) and the statistical analysis behind every number shown here all happen upstream, largely offline. What's pictured is the finished interface a clinician would actually use, handling sensitive health data of minors under GDPR Art. 9 with no outbound network calls.",
+          highlights: [
+            "Synchronized Patient Detail — video playback linked bidirectionally to an interactive label timeline and the raw IMU signal plot; toy and camera angle are selected independently per session.",
+            "Sensor-Only Analysis (new) — runs the sensor-only ADOS risk model on a child's motion data alone, benchmarked against the cohort and same-risk peers, with three overlaid movement timelines comparing automated detection to the human record.",
+            "Data-quality transparency (new) — a saturated sensor, broken recording or low sample coverage surfaces an explicit warning next to the prediction, instead of a silently wrong number.",
+            "Clinician Notes with extractive AI summary (new) — a rich-text editor (multiple notes/clinicians per patient, exportable to docx/pdf/txt) that summarizes notes by lifting sentences verbatim, after generative summaries were found to fabricate clinical claims.",
+            "Toy Analytics — cross-patient view of action counts, intentionality (child-initiated / accidental / educator-led) and action diversity per toy.",
+            "Cohort data-quality overview — surfaces per-child completeness directly (missing labels, unreadable data, sensor issues) rather than hiding it behind an aggregate."
+          ],
+          gallery: {
+            overview: "Dashboard overview — cohort KPIs and ADOS score distribution",
+            label_stats: "Label statistics and toy-usage heatmap",
+            patient_complete: "Patient detail view with complete session data",
+            sensor_only: "Sensor-only ADOS risk prediction and movement timelines",
+            patient_pending: "Patient card flagged with pending behavioral labels",
+            sensor_flags: "Sensor-only analysis with a data-quality warning",
+            notes_editor: "Clinician notes editor with extractive AI summary",
+            toy_leaderboard: "Most-used toys leaderboard",
+            toy_entropy: "Action diversity and intentionality per toy"
+          }
+        },
         driving: {
-          title: "When Can I Drive",
-          summary: "A mobile app calculating when it's safe to drive after consuming alcohol.",
-          techStack: "Flutter, Dart",
-          details: "A mobile utility that helps users calculate when they can safely drive after consuming alcohol. It uses standard pharmacokinetic formulas to estimate BAC (Blood Alcohol Concentration) decay over time based on user inputs."
+          title: "Enjoy the Night",
+          summary: "A mobile and web app that tracks your drinks and calculates Blood Alcohol Content in real time, to help you stay safe on a night out.",
+          techStack: "Flutter, Provider | iOS, Android, Web",
+          details: "Enjoy the Night (Sober Track) estimates BAC decay over time from a user's profile and logged drinks, now with myth-busting explanations, persistent safety disclaimers and full multilingual support.",
+          highlights: [
+            "Real-time BAC Calculation — accurate blood alcohol estimates based on user profile and logged drinks.",
+            "Calculation Insights & Myth-Busting (new) — interactive popups explaining how the calculation works and debunking common drinking myths.",
+            "Health & Safety Disclaimer (new) — a persistent disclaimer across Dashboard, History and Settings promoting responsible drinking.",
+            "Multilingual Support (new) — fully localized in English, German, Spanish, French and Italian.",
+            "Drink History & Quick Add — a detailed log of past drinks plus a bottom-sheet shortcut to log a new one with minimal friction."
+          ],
+          gallery: {
+            dashboard: "Onboarding screen for a personalized BAC estimate"
+          }
         },
         pantrypilot: {
           title: "PantryPilot",
@@ -202,11 +237,46 @@ const resources = {
           techStack: "Java, C++, Python, SQL",
           details: "Un portfolio diversificato di incarichi accademici incentrati su algoritmi, sistemi distribuiti e principi di ingegneria del software. Questi progetti dimostrano una solida base teorica applicata a sfide pratiche di programmazione."
         },
+        adosDashboard: {
+          title: "ADOS Clinical Dashboard",
+          summary: "Una dashboard clinica offline per la ricerca sullo screening dell'autismo, che permette a psicologi di rivedere una sessione ADOS-2 di un bambino — video, sensori IMU sui giochi e annotazioni comportamentali — su un'unica timeline sincronizzata.",
+          techStack: "Python, Dash/Plotly, Flask, Pandas, scikit-learn, Quill.js",
+          details: "Sviluppata per una tesi universitaria che gestisce dati sanitari sensibili di minori secondo il GDPR Art. 9, la dashboard gira interamente su localhost senza alcuna chiamata di rete in uscita. Oltre alla revisione completa delle sessioni, una vista di screening sensor-only valuta i soli dati IMU di un bambino confrontandoli con l'evidenza out-of-fold della coorte, ed evidenzia i problemi di qualità dei dati invece di nasconderli dietro un singolo numero.",
+          highlights: [
+            "Patient Detail sincronizzato — riproduzione video collegata bidirezionalmente a una timeline interattiva delle etichette e al grafico del segnale IMU grezzo; giocattolo e angolo camera si selezionano indipendentemente per sessione.",
+            "Sensor-Only Analysis (novità) — applica il modello di rischio ADOS basato solo sui sensori ai dati di movimento del bambino, confrontandolo con la coorte e con i pari a rischio simile, con tre timeline di movimento sovrapposte che confrontano il rilevamento automatico con il dato umano.",
+            "Trasparenza sulla qualità dei dati (novità) — un sensore saturo, una registrazione interrotta o una bassa copertura dei campioni mostrano un avviso esplicito accanto alla previsione, invece di un numero silenziosamente sbagliato.",
+            "Note del Clinico con riassunto AI estrattivo (novità) — un editor di rich-text (più note e più clinici per paziente, esportabile in docx/pdf/txt) che riassume le note estraendo frasi testuali, dopo che i riassunti generativi si erano dimostrati capaci di inventare affermazioni cliniche.",
+            "Toy Analytics — vista cross-paziente di conteggio azioni, intenzionalità (avviata dal bambino / accidentale / guidata dall'educatore) e diversità delle azioni per giocattolo.",
+            "Panoramica sulla qualità dei dati della coorte — mostra direttamente la completezza per ogni bambino (etichette mancanti, dati illeggibili, problemi ai sensori) invece di nasconderla dietro un aggregato."
+          ],
+          gallery: {
+            overview: "Panoramica dashboard — KPI di coorte e distribuzione dei punteggi ADOS",
+            label_stats: "Statistiche sulle etichette e heatmap di utilizzo dei giocattoli",
+            patient_complete: "Vista dettaglio paziente con dati di sessione completi",
+            sensor_only: "Previsione di rischio ADOS solo da sensori e timeline di movimento",
+            patient_pending: "Scheda paziente segnalata con etichette comportamentali in sospeso",
+            sensor_flags: "Analisi solo sensori con avviso di qualità dei dati",
+            notes_editor: "Editor delle note del clinico con riassunto AI estrattivo",
+            toy_leaderboard: "Classifica dei giocattoli più utilizzati",
+            toy_entropy: "Diversità delle azioni e intenzionalità per giocattolo"
+          }
+        },
         driving: {
-          title: "When Can I Drive",
-          summary: "Un'app mobile che calcola quando è sicuro guidare dopo aver consumato alcol.",
-          techStack: "Flutter, Dart",
-          details: "Un'utilità mobile che aiuta gli utenti a calcolare quando possono guidare in sicurezza dopo aver consumato alcol. Utilizza formule farmacocinetiche standard per stimare il decadimento del tasso alcolemico (BAC) nel tempo in base ai dati inseriti dall'utente."
+          title: "Enjoy the Night",
+          summary: "Un'app mobile e web che traccia i drink consumati e calcola il tasso alcolemico (BAC) in tempo reale, per aiutarti a restare al sicuro durante una serata.",
+          techStack: "Flutter, Provider | iOS, Android, Web",
+          details: "Enjoy the Night (Sober Track) stima il decadimento del BAC nel tempo a partire dal profilo utente e dai drink registrati, ora con spiegazioni anti-mito, disclaimer di sicurezza persistenti e supporto multilingua completo.",
+          highlights: [
+            "Calcolo BAC in tempo reale — stime accurate del tasso alcolemico basate sul profilo utente e sui drink registrati.",
+            "Approfondimenti sul calcolo e Anti-Mito (novità) — popup interattivi che spiegano come funziona il calcolo e sfatano i miti comuni sull'alcol.",
+            "Disclaimer di Salute e Sicurezza (novità) — un avviso persistente su Dashboard, Cronologia e Impostazioni che promuove un consumo responsabile.",
+            "Supporto Multilingua (novità) — localizzazione completa in inglese, tedesco, spagnolo, francese e italiano.",
+            "Cronologia Drink e Aggiunta Rapida — un registro dettagliato dei drink passati più una bottom sheet per registrarne uno nuovo con il minimo sforzo."
+          ],
+          gallery: {
+            dashboard: "Schermata di onboarding per una stima personalizzata del BAC"
+          }
         },
         pantrypilot: {
           title: "PantryPilot",
@@ -220,12 +290,7 @@ const resources = {
             "Dashboard Analitica Unificata — vista a doppia scheda che traccia sia i macronutrienti sia la spesa.",
             "Magic Pantry (novità) — scala automaticamente gli ingredienti delle ricette dall'inventario e unisce alimenti duplicati, ora con riutilizzo delle diete via calendario e un backend intelligente per gli allergeni.",
             "UI Premium Minimalista — navigazione glassmorphic, modalità cucina immersiva, zero emoji."
-          ],
-          gallery: {
-            dashboard: "Dashboard analitica unificata — salute e spesa a colpo d'occhio",
-            diet_calendar: "Riutilizzo delle diete e integrazione con il calendario",
-            analytics: "Analisi a doppia scheda: macronutrienti vs spesa alimentare"
-          }
+          ]
         },
         polify: {
           title: "Polify",
@@ -262,9 +327,7 @@ const resources = {
           ],
           gallery: {
             main_timer: "Vista principale del timer con indicatore di progresso circolare",
-            tasks_panel: "Bacheca delle attività in stile Notion",
-            info_settings: "Pannello info e impostazioni con personalizzazione del tema",
-            mini_timer: "Widget mini-timer flottante"
+            info_settings: "Pannello info e impostazioni con personalizzazione del tema"
           }
         },
         priceTracker: {
@@ -347,11 +410,46 @@ const resources = {
           techStack: "Java, C++, Python, SQL",
           details: "Ein vielfältiges Portfolio akademischer Aufgaben mit Schwerpunkt auf Algorithmen, verteilten Systemen und Prinzipien der Softwareentwicklung. Diese Projekte demonstrieren ein solides theoretisches Fundament, das auf praktische Programmierherausforderungen angewendet wird."
         },
+        adosDashboard: {
+          title: "ADOS Clinical Dashboard",
+          summary: "Ein offline-fähiges klinisches Dashboard für die Autismus-Screening-Forschung, mit dem Psycholog:innen eine ADOS-2-Sitzung eines Kleinkinds — Video, IMU-Spielzeugsensoren und Verhaltensannotationen — auf einer synchronisierten Zeitleiste überprüfen können.",
+          techStack: "Python, Dash/Plotly, Flask, Pandas, scikit-learn, Quill.js",
+          details: "Entwickelt für eine Universitätsabschlussarbeit, die sensible Gesundheitsdaten von Minderjährigen gemäß DSGVO Art. 9 verarbeitet; das Dashboard läuft vollständig auf localhost ohne ausgehende Netzwerkaufrufe. Neben der vollständigen Sitzungsansicht bewertet eine Sensor-Only-Screening-Ansicht die IMU-Daten eines Kindes allein gegen die Out-of-Fold-Evidenz der Kohorte und zeigt Datenqualitätsprobleme offen an, statt sie hinter einer einzelnen Zahl zu verstecken.",
+          highlights: [
+            "Synchronisierte Patientenansicht — Videowiedergabe bidirektional mit einer interaktiven Label-Zeitleiste und dem rohen IMU-Signalplot verknüpft; Spielzeug und Kamerawinkel werden pro Sitzung unabhängig ausgewählt.",
+            "Sensor-Only-Analyse (neu) — wendet das rein sensorbasierte ADOS-Risikomodell auf die Bewegungsdaten eines Kindes an, verglichen mit der Kohorte und gleich-risikoreichen Peers, mit drei überlagerten Bewegungszeitleisten, die automatische Erkennung mit dem menschlichen Protokoll vergleichen.",
+            "Datenqualitäts-Transparenz (neu) — ein gesättigter Sensor, eine unterbrochene Aufnahme oder geringe Sample-Abdeckung zeigen eine explizite Warnung neben der Vorhersage, statt einer still falschen Zahl.",
+            "Kliniknotizen mit extraktiver KI-Zusammenfassung (neu) — ein Rich-Text-Editor (mehrere Notizen/Kliniker pro Patient, exportierbar nach docx/pdf/txt), der Notizen zusammenfasst, indem er Sätze wörtlich übernimmt, nachdem generative Zusammenfassungen nachweislich klinische Aussagen erfunden hatten.",
+            "Toy Analytics — patientenübergreifende Ansicht von Aktionszahlen, Intentionalität (kindinitiiert / zufällig / pädagogengeführt) und Aktionsvielfalt pro Spielzeug.",
+            "Kohorten-Datenqualitätsübersicht — zeigt die Vollständigkeit pro Kind direkt an (fehlende Labels, unlesbare Daten, Sensorprobleme), statt sie hinter einem Aggregat zu verstecken."
+          ],
+          gallery: {
+            overview: "Dashboard-Übersicht — Kohorten-KPIs und ADOS-Score-Verteilung",
+            label_stats: "Label-Statistiken und Spielzeugnutzungs-Heatmap",
+            patient_complete: "Patientendetailansicht mit vollständigen Sitzungsdaten",
+            sensor_only: "Rein sensorbasierte ADOS-Risikovorhersage und Bewegungszeitleisten",
+            patient_pending: "Patientenkarte mit ausstehenden Verhaltenslabels markiert",
+            sensor_flags: "Sensor-Only-Analyse mit Datenqualitätswarnung",
+            notes_editor: "Kliniknotizen-Editor mit extraktiver KI-Zusammenfassung",
+            toy_leaderboard: "Rangliste der meistgenutzten Spielzeuge",
+            toy_entropy: "Aktionsvielfalt und Intentionalität pro Spielzeug"
+          }
+        },
         driving: {
-          title: "When Can I Drive",
-          summary: "Eine mobile App, die berechnet, wann Sie nach Alkoholkonsum sicher fahren können.",
-          techStack: "Flutter, Dart",
-          details: "Ein mobiles Dienstprogramm, das Benutzern hilft zu berechnen, wann sie nach Alkoholkonsum sicher fahren können. Es verwendet standardmäßige pharmakokinetische Formeln, um den Abbau der Blutalkoholkonzentration (BAK) im Laufe der Zeit basierend auf Benutzereingaben zu schätzen."
+          title: "Enjoy the Night",
+          summary: "Eine mobile und Web-App, die deine Drinks verfolgt und die Blutalkoholkonzentration (BAK) in Echtzeit berechnet, damit du an einem Abend sicher unterwegs bist.",
+          techStack: "Flutter, Provider | iOS, Android, Web",
+          details: "Enjoy the Night (Sober Track) schätzt den BAK-Abbau über die Zeit anhand des Nutzerprofils und der erfassten Drinks, jetzt mit Mythen-Aufklärung, dauerhaften Sicherheitshinweisen und vollständiger Mehrsprachigkeit.",
+          highlights: [
+            "BAK-Berechnung in Echtzeit — präzise Blutalkoholschätzungen basierend auf Nutzerprofil und erfassten Drinks.",
+            "Berechnungs-Einblicke & Mythen-Aufklärung (neu) — interaktive Popups, die erklären, wie die Berechnung funktioniert, und gängige Trinkmythen widerlegen.",
+            "Gesundheits- und Sicherheitshinweis (neu) — ein dauerhafter Hinweis auf Dashboard, Verlauf und Einstellungen, der verantwortungsvolles Trinken fördert.",
+            "Mehrsprachigkeit (neu) — vollständig lokalisiert in Englisch, Deutsch, Spanisch, Französisch und Italienisch.",
+            "Drink-Verlauf & Schnellerfassung — ein detailliertes Protokoll vergangener Drinks plus ein Bottom-Sheet, um neue mit minimalem Aufwand zu erfassen."
+          ],
+          gallery: {
+            dashboard: "Onboarding-Bildschirm für eine personalisierte BAK-Schätzung"
+          }
         },
         pantrypilot: {
           title: "PantryPilot",
@@ -365,12 +463,7 @@ const resources = {
             "Einheitliches Analytics-Dashboard — Dual-Tab-Ansicht für Makronährstoffe und Ausgaben.",
             "Magic Pantry (neu) — zieht Rezeptzutaten automatisch vom Inventar ab und führt doppelte Lebensmittel zusammen, jetzt mit Diät-Wiederverwendung per Kalender und einem intelligenten Allergene-Backend.",
             "Premium minimalistisches UI — glasmorphe Navigation, immersiver Kochmodus, keine Emojis."
-          ],
-          gallery: {
-            dashboard: "Einheitliches Analytics-Dashboard — Gesundheit und Ausgaben auf einen Blick",
-            diet_calendar: "Diät-Wiederverwendung und Kalenderintegration",
-            analytics: "Dual-Tab-Analyse: Makronährstoffe vs. Lebensmittelausgaben"
-          }
+          ]
         },
         polify: {
           title: "Polify",
@@ -407,9 +500,7 @@ const resources = {
           ],
           gallery: {
             main_timer: "Haupttimer-Ansicht mit kreisförmiger Fortschrittsanzeige",
-            tasks_panel: "Notion-artiges Aufgabenboard",
-            info_settings: "Info- und Einstellungspanel mit Themenanpassung",
-            mini_timer: "Schwebendes Mini-Timer-Widget"
+            info_settings: "Info- und Einstellungspanel mit Themenanpassung"
           }
         },
         priceTracker: {
