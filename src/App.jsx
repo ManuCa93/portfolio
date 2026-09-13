@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import iconIco from './assets/icon.ico';
 import logoImg from './assets/logo.png';
@@ -74,10 +75,77 @@ const enjoyGallery = [
   { src: enjoyDashboard, captionKey: 'dashboard' }
 ];
 
-const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, gallery, hasHighlights }) => {
+const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
+  const { t } = useTranslation();
+  const [index, setIndex] = useState(startIndex);
+  const [zoomed, setZoomed] = useState(false);
+
+  const goNext = useCallback(() => {
+    setZoomed(false);
+    setIndex(i => (i + 1) % gallery.length);
+  }, [gallery.length]);
+
+  const goPrev = useCallback(() => {
+    setZoomed(false);
+    setIndex(i => (i - 1 + gallery.length) % gallery.length);
+  }, [gallery.length]);
+
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === 'Escape') onClose();
+      else if (e.key === 'ArrowRight') goNext();
+      else if (e.key === 'ArrowLeft') goPrev();
+    };
+    window.addEventListener('keydown', handleKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [goNext, goPrev, onClose]);
+
+  const img = gallery[index];
+  const caption = t(`projects.${projectId}.gallery.${img.captionKey}`);
+
+  return createPortal(
+    <div className="lightbox-overlay" onClick={onClose}>
+      <button className="lightbox-close" onClick={onClose} aria-label="Close">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="22" height="22"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+      {gallery.length > 1 && (
+        <button className="lightbox-nav lightbox-prev" onClick={(e) => { e.stopPropagation(); goPrev(); }} aria-label="Previous image">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="22" height="22"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+      )}
+      <div className={`lightbox-content ${zoomed ? 'is-zoomed' : ''}`} onClick={(e) => e.stopPropagation()}>
+        <div className="lightbox-img-wrap">
+          <img
+            src={img.src}
+            alt={caption}
+            className={`lightbox-img ${zoomed ? 'zoomed' : ''}`}
+            onClick={() => setZoomed(z => !z)}
+          />
+        </div>
+        {caption && <p className="lightbox-caption">{caption}</p>}
+        {gallery.length > 1 && <div className="lightbox-counter">{index + 1} / {gallery.length}</div>}
+      </div>
+      {gallery.length > 1 && (
+        <button className="lightbox-nav lightbox-next" onClick={(e) => { e.stopPropagation(); goNext(); }} aria-label="Next image">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="22" height="22"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+      )}
+    </div>,
+    document.body
+  );
+};
+
+const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, gallery, hasHighlights, galleryOrientation }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
   const highlights = hasHighlights ? t(`projects.${id}.highlights`, { returnObjects: true }) : null;
+  const isVerticalGallery = galleryOrientation === 'vertical';
 
   return (
     <div className={`link-card ${isOpen ? 'expanded' : ''}`} onClick={(e) => {
@@ -113,9 +181,13 @@ const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, ga
             </ul>
           )}
           {Array.isArray(gallery) && gallery.length > 0 && (
-            <div className="project-gallery">
+            <div className={`project-gallery ${isVerticalGallery ? 'project-gallery--vertical' : ''}`}>
               {gallery.map((img, i) => (
-                <figure className="gallery-item" key={i}>
+                <figure
+                  className={`gallery-item ${isVerticalGallery ? 'gallery-item--vertical' : ''}`}
+                  key={i}
+                  onClick={() => setLightboxIndex(i)}
+                >
                   <img src={img.src} alt={t(`projects.${id}.gallery.${img.captionKey}`)} loading="lazy" />
                   <figcaption>{t(`projects.${id}.gallery.${img.captionKey}`)}</figcaption>
                 </figure>
@@ -135,6 +207,14 @@ const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, ga
           )}
         </div>
       )}
+      {lightboxIndex !== null && (
+        <Lightbox
+          gallery={gallery}
+          projectId={id}
+          startIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
+      )}
     </div>
   );
 };
@@ -148,8 +228,8 @@ const dataAiProjects = [
 ];
 
 const mobileProjects = [
-  { id: 'driving', link: 'https://github.com/ManuCa93/when_can_I_drive_app', badgeKey: 'to_publish', badgeClass: 'badge-to-publish', iconType: 'img', iconContent: enjoyLogo, gallery: enjoyGallery, hasHighlights: true },
-  { id: 'pantrypilot', link: 'https://github.com/ManuCa93/flutter_alimenti', badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'img', iconContent: logoImg, hasHighlights: true }
+  { id: 'driving', link: 'https://github.com/ManuCa93/when_can_I_drive_app', badgeKey: 'to_publish', badgeClass: 'badge-to-publish', iconType: 'img', iconContent: enjoyLogo, gallery: enjoyGallery, hasHighlights: true, galleryOrientation: 'vertical' },
+  { id: 'pantrypilot', link: 'https://github.com/ManuCa93/flutter_alimenti', badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'img', iconContent: logoImg, hasHighlights: true, galleryOrientation: 'vertical' }
 ];
 
 const webProjects = [
