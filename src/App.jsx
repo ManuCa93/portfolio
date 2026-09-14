@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import iconIco from './assets/icon.ico';
@@ -6,73 +6,104 @@ import logoImg from './assets/logo.png';
 import telegramPython from './assets/telegram_python.jpg';
 import motogpHelmet from './assets/motogp_helmet.png';
 import githubIcon from './assets/github_icon.png';
-import motogpTimeAttack from './assets/motogp/dashboard_time_attack.png';
-import motogpRacePace from './assets/motogp/dashboard_race_pace.png';
-import motogpWeekendOverview from './assets/motogp/race_weekend_analysis_overview.png';
-import motogpWeekendCharts from './assets/motogp/race_weekend_analysis_charts.png';
-import motogpAnalytics from './assets/motogp/analytics_overview.png';
-import motogpRiderProfile from './assets/motogp/rider_profile_modal.png';
-import motogpCircuitBreakdown from './assets/motogp/circuit_breakdown.png';
-import motogpTeamPerformance from './assets/motogp/team_performance_charts.png';
-import motogpEda from './assets/motogp/eda_report.png';
+import motogpTimeAttack from './assets/motogp/01_time_attack.jpg';
+import motogpPreRacePace from './assets/motogp/02_pre_race_pace.jpg';
+import motogpLiveSimulation from './assets/motogp/03_live_race_simulation.jpg';
+import motogpWeekendOverview from './assets/motogp/04_weekend_overview.jpg';
+import motogpLapByLap from './assets/motogp/05_lap_by_lap.jpg';
+import motogpRiderGrades from './assets/motogp/06_rider_grades.jpg';
+import motogpRiderProfile from './assets/motogp/07_rider_profile.jpg';
+import motogpRaceVsQuali from './assets/motogp/08_race_vs_quali.jpg';
+import motogpConsistency from './assets/motogp/09_consistency.jpg';
+import motogpTeamPerformance from './assets/motogp/10_team_performance.jpg';
 import polifyHome from './assets/polify/home-desktop-scuro.png';
 import polifySondaggio from './assets/polify/sondaggio-01-scala-con-spiegazione.png';
-import polifyRisultati from './assets/polify/risultati-breve.png';
-import polifyRisultatiMobile from './assets/polify/risultati-mobile.png';
-import polifySfida from './assets/polify/sfida-confronto.png';
-import pomodoroMainTimer from './assets/pomodoro/main_timer.png';
-import pomodoroInfoSettings from './assets/pomodoro/info_settings.png';
+import polifyRisultato from './assets/polify/risultato-sintesi.jpg';
+import polifyMappa from './assets/polify/mappa-ideologica.jpg';
+import polifyAreaPerArea from './assets/polify/area-per-area.jpg';
+import polifyClassifica from './assets/polify/classifica-completa.jpg';
+import polifyCondividi from './assets/polify/condividi-sondaggio.jpg';
+import polifyPartiti from './assets/polify/elenco-partiti.jpg';
+import pomodoroMainDashboard from './assets/pomodoro/main_dashboard.jpg';
 import adosOverview from './assets/ados/01_dashboard_overview.png';
 import adosLabelStats from './assets/ados/02_dashboard_label_toy_stats.png';
-import adosPatientComplete from './assets/ados/03_patient_card_complete_data.png';
-import adosSensorOnly from './assets/ados/04_sensor_only_analysis.png';
-import adosPatientPending from './assets/ados/05_patient_card_pending_labels.png';
-import adosSensorFlags from './assets/ados/06_sensor_only_analysis_data_quality_flags.png';
-import adosNotesEditor from './assets/ados/07_clinician_notes_editor.png';
 import adosToyLeaderboard from './assets/ados/08_toy_analytics_leaderboard.png';
 import adosToyEntropy from './assets/ados/09_toy_analytics_entropy_intentionality.png';
+import adosNotesAiSummary from './assets/ados/10_notes_ai_summary.jpg';
+import adosSensorOnlyRisk from './assets/ados/11_sensor_only_risk.jpg';
+import adosPatientVsCohort from './assets/ados/12_patient_vs_cohort_stats.jpg';
+import adosLabelTimelineImu from './assets/ados/13_label_timeline_imu.jpg';
 import enjoyLogo from './assets/enjoythenight/logo.png';
-import enjoyDashboard from './assets/enjoythenight/dashboard.png';
+import enjoyOnboardingWelcome from './assets/enjoythenight/01_onboarding_welcome.png';
+import enjoyDashboardOverview from './assets/enjoythenight/03_dashboard_overview.png';
+import enjoyAddDrink from './assets/enjoythenight/04_add_drink_bottom_sheet.png';
+import enjoyOverLimit from './assets/enjoythenight/05_dashboard_over_limit_warning.png';
+import enjoyHistory24h from './assets/enjoythenight/06_history_chart_24h.png';
+import enjoyHistory3h from './assets/enjoythenight/07_history_chart_3h_range.png';
+import enjoyDateRangePicker from './assets/enjoythenight/08_custom_date_range_picker.png';
+import enjoySettings from './assets/enjoythenight/09_settings_screen.png';
+import alimentiHome from './assets/alimenti/01_home_dashboard.png';
+import alimentiPantry from './assets/alimenti/02_pantry_inventory.png';
+import alimentiShoppingList from './assets/alimenti/03_shopping_list.png';
+import alimentiRecipes from './assets/alimenti/04_recipes_cookbook.png';
+import alimentiDietCalendar from './assets/alimenti/05_diet_calendar.png';
 
 const motogpGallery = [
   { src: motogpTimeAttack, captionKey: 'time_attack' },
-  { src: motogpRacePace, captionKey: 'race_pace' },
+  { src: motogpPreRacePace, captionKey: 'race_pace' },
+  { src: motogpLiveSimulation, captionKey: 'live_prediction' },
   { src: motogpWeekendOverview, captionKey: 'weekend_overview' },
-  { src: motogpWeekendCharts, captionKey: 'weekend_charts' },
-  { src: motogpAnalytics, captionKey: 'analytics' },
+  { src: motogpLapByLap, captionKey: 'weekend_charts' },
+  { src: motogpRiderGrades, captionKey: 'rider_grades' },
   { src: motogpRiderProfile, captionKey: 'rider_profile' },
-  { src: motogpCircuitBreakdown, captionKey: 'circuit_breakdown' },
-  { src: motogpTeamPerformance, captionKey: 'team_performance' },
-  { src: motogpEda, captionKey: 'eda' }
+  { src: motogpRaceVsQuali, captionKey: 'race_vs_quali' },
+  { src: motogpConsistency, captionKey: 'consistency' },
+  { src: motogpTeamPerformance, captionKey: 'team_performance' }
 ];
 
 const polifyGallery = [
   { src: polifyHome, captionKey: 'home' },
   { src: polifySondaggio, captionKey: 'sondaggio' },
-  { src: polifyRisultati, captionKey: 'risultati' },
-  { src: polifyRisultatiMobile, captionKey: 'risultati_mobile' },
-  { src: polifySfida, captionKey: 'sfida' }
+  { src: polifyRisultato, captionKey: 'risultato' },
+  { src: polifyMappa, captionKey: 'mappa' },
+  { src: polifyAreaPerArea, captionKey: 'area_per_area' },
+  { src: polifyClassifica, captionKey: 'classifica' },
+  { src: polifyCondividi, captionKey: 'condividi' },
+  { src: polifyPartiti, captionKey: 'partiti' }
 ];
 
 const pomodoroGallery = [
-  { src: pomodoroMainTimer, captionKey: 'main_timer' },
-  { src: pomodoroInfoSettings, captionKey: 'info_settings' }
+  { src: pomodoroMainDashboard, captionKey: 'main_dashboard' }
 ];
 
 const adosGallery = [
   { src: adosOverview, captionKey: 'overview' },
   { src: adosLabelStats, captionKey: 'label_stats' },
-  { src: adosPatientComplete, captionKey: 'patient_complete' },
-  { src: adosSensorOnly, captionKey: 'sensor_only' },
-  { src: adosPatientPending, captionKey: 'patient_pending' },
-  { src: adosSensorFlags, captionKey: 'sensor_flags' },
-  { src: adosNotesEditor, captionKey: 'notes_editor' },
+  { src: adosNotesAiSummary, captionKey: 'notes_ai_summary' },
+  { src: adosSensorOnlyRisk, captionKey: 'sensor_only_risk' },
+  { src: adosPatientVsCohort, captionKey: 'patient_vs_cohort' },
+  { src: adosLabelTimelineImu, captionKey: 'label_timeline_imu' },
   { src: adosToyLeaderboard, captionKey: 'toy_leaderboard' },
   { src: adosToyEntropy, captionKey: 'toy_entropy' }
 ];
 
 const enjoyGallery = [
-  { src: enjoyDashboard, captionKey: 'dashboard' }
+  { src: enjoyOnboardingWelcome, captionKey: 'onboarding_welcome' },
+  { src: enjoyDashboardOverview, captionKey: 'dashboard' },
+  { src: enjoyAddDrink, captionKey: 'add_drink' },
+  { src: enjoyOverLimit, captionKey: 'over_limit' },
+  { src: enjoyHistory24h, captionKey: 'history_24h' },
+  { src: enjoyHistory3h, captionKey: 'history_3h' },
+  { src: enjoyDateRangePicker, captionKey: 'date_range_picker' },
+  { src: enjoySettings, captionKey: 'settings' }
+];
+
+const alimentiGallery = [
+  { src: alimentiHome, captionKey: 'home' },
+  { src: alimentiPantry, captionKey: 'pantry' },
+  { src: alimentiShoppingList, captionKey: 'shopping_list' },
+  { src: alimentiRecipes, captionKey: 'recipes' },
+  { src: alimentiDietCalendar, captionKey: 'diet_calendar' }
 ];
 
 const ZOOM_LEVELS = [1, 1.6, 2.4, 3.2];
@@ -85,6 +116,7 @@ const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
   const zoomed = zoomStep > 0;
   const wrapRef = useRef(null);
   const rafRef = useRef(null);
+  const touchRef = useRef(null);
 
   const goNext = useCallback(() => {
     setZoomStep(0);
@@ -115,6 +147,31 @@ const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
     rafRef.current = requestAnimationFrame(() => setZoomOrigin(origin));
   };
 
+  const handleTouchStart = (e) => {
+    if (e.touches.length !== 1) return;
+    const t = e.touches[0];
+    touchRef.current = { x: t.clientX, y: t.clientY };
+  };
+
+  const handleTouchMove = (e) => {
+    if (!touchRef.current || zoomStep === 0 || e.touches.length !== 1) return;
+    const origin = originFromEvent(e.touches[0]);
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => setZoomOrigin(origin));
+  };
+
+  const handleTouchEnd = (e) => {
+    const start = touchRef.current;
+    touchRef.current = null;
+    if (!start || zoomStep > 0) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - start.x;
+    const dy = t.clientY - start.y;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      if (dx < 0) goNext(); else goPrev();
+    }
+  };
+
   useEffect(() => {
     const handleKey = (e) => {
       if (e.key === 'Escape') onClose();
@@ -135,7 +192,7 @@ const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
   const caption = t(`projects.${projectId}.gallery.${img.captionKey}`);
 
   return createPortal(
-    <div className="lightbox-overlay" onClick={onClose}>
+    <div className={`lightbox-overlay ${zoomed ? 'is-zoomed' : ''}`} onClick={onClose}>
       <button className="lightbox-close" onClick={onClose} aria-label="Close">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="22" height="22"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
       </button>
@@ -145,7 +202,14 @@ const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
         </button>
       )}
       <div className={`lightbox-content ${zoomed ? 'is-zoomed' : ''}`} onClick={(e) => e.stopPropagation()}>
-        <div className="lightbox-img-wrap" ref={wrapRef} onMouseMove={handleMouseMove}>
+        <div
+          className="lightbox-img-wrap"
+          ref={wrapRef}
+          onMouseMove={handleMouseMove}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <img
             src={img.src}
             alt={caption}
@@ -170,18 +234,54 @@ const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
   );
 };
 
-const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, gallery, hasHighlights, galleryOrientation }) => {
+const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, gallery, hasHighlights, galleryOrientation, phase, onToggle, onDetailsCollapsed }) => {
   const { t } = useTranslation();
-  const [isOpen, setIsOpen] = useState(false);
+  const [detailsHeight, setDetailsHeight] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const highlights = hasHighlights ? t(`projects.${id}.highlights`, { returnObjects: true }) : null;
   const isVerticalGallery = galleryOrientation === 'vertical';
+  const detailsInnerRef = useRef(null);
+  const cardRef = useRef(null);
+  const detailsWrapRef = useRef(null);
+
+  // The card occupies the full row for every phase except `narrowing`, during which the
+  // slot has already shrunk back and the card is being animated down to match it.
+  const isWide = phase === 'widening' || phase === 'open' || phase === 'collapsing';
+  const isHeightOpen = phase === 'open';
+  const isResizing = phase === 'widening' || phase === 'narrowing';
+
+  // Measure after the card has already reflowed to its expanded (full-width) layout,
+  // not before — the gallery grid wraps into far fewer rows once the card isn't narrow.
+  useLayoutEffect(() => {
+    if (isHeightOpen && detailsInnerRef.current) {
+      setDetailsHeight(detailsInnerRef.current.scrollHeight);
+    }
+  }, [isHeightOpen]);
+
+  useEffect(() => {
+    if (!isHeightOpen) return;
+    const handleResize = () => {
+      if (detailsInnerRef.current) setDetailsHeight(detailsInnerRef.current.scrollHeight);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isHeightOpen]);
+
+  const handleDetailsTransitionEnd = (e) => {
+    if (e.target !== detailsWrapRef.current || e.propertyName !== 'max-height') return;
+    onDetailsCollapsed();
+  };
 
   return (
-    <div className={`link-card ${isOpen ? 'expanded' : ''}`} onClick={(e) => {
+    <div className={`card-slot ${isWide ? 'is-expanded' : ''}`} data-card-id={id}>
+    <div
+      ref={cardRef}
+      className={`link-card ${isWide ? 'expanded' : ''} ${isResizing ? 'is-resizing' : ''}`}
+      onClick={(e) => {
         if(e.target.closest('.external-link-btn') || e.target.closest('.gallery-item')) return;
-        setIsOpen(!isOpen);
-    }}>
+        onToggle(id);
+      }}
+    >
       <div className="link-card-header">
         <span className={`card-badge ${badgeClass}`}>{t(`badges.${badgeKey}`)}</span>
         <div className="link-icon-wrapper">
@@ -196,47 +296,54 @@ const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, ga
           <div className="link-desc">{t(`projects.${id}.summary`)}</div>
         </div>
         <div className="link-arrow">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20" style={{ transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)' }}>
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20" style={{ transform: isWide ? 'rotate(90deg)' : 'rotate(0deg)' }}>
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
           </svg>
         </div>
       </div>
-      {isOpen && (
-        <div className="link-details">
-          <div className="tech-stack"><strong>Tech Stack:</strong> {t(`projects.${id}.techStack`)}</div>
-          <p>{t(`projects.${id}.details`)}</p>
-          {Array.isArray(highlights) && (
-            <ul className="project-highlights">
-              {highlights.map((item, i) => <li key={i}>{item}</li>)}
-            </ul>
-          )}
-          {Array.isArray(gallery) && gallery.length > 0 && (
-            <div className={`project-gallery ${isVerticalGallery ? 'project-gallery--vertical' : ''}`}>
-              {gallery.map((img, i) => (
-                <figure
-                  className={`gallery-item ${isVerticalGallery ? 'gallery-item--vertical' : ''}`}
-                  key={i}
-                  onClick={() => setLightboxIndex(i)}
-                >
-                  <img src={img.src} alt={t(`projects.${id}.gallery.${img.captionKey}`)} loading="lazy" />
-                  <figcaption>{t(`projects.${id}.gallery.${img.captionKey}`)}</figcaption>
-                </figure>
-              ))}
-            </div>
-          )}
-          {link ? (
-            <a href={link} target="_blank" rel="noreferrer" className="external-link-btn">
-              {t('ui.visit_project')}
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-            </a>
-          ) : (
-            <span className="external-link-btn coming-soon-btn">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              {t('ui.coming_soon')}
-            </span>
-          )}
+      <div
+        ref={detailsWrapRef}
+        className={`link-details-wrap ${isHeightOpen ? 'is-open' : ''}`}
+        style={{ maxHeight: isHeightOpen ? `${detailsHeight}px` : '0px' }}
+        onTransitionEnd={handleDetailsTransitionEnd}
+      >
+        <div className="link-details-inner" ref={detailsInnerRef}>
+          <div className="link-details">
+            <div className="tech-stack"><strong>Tech Stack:</strong> {t(`projects.${id}.techStack`)}</div>
+            <p>{t(`projects.${id}.details`)}</p>
+            {Array.isArray(highlights) && (
+              <ul className="project-highlights">
+                {highlights.map((item, i) => <li key={i}>{item}</li>)}
+              </ul>
+            )}
+            {Array.isArray(gallery) && gallery.length > 0 && (
+              <div className={`project-gallery ${isVerticalGallery ? 'project-gallery--vertical' : ''}`}>
+                {gallery.map((img, i) => (
+                  <figure
+                    className={`gallery-item ${isVerticalGallery ? 'gallery-item--vertical' : ''}`}
+                    key={i}
+                    onClick={() => setLightboxIndex(i)}
+                  >
+                    <img src={img.src} alt={t(`projects.${id}.gallery.${img.captionKey}`)} loading="lazy" />
+                    <figcaption>{t(`projects.${id}.gallery.${img.captionKey}`)}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            )}
+            {link ? (
+              <a href={link} target="_blank" rel="noreferrer" className="external-link-btn">
+                {t('ui.visit_project')}
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              </a>
+            ) : (
+              <span className="external-link-btn coming-soon-btn">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                {t('ui.coming_soon')}
+              </span>
+            )}
+          </div>
         </div>
-      )}
+      </div>
       {lightboxIndex !== null && (
         <Lightbox
           gallery={gallery}
@@ -245,6 +352,163 @@ const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, ga
           onClose={() => setLightboxIndex(null)}
         />
       )}
+    </div>
+    </div>
+  );
+};
+
+const FLIP_MS = 500;
+const FLIP_EASE = 'cubic-bezier(0.65, 0, 0.35, 1)';
+
+/**
+ * Owns the expand/collapse state for a whole row of cards.
+ *
+ * The state has to live here rather than inside each card because of how the
+ * animation works. When a card grows to full row width its siblings don't slide
+ * anywhere — flex-wrap simply reflows them onto the next line in a single frame,
+ * which reads as a hard jump no matter what is transitioned. So the layout change
+ * is committed instantly and the resulting jump is replayed as a FLIP animation:
+ * every card is transformed back to where it just was and then released, which
+ * only works if one component sees the whole set of cards at once.
+ *
+ * Phases: closed -> widening -> open -> collapsing -> narrowing -> closed.
+ * Width moves first on the way out and last on the way back in, so the card is
+ * always exactly one row wide while its body is growing or shrinking.
+ */
+const ProjectGrid = ({ className, projects }) => {
+  const [openId, setOpenId] = useState(null);
+  const [phase, setPhase] = useState('closed');
+  const gridRef = useRef(null);
+  const firstRef = useRef(null);
+  const pendingRef = useRef(null);
+  const timerRef = useRef(null);
+  const isDesktopRef = useRef(typeof window !== 'undefined' && window.matchMedia('(min-width: 900px)').matches);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 900px)');
+    const handleChange = () => { isDesktopRef.current = mq.matches; };
+    handleChange();
+    mq.addEventListener('change', handleChange);
+    return () => mq.removeEventListener('change', handleChange);
+  }, []);
+
+  // "First" half of FLIP: where everything sits *before* React commits the new layout.
+  const snapshot = useCallback(() => {
+    const grid = gridRef.current;
+    if (!grid || !isDesktopRef.current) return;
+    const slots = new Map();
+    Array.from(grid.children).forEach(slot => {
+      slots.set(slot.dataset.cardId, slot.getBoundingClientRect());
+    });
+    firstRef.current = { slots, gridHeight: grid.getBoundingClientRect().height };
+  }, []);
+
+  const handleToggle = useCallback((id) => {
+    if (phase === 'closed') {
+      snapshot();
+      setOpenId(id);
+      setPhase('widening');
+    } else if (phase === 'open') {
+      // Clicking a different card queues it up; it opens once this one is fully closed.
+      pendingRef.current = id === openId ? null : id;
+      setPhase('collapsing');
+    }
+    // Any other phase is mid-flight: ignore the click rather than fight the animation.
+  }, [phase, openId, snapshot]);
+
+  const handleDetailsCollapsed = useCallback(() => {
+    if (phase !== 'collapsing') return;
+    snapshot();
+    setPhase('narrowing');
+  }, [phase, snapshot]);
+
+  // "Last / Invert / Play": measure the committed layout, transform every card back to
+  // where it was, then release it so the browser interpolates the jump.
+  useLayoutEffect(() => {
+    if (phase !== 'widening' && phase !== 'narrowing') return;
+    const grid = gridRef.current;
+    const first = firstRef.current;
+    firstRef.current = null;
+    const duration = isDesktopRef.current ? FLIP_MS : 0;
+
+    const clearInlineStyles = () => {
+      if (!grid) return;
+      grid.style.transition = '';
+      grid.style.height = '';
+      Array.from(grid.children).forEach(slot => {
+        const card = slot.firstElementChild;
+        if (!card) return;
+        card.style.transition = '';
+        card.style.transform = '';
+        card.style.width = '';
+        card.style.willChange = '';
+      });
+    };
+
+    if (grid && first && duration > 0) {
+      const slots = Array.from(grid.children);
+      const lastGridHeight = grid.getBoundingClientRect().height;
+
+      // The grid gains/loses a whole row the instant the layout commits, which would
+      // shove everything below the section. Pin it and animate it over the same curve.
+      grid.style.transition = 'none';
+      grid.style.height = `${first.gridHeight}px`;
+
+      slots.forEach(slot => {
+        const card = slot.firstElementChild;
+        const firstRect = first.slots.get(slot.dataset.cardId);
+        if (!card || !firstRect) return;
+        const lastRect = slot.getBoundingClientRect();
+        card.style.transition = 'none';
+        card.style.willChange = 'transform, width';
+        card.style.transform = `translate(${firstRect.left - lastRect.left}px, ${firstRect.top - lastRect.top}px)`;
+        // The card changing size is the only one whose width is animated; the siblings
+        // keep their size and just travel.
+        if (slot.dataset.cardId === openId) card.style.width = `${firstRect.width}px`;
+      });
+
+      grid.offsetHeight; // eslint-disable-line no-unused-expressions -- flush the inverted state
+
+      grid.style.transition = `height ${duration}ms ${FLIP_EASE}`;
+      grid.style.height = `${lastGridHeight}px`;
+      slots.forEach(slot => {
+        const card = slot.firstElementChild;
+        if (!card) return;
+        card.style.transition = `transform ${duration}ms ${FLIP_EASE}, width ${duration}ms ${FLIP_EASE}`;
+        card.style.transform = '';
+        card.style.width = '';
+      });
+    }
+
+    timerRef.current = setTimeout(() => {
+      clearInlineStyles();
+      setPhase(phase === 'widening' ? 'open' : 'closed');
+    }, duration + 20);
+
+    return () => clearTimeout(timerRef.current);
+  }, [phase, openId]);
+
+  // Open whatever was queued while another card was still closing.
+  useEffect(() => {
+    if (phase !== 'closed' || pendingRef.current == null) return;
+    const next = pendingRef.current;
+    pendingRef.current = null;
+    snapshot();
+    setOpenId(next);
+    setPhase('widening');
+  }, [phase, snapshot]);
+
+  return (
+    <div className={className} ref={gridRef}>
+      {projects.map(proj => (
+        <ProjectCard
+          key={proj.id}
+          {...proj}
+          phase={proj.id === openId ? phase : 'closed'}
+          onToggle={handleToggle}
+          onDetailsCollapsed={handleDetailsCollapsed}
+        />
+      ))}
     </div>
   );
 };
@@ -258,8 +522,8 @@ const dataAiProjects = [
 ];
 
 const mobileProjects = [
-  { id: 'driving', link: 'https://github.com/ManuCa93/when_can_I_drive_app', badgeKey: 'to_publish', badgeClass: 'badge-to-publish', iconType: 'img', iconContent: enjoyLogo, gallery: enjoyGallery, hasHighlights: true, galleryOrientation: 'vertical' },
-  { id: 'pantrypilot', link: 'https://github.com/ManuCa93/flutter_alimenti', badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'img', iconContent: logoImg, hasHighlights: true, galleryOrientation: 'vertical' }
+  { id: 'pantrypilot', link: 'https://github.com/ManuCa93/flutter_alimenti', badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'img', iconContent: logoImg, gallery: alimentiGallery, hasHighlights: true, galleryOrientation: 'vertical' },
+  { id: 'driving', link: 'https://github.com/ManuCa93/when_can_I_drive_app', badgeKey: 'to_publish', badgeClass: 'badge-to-publish', iconType: 'img', iconContent: enjoyLogo, gallery: enjoyGallery, hasHighlights: true, galleryOrientation: 'vertical' }
 ];
 
 const webProjects = [
@@ -342,38 +606,22 @@ function App() {
 
       <div className="fade-in">
         <h2 className="section-title">{t('sections.data_ai')}</h2>
-        <div className="grid">
-          {dataAiProjects.map(proj => (
-            <ProjectCard key={proj.id} {...proj} />
-          ))}
-        </div>
+        <ProjectGrid className="grid grid--data-ai" projects={dataAiProjects} />
       </div>
 
       <div className="fade-in delay-1">
         <h2 className="section-title">{t('sections.mobile')}</h2>
-        <div className="grid">
-          {mobileProjects.map(proj => (
-            <ProjectCard key={proj.id} {...proj} />
-          ))}
-        </div>
+        <ProjectGrid className="grid grid--mobile" projects={mobileProjects} />
       </div>
 
       <div className="fade-in delay-2">
         <h2 className="section-title">{t('sections.websites')}</h2>
-        <div className="grid">
-          {webProjects.map(proj => (
-            <ProjectCard key={proj.id} {...proj} />
-          ))}
-        </div>
+        <ProjectGrid className="grid grid--web" projects={webProjects} />
       </div>
 
       <div className="fade-in delay-3">
         <h2 className="section-title">{t('sections.games')}</h2>
-        <div className="grid">
-          {gameProjects.map(proj => (
-            <ProjectCard key={proj.id} {...proj} />
-          ))}
-        </div>
+        <ProjectGrid className="grid grid--games" projects={gameProjects} />
       </div>
     </div>
   );
