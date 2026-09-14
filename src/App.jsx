@@ -16,6 +16,7 @@ import motogpRiderProfile from './assets/motogp/07_rider_profile.jpg';
 import motogpRaceVsQuali from './assets/motogp/08_race_vs_quali.jpg';
 import motogpConsistency from './assets/motogp/09_consistency.jpg';
 import motogpTeamPerformance from './assets/motogp/10_team_performance.jpg';
+import motogp3dMapping from './assets/motogp/11_3d_environmental_mapping.jpg';
 import polifyHome from './assets/polify/home-desktop-scuro.png';
 import polifySondaggio from './assets/polify/sondaggio-01-scala-con-spiegazione.png';
 import polifyRisultato from './assets/polify/risultato-sintesi.jpg';
@@ -58,7 +59,8 @@ const motogpGallery = [
   { src: motogpRiderProfile, captionKey: 'rider_profile' },
   { src: motogpRaceVsQuali, captionKey: 'race_vs_quali' },
   { src: motogpConsistency, captionKey: 'consistency' },
-  { src: motogpTeamPerformance, captionKey: 'team_performance' }
+  { src: motogpTeamPerformance, captionKey: 'team_performance' },
+  { src: motogp3dMapping, captionKey: 'env_mapping_3d' }
 ];
 
 const polifyGallery = [

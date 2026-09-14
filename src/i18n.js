@@ -44,7 +44,8 @@ const resources = {
             rider_profile: "Rider profile — grade history across the season",
             race_vs_quali: "Race vs Qualifying — Sunday riders who gain positions vs qualifying specialists who lose them",
             consistency: "Finishing position, DNF rate and lap-to-lap consistency",
-            team_performance: "Best Rider Independent of Bike, plus constructor and team performance"
+            team_performance: "Best Rider Independent of Bike, plus constructor and team performance",
+            env_mapping_3d: "Interactive 3D environmental mapping — track temperature, humidity and tyre drop"
           }
         },
         football: {
@@ -235,7 +236,8 @@ const resources = {
             rider_profile: "Profilo pilota — storico delle pagelle lungo la stagione",
             race_vs_quali: "Gara vs Qualifiche — piloti che guadagnano posizioni in gara contro specialisti delle qualifiche che le perdono",
             consistency: "Posizione di arrivo, tasso di ritiro e costanza giro su giro",
-            team_performance: "Miglior pilota a prescindere dalla moto, più prestazioni di costruttori e team"
+            team_performance: "Miglior pilota a prescindere dalla moto, più prestazioni di costruttori e team",
+            env_mapping_3d: "Mappatura ambientale 3D interattiva — temperatura pista, umidità e calo gomme"
           }
         },
         football: {
@@ -426,7 +428,8 @@ const resources = {
             rider_profile: "Fahrerprofil — Bewertungsverlauf über die Saison",
             race_vs_quali: "Rennen vs. Qualifying — Fahrer, die im Rennen Plätze gutmachen, gegen Qualifying-Spezialisten, die welche verlieren",
             consistency: "Zielposition, Ausfallquote und Rundenkonstanz",
-            team_performance: "Bester Fahrer unabhängig vom Motorrad, plus Konstrukteurs- und Team-Performance"
+            team_performance: "Bester Fahrer unabhängig vom Motorrad, plus Konstrukteurs- und Team-Performance",
+            env_mapping_3d: "Interaktive 3D-Umgebungskartierung — Streckentemperatur, Luftfeuchtigkeit und Reifenabbau"
           }
         },
         football: {
