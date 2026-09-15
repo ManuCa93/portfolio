@@ -34,6 +34,7 @@ import adosNotesAiSummary from './assets/ados/10_notes_ai_summary.jpg';
 import adosSensorOnlyRisk from './assets/ados/11_sensor_only_risk.jpg';
 import adosPatientVsCohort from './assets/ados/12_patient_vs_cohort_stats.jpg';
 import adosLabelTimelineImu from './assets/ados/13_label_timeline_imu.jpg';
+import adosMovementTimelines from './assets/ados/14_movement_timelines.jpg';
 import enjoyLogo from './assets/enjoythenight/logo.png';
 import enjoyOnboardingWelcome from './assets/enjoythenight/01_onboarding_welcome.png';
 import enjoyDashboardOverview from './assets/enjoythenight/03_dashboard_overview.png';
@@ -82,9 +83,10 @@ const adosGallery = [
   { src: adosOverview, captionKey: 'overview' },
   { src: adosLabelStats, captionKey: 'label_stats' },
   { src: adosNotesAiSummary, captionKey: 'notes_ai_summary' },
-  { src: adosSensorOnlyRisk, captionKey: 'sensor_only_risk' },
-  { src: adosPatientVsCohort, captionKey: 'patient_vs_cohort' },
   { src: adosLabelTimelineImu, captionKey: 'label_timeline_imu' },
+  { src: adosSensorOnlyRisk, captionKey: 'sensor_only_risk' },
+  { src: adosMovementTimelines, captionKey: 'movement_timelines' },
+  { src: adosPatientVsCohort, captionKey: 'patient_vs_cohort' },
   { src: adosToyLeaderboard, captionKey: 'toy_leaderboard' },
   { src: adosToyEntropy, captionKey: 'toy_entropy' }
 ];
