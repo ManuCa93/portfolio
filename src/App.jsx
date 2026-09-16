@@ -317,7 +317,16 @@ const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, ga
             <p>{t(`projects.${id}.details`)}</p>
             {Array.isArray(highlights) && (
               <ul className="project-highlights">
-                {highlights.map((item, i) => <li key={i}>{item}</li>)}
+                {highlights.map((item, i) => {
+                  const sepIndex = item.indexOf(': ');
+                  if (sepIndex === -1) return <li key={i}>{item}</li>;
+                  return (
+                    <li key={i}>
+                      <strong>{item.slice(0, sepIndex)}</strong>
+                      {item.slice(sepIndex)}
+                    </li>
+                  );
+                })}
               </ul>
             )}
             {Array.isArray(gallery) && gallery.length > 0 && (
@@ -521,7 +530,7 @@ const dataAiProjects = [
   { id: 'adosDashboard', link: null, badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', gallery: adosGallery, hasHighlights: true, iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6" /></svg> },
   { id: 'motogp', link: 'https://motogp-analytics.onrender.com/', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'img', iconContent: motogpHelmet, gallery: motogpGallery, hasHighlights: true },
   { id: 'uni', link: 'https://github.com/ManuCa93?tab=repositories', badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'svg', iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" /></svg> },
-  { id: 'football', link: 'https://github.com/ManuCa93/top-5-football-leagues-predictions', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 12l2 3h4M12 12l-2 3H6M12 12V7.5M7 4.5l2 3M17 4.5l-2 3M19.5 16l-3.5-1M4.5 16l3.5-1" /></svg> },
+  { id: 'football', link: 'https://github.com/ManuCa93/top-5-football-leagues-predictions', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', hasHighlights: true, iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 12l2 3h4M12 12l-2 3H6M12 12V7.5M7 4.5l2 3M17 4.5l-2 3M19.5 16l-3.5-1M4.5 16l3.5-1" /></svg> },
   { id: 'f1', link: 'https://github.com/ManuCa93/F1_pred_2024', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" y1="22" x2="4" y2="15" /></svg> }
 ];
 

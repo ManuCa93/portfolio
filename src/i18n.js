@@ -28,11 +28,11 @@ const resources = {
           techStack: "Python, Flask, scikit-learn, XGBoost, Pandas, SQLite | Render",
           details: "A machine learning suite acting as a \"Virtual Pit Wall\": it predicts live lap times, grid positions, race pace and tyre strategy for MotoGP, built on a SQLite pipeline ingesting real PDF timing sheets (2024-2026 seasons, 34 riders, 23 circuits, ~73k laps).",
           highlights: [
-            "Live Lap Time & Position Predictor — estimates a rider's final lap time and live leaderboard position at each sector, using an ensemble of 5 regressors (XGBoost, SVR, Neural Network, Ridge, AdaBoost).",
-            "Race Pace & Tyre Strategy Engine — predicts average race pace, tyre degradation and likely compound choice from Free Practice telemetry and weather conditions.",
-            "Race Weekend Analysis (new) — per-session report card, an \"ideal lap\" execution score, and lap-by-lap position/pace charts.",
-            "Analytics Dashboard — algorithmic rider ratings, momentum indicator, circuit breakdown, head-to-head comparison, team performance trends.",
-            "Advanced EDA — 3D environmental mapping, Random Forest feature importance, K-Means/PCA circuit clustering."
+            "Live Lap Time & Position Predictor: estimates a rider's final lap time and live leaderboard position at each sector, using an ensemble of 5 regressors (XGBoost, SVR, Neural Network, Ridge, AdaBoost).",
+            "Race Pace & Tyre Strategy Engine: predicts average race pace, tyre degradation and likely compound choice from Free Practice telemetry and weather conditions.",
+            "Race Weekend Analysis (new): per-session report card, an \"ideal lap\" execution score, and lap-by-lap position/pace charts.",
+            "Analytics Dashboard: algorithmic rider ratings, momentum indicator, circuit breakdown, head-to-head comparison, team performance trends.",
+            "Advanced EDA: 3D environmental mapping, Random Forest feature importance, K-Means/PCA circuit clustering."
           ],
           gallery: {
             time_attack: "Time Attack mode — live session replay and leaderboard (Misano)",
@@ -51,8 +51,13 @@ const resources = {
         football: {
           title: "Football Predictions",
           summary: "A data-driven betting portfolio optimizer for top European football leagues.",
-          techStack: "Python, XGBoost, API integration",
-          details: "This project generates sustainable weekly profits using advanced ML predictions across the top 5 European leagues. It incorporates various statistical indicators and team form to compute outcome probabilities and optimize a betting strategy."
+          techStack: "Python, scikit-learn, pandas, football-data.org API",
+          details: "This project generates sustainable weekly profits using advanced ML predictions across the top 5 European leagues. It incorporates various statistical indicators and team form to compute outcome probabilities and optimize a betting strategy.",
+          highlights: [
+            "Stacking Ensemble Model: combines Random Forest, AdaBoost and Gradient Boosting with a Logistic Regression meta-model, calibrated for reliable probabilities and reaching 81.9% training accuracy on 2025 data.",
+            "27-Feature Engineering Pipeline: blends classic metrics like ELO ratings and form with newer additions such as Expected Goals (xG), rest-day analysis, head-to-head patterns and exponential momentum decay.",
+            "Tiered Betting Portfolio: allocates each week's stakes across four risk tiers, from Ultra Safe to high-odds picks, sized with Kelly Criterion fractional staking and a built-in probability safety margin."
+          ]
         },
         f1: {
           title: "F1 Predictions 2024",
@@ -72,12 +77,12 @@ const resources = {
           techStack: "Python, Dash/Plotly, Flask, Pandas, scikit-learn, Quill.js",
           details: "This dashboard runs entirely locally, with no outbound network calls: it's the presentation-facing layer of a much larger thesis pipeline built for GDPR Art. 9-sensitive health data of minors. The IMU signal processing, feature engineering, the sensor-only ADOS risk model (a RandomForest trained for the thesis's data-science analysis, evaluated out-of-fold) and the statistical analysis behind every number shown here all run upstream on the same machine. Clinician notes are summarized by a local, extractive text model that lifts sentences verbatim, never a cloud LLM, chosen after generative summaries were found to fabricate clinical claims.",
           highlights: [
-            "Synchronized Patient Detail — video playback linked bidirectionally to an interactive label timeline and the raw IMU signal plot; toy and camera angle are selected independently per session.",
-            "Sensor-Only Analysis (new) — runs the sensor-only ADOS risk model on a child's motion data alone, benchmarked against the cohort and same-risk peers, with three overlaid movement timelines comparing automated detection to the human record.",
-            "Data-quality transparency (new) — a saturated sensor, broken recording or low sample coverage surfaces an explicit warning next to the prediction, instead of a silently wrong number.",
-            "Clinician Notes with extractive AI summary (new) — a rich-text editor (multiple notes/clinicians per patient, exportable to docx/pdf/txt) that summarizes notes by lifting sentences verbatim, after generative summaries were found to fabricate clinical claims.",
-            "Toy Analytics — cross-patient view of action counts, intentionality (child-initiated / accidental / educator-led) and action diversity per toy.",
-            "Cohort data-quality overview — surfaces per-child completeness directly (missing labels, unreadable data, sensor issues) rather than hiding it behind an aggregate."
+            "Synchronized Patient Detail: video playback linked bidirectionally to an interactive label timeline and the raw IMU signal plot; toy and camera angle are selected independently per session.",
+            "Sensor-Only Analysis (new): runs the sensor-only ADOS risk model on a child's motion data alone, benchmarked against the cohort and same-risk peers, with three overlaid movement timelines comparing automated detection to the human record.",
+            "Data-quality transparency (new): a saturated sensor, broken recording or low sample coverage surfaces an explicit warning next to the prediction, instead of a silently wrong number.",
+            "Clinician Notes with extractive AI summary (new): a rich-text editor (multiple notes/clinicians per patient, exportable to docx/pdf/txt) that summarizes notes by lifting sentences verbatim, after generative summaries were found to fabricate clinical claims.",
+            "Toy Analytics: cross-patient view of action counts, intentionality (child-initiated / accidental / educator-led) and action diversity per toy.",
+            "Cohort data-quality overview: surfaces per-child completeness directly (missing labels, unreadable data, sensor issues) rather than hiding it behind an aggregate."
           ],
           gallery: {
             overview: "Dashboard overview — cohort KPIs and ADOS score distribution",
@@ -97,11 +102,11 @@ const resources = {
           techStack: "Flutter, Provider | iOS, Android, Web",
           details: "Enjoy the Night (Sober Track) estimates BAC decay over time from a user's profile and logged drinks, now with myth-busting explanations, persistent safety disclaimers and full multilingual support.",
           highlights: [
-            "Real-time BAC Calculation — accurate blood alcohol estimates based on user profile and logged drinks.",
-            "Calculation Insights & Myth-Busting (new) — interactive popups explaining how the calculation works and debunking common drinking myths.",
-            "Health & Safety Disclaimer (new) — a persistent disclaimer across Dashboard, History and Settings promoting responsible drinking.",
-            "Multilingual Support (new) — fully localized in English, German, Spanish, French and Italian.",
-            "Drink History & Quick Add — a detailed log of past drinks plus a bottom-sheet shortcut to log a new one with minimal friction."
+            "Real-time BAC Calculation: accurate blood alcohol estimates based on user profile and logged drinks.",
+            "Calculation Insights & Myth-Busting (new): interactive popups explaining how the calculation works and debunking common drinking myths.",
+            "Health & Safety Disclaimer (new): a persistent disclaimer across Dashboard, History and Settings promoting responsible drinking.",
+            "Multilingual Support (new): fully localized in English, German, Spanish, French and Italian.",
+            "Drink History & Quick Add: a detailed log of past drinks plus a bottom-sheet shortcut to log a new one with minimal friction."
           ],
           gallery: {
             onboarding_welcome: "Onboarding — safety disclaimer, gender selector, and bounded stepper sliders for weight, height and age",
@@ -120,12 +125,12 @@ const resources = {
           techStack: "Flutter, Riverpod, Hive, Google Gemini 2.5 Flash, Node.js",
           details: "Built for anyone organizing their own food solo, like students or young professionals living alone, PantryPilot uses Google Gemini 2.5 Flash in the backend to read diets straight from a photo or PDF, then turns that plan into a priced grocery list, a live pantry inventory and zero-waste recipes, all inside one glassmorphic, dual-tab analytics dashboard.",
           highlights: [
-            "Multimodal Diet Scanner — imports diets straight from a photo or PDF via Gemini 2.5 Flash, handling OCR, translation and portion sizing.",
-            "Smart Price Estimation — estimates the precise cost of any grocery list across multiple countries (IT, DE, CH).",
-            "Zero-Waste Recipe Generator (\"Svuota Frigo\") — turns expiring pantry items into recipes that minimize food waste.",
-            "Unified Analytics Dashboard — a dual-tab view tracking both macronutrients and grocery spending.",
-            "Magic Pantry (new) — automatically deducts recipe ingredients from inventory and merges duplicate foods, now with diet reuse via a calendar and a smart allergens backend.",
-            "Premium minimalist UI — glassmorphic navigation, immersive cooking mode, zero emojis."
+            "Multimodal Diet Scanner: imports diets straight from a photo or PDF via Gemini 2.5 Flash, handling OCR, translation and portion sizing.",
+            "Smart Price Estimation: estimates the precise cost of any grocery list across multiple countries (IT, DE, CH).",
+            "Zero-Waste Recipe Generator (\"Svuota Frigo\"): turns expiring pantry items into recipes that minimize food waste.",
+            "Unified Analytics Dashboard: a dual-tab view tracking both macronutrients and grocery spending.",
+            "Magic Pantry (new): automatically deducts recipe ingredients from inventory and merges duplicate foods, now with diet reuse via a calendar and a smart allergens backend.",
+            "Premium minimalist UI: glassmorphic navigation, immersive cooking mode, zero emojis."
           ],
           gallery: {
             home: "Home dashboard — diet quality score, next meal, pantry alerts and today's plan",
@@ -141,12 +146,12 @@ const resources = {
           techStack: "Next.js 16, React 19, Tailwind CSS v4, shadcn/ui, GSAP",
           details: "Polify walks you through 68 documented political issues, weighting each answer against 239+ verified party positions to compute your affinity, nationally and, for the first time, across 10 other countries. Built in the run-up to the 2027 Italian general election, it's transparent about its own gaps: newer or smaller parties (e.g. ORA!, Potere al Popolo) still have positions documented on fewer than half of the 68 issues, and that coverage is shown on every party's page instead of being hidden behind an average.",
           highlights: [
-            "Transparent, documented scoring engine — matches answers against 239+ verified, locked party positions, weighted by source reliability (e.g. parliamentary vote vs. statement).",
-            "International Match (new) — discover your closest ideologies and matching parties across 10 different countries.",
-            "Area-by-area analysis — separate rankings across 9 topic areas (economy, rights, etc.), because no one agrees with a single party on everything.",
-            "Separated-newsroom architecture — a local text editor (on a dedicated port) lets editors write and score questions in real time, watching the impact on the model, with no code.",
-            "Privacy-first results & sharing — encrypted comparison via URL (\"Challenge\"); the server stores nothing, every calculation happens in the browser, GDPR-friendly.",
-            "Premium aesthetics & UX — modern black-and-white interface with native dark mode, smooth micro-animations, single-column layout, and a built-in glossary for complex terms."
+            "Transparent, documented scoring engine: matches answers against 239+ verified, locked party positions, weighted by source reliability (e.g. parliamentary vote vs. statement).",
+            "International Match (new): discover your closest ideologies and matching parties across 10 different countries.",
+            "Area-by-area analysis: separate rankings across 9 topic areas (economy, rights, etc.), because no one agrees with a single party on everything.",
+            "Separated-newsroom architecture: a local text editor (on a dedicated port) lets editors write and score questions in real time, watching the impact on the model, with no code.",
+            "Privacy-first results & sharing: encrypted comparison via URL (\"Challenge\"); the server stores nothing, every calculation happens in the browser, GDPR-friendly.",
+            "Premium aesthetics & UX: modern black-and-white interface with native dark mode, smooth micro-animations, single-column layout, and a built-in glossary for complex terms."
           ],
           gallery: {
             home: "Animated dark-mode home page, with custom-made ink portraits.",
@@ -165,11 +170,11 @@ const resources = {
           techStack: "Vanilla JS, Electron, Chart.js, LocalStorage | GitHub Pages",
           details: "Goes beyond simple countdowns: a mini-timer widget, a Notion-style task board and a full analytics dashboard turn the classic Pomodoro flow into a lightweight study companion, on the web or as a desktop app.",
           highlights: [
-            "Mini-Timer Widget (new) — a floating, always-on-top window (desktop) or popup (web) that keeps you aware of time while working in other apps.",
-            "Notion-Style Task Board (new) — set a macro-subject, outline topics and manage tasks in an interactive, keyboard-navigable table, saved automatically.",
-            "Info & Settings Panel (new) — adjust durations, fully customize the color theme, and toggle aesthetic background bubbles.",
-            "Analytics Dashboard — track daily, weekly, monthly and lifetime progress with interactive Chart.js charts.",
-            "Core Timer — classic work → short break → long break flow with a responsive circular progress indicator."
+            "Mini-Timer Widget (new): a floating, always-on-top window (desktop) or popup (web) that keeps you aware of time while working in other apps.",
+            "Notion-Style Task Board (new): set a macro-subject, outline topics and manage tasks in an interactive, keyboard-navigable table, saved automatically.",
+            "Info & Settings Panel (new): adjust durations, fully customize the color theme, and toggle aesthetic background bubbles.",
+            "Analytics Dashboard: track daily, weekly, monthly and lifetime progress with interactive Chart.js charts.",
+            "Core Timer: classic work → short break → long break flow with a responsive circular progress indicator."
           ],
           gallery: {
             main_dashboard: "Full app view — circular timer with break preview, the Stats panel's activity chart, and the Notion-style task board for the current focus"
@@ -221,11 +226,11 @@ const resources = {
           techStack: "Python, Flask, scikit-learn, XGBoost, Pandas, SQLite | Render",
           details: "Una suite di machine learning che funge da \"box radio virtuale\": prevede tempi sul giro, posizioni in griglia, passo gara e strategia gomme in MotoGP, basata su una pipeline SQLite che elabora fogli tempi PDF reali (stagioni 2024-2026, 34 piloti, 23 circuiti, ~73mila giri).",
           highlights: [
-            "Predittore di tempo sul giro e posizione live — stima il tempo finale e la posizione in classifica a ogni settore, tramite un ensemble di 5 regressori (XGBoost, SVR, rete neurale, Ridge, AdaBoost).",
-            "Motore di passo gara e strategia gomme — prevede il passo gara medio, il degrado gomme e la mescola più probabile a partire dalla telemetria delle prove libere e dal meteo.",
-            "Analisi del weekend di gara (novità) — pagella per sessione, punteggio di \"giro ideale\" e grafici giro per giro di posizione e passo.",
-            "Dashboard analitica — pagelle algoritmiche dei piloti, indicatore di momentum, analisi circuiti, confronto testa a testa, trend di squadra.",
-            "EDA avanzata — mappatura ambientale 3D, importanza delle feature, clustering dei circuiti con K-Means/PCA."
+            "Predittore di tempo sul giro e posizione live: stima il tempo finale e la posizione in classifica a ogni settore, tramite un ensemble di 5 regressori (XGBoost, SVR, rete neurale, Ridge, AdaBoost).",
+            "Motore di passo gara e strategia gomme: prevede il passo gara medio, il degrado gomme e la mescola più probabile a partire dalla telemetria delle prove libere e dal meteo.",
+            "Analisi del weekend di gara (novità): pagella per sessione, punteggio di \"giro ideale\" e grafici giro per giro di posizione e passo.",
+            "Dashboard analitica: pagelle algoritmiche dei piloti, indicatore di momentum, analisi circuiti, confronto testa a testa, trend di squadra.",
+            "EDA avanzata: mappatura ambientale 3D, importanza delle feature, clustering dei circuiti con K-Means/PCA."
           ],
           gallery: {
             time_attack: "Modalità Time Attack — replay della sessione live e classifica (Misano)",
@@ -244,8 +249,13 @@ const resources = {
         football: {
           title: "Football Predictions",
           summary: "Un ottimizzatore di portafoglio scommesse basato sui dati per i principali campionati europei.",
-          techStack: "Python, XGBoost, Integrazione API",
-          details: "Questo progetto genera profitti settimanali sostenibili utilizzando previsioni ML avanzate sui 5 principali campionati europei. Incorpora vari indicatori statistici e lo stato di forma delle squadre per calcolare le probabilità di risultato e ottimizzare la strategia di scommessa."
+          techStack: "Python, scikit-learn, pandas, API football-data.org",
+          details: "Questo progetto genera profitti settimanali sostenibili utilizzando previsioni ML avanzate sui 5 principali campionati europei. Incorpora vari indicatori statistici e lo stato di forma delle squadre per calcolare le probabilità di risultato e ottimizzare la strategia di scommessa.",
+          highlights: [
+            "Modello a Stacking Ensemble: combina Random Forest, AdaBoost e Gradient Boosting con un meta-modello di Logistic Regression, calibrato per probabilità affidabili e con un'accuratezza dell'81,9% sui dati di training 2025.",
+            "Pipeline con 27 feature ingegnerizzate: unisce metriche classiche come il rating ELO e la forma con aggiunte più recenti come Expected Goals (xG), analisi dei giorni di riposo, precedenti scontri diretti e decadimento esponenziale del momentum.",
+            "Portafoglio scommesse a livelli: distribuisce ogni settimana la puntata su quattro livelli di rischio, da Ultra Safe a quote più alte, dimensionati con il Criterio di Kelly frazionario e un margine di sicurezza sulla probabilità."
+          ]
         },
         f1: {
           title: "F1 Predictions 2024",
@@ -265,12 +275,12 @@ const resources = {
           techStack: "Python, Dash/Plotly, Flask, Pandas, scikit-learn, Quill.js",
           details: "Questa dashboard gira interamente in locale, senza alcuna chiamata di rete in uscita: è lo strato presentativo di una pipeline di tesi molto più ampia, pensata per dati sanitari di minori sensibili ai sensi del GDPR Art. 9. L'elaborazione del segnale IMU, il feature engineering, il modello di rischio ADOS basato solo sui sensori (una RandomForest addestrata per l'analisi di data science della tesi, valutata out-of-fold) e l'analisi statistica dietro ogni numero mostrato girano tutti a monte, sulla stessa macchina. Le note dei clinici vengono riassunte da un modello di testo locale ed estrattivo, che riprende le frasi testualmente, mai da un LLM in cloud, scelto dopo che i riassunti generativi si erano dimostrati capaci di inventare affermazioni cliniche.",
           highlights: [
-            "Patient Detail sincronizzato — riproduzione video collegata bidirezionalmente a una timeline interattiva delle etichette e al grafico del segnale IMU grezzo; giocattolo e angolo camera si selezionano indipendentemente per sessione.",
-            "Sensor-Only Analysis (novità) — applica il modello di rischio ADOS basato solo sui sensori ai dati di movimento del bambino, confrontandolo con la coorte e con i pari a rischio simile, con tre timeline di movimento sovrapposte che confrontano il rilevamento automatico con il dato umano.",
-            "Trasparenza sulla qualità dei dati (novità) — un sensore saturo, una registrazione interrotta o una bassa copertura dei campioni mostrano un avviso esplicito accanto alla previsione, invece di un numero silenziosamente sbagliato.",
-            "Note del Clinico con riassunto AI estrattivo (novità) — un editor di rich-text (più note e più clinici per paziente, esportabile in docx/pdf/txt) che riassume le note estraendo frasi testuali, dopo che i riassunti generativi si erano dimostrati capaci di inventare affermazioni cliniche.",
-            "Toy Analytics — vista cross-paziente di conteggio azioni, intenzionalità (avviata dal bambino / accidentale / guidata dall'educatore) e diversità delle azioni per giocattolo.",
-            "Panoramica sulla qualità dei dati della coorte — mostra direttamente la completezza per ogni bambino (etichette mancanti, dati illeggibili, problemi ai sensori) invece di nasconderla dietro un aggregato."
+            "Patient Detail sincronizzato: riproduzione video collegata bidirezionalmente a una timeline interattiva delle etichette e al grafico del segnale IMU grezzo; giocattolo e angolo camera si selezionano indipendentemente per sessione.",
+            "Sensor-Only Analysis (novità): applica il modello di rischio ADOS basato solo sui sensori ai dati di movimento del bambino, confrontandolo con la coorte e con i pari a rischio simile, con tre timeline di movimento sovrapposte che confrontano il rilevamento automatico con il dato umano.",
+            "Trasparenza sulla qualità dei dati (novità): un sensore saturo, una registrazione interrotta o una bassa copertura dei campioni mostrano un avviso esplicito accanto alla previsione, invece di un numero silenziosamente sbagliato.",
+            "Note del Clinico con riassunto AI estrattivo (novità): un editor di rich-text (più note e più clinici per paziente, esportabile in docx/pdf/txt) che riassume le note estraendo frasi testuali, dopo che i riassunti generativi si erano dimostrati capaci di inventare affermazioni cliniche.",
+            "Toy Analytics: vista cross-paziente di conteggio azioni, intenzionalità (avviata dal bambino / accidentale / guidata dall'educatore) e diversità delle azioni per giocattolo.",
+            "Panoramica sulla qualità dei dati della coorte: mostra direttamente la completezza per ogni bambino (etichette mancanti, dati illeggibili, problemi ai sensori) invece di nasconderla dietro un aggregato."
           ],
           gallery: {
             overview: "Panoramica dashboard — KPI di coorte e distribuzione dei punteggi ADOS",
@@ -290,11 +300,11 @@ const resources = {
           techStack: "Flutter, Provider | iOS, Android, Web",
           details: "Enjoy the Night (Sober Track) stima il decadimento del BAC nel tempo a partire dal profilo utente e dai drink registrati, ora con spiegazioni anti-mito, disclaimer di sicurezza persistenti e supporto multilingua completo.",
           highlights: [
-            "Calcolo BAC in tempo reale — stime accurate del tasso alcolemico basate sul profilo utente e sui drink registrati.",
-            "Approfondimenti sul calcolo e Anti-Mito (novità) — popup interattivi che spiegano come funziona il calcolo e sfatano i miti comuni sull'alcol.",
-            "Disclaimer di Salute e Sicurezza (novità) — un avviso persistente su Dashboard, Cronologia e Impostazioni che promuove un consumo responsabile.",
-            "Supporto Multilingua (novità) — localizzazione completa in inglese, tedesco, spagnolo, francese e italiano.",
-            "Cronologia Drink e Aggiunta Rapida — un registro dettagliato dei drink passati più una bottom sheet per registrarne uno nuovo con il minimo sforzo."
+            "Calcolo BAC in tempo reale: stime accurate del tasso alcolemico basate sul profilo utente e sui drink registrati.",
+            "Approfondimenti sul calcolo e Anti-Mito (novità): popup interattivi che spiegano come funziona il calcolo e sfatano i miti comuni sull'alcol.",
+            "Disclaimer di Salute e Sicurezza (novità): un avviso persistente su Dashboard, Cronologia e Impostazioni che promuove un consumo responsabile.",
+            "Supporto Multilingua (novità): localizzazione completa in inglese, tedesco, spagnolo, francese e italiano.",
+            "Cronologia Drink e Aggiunta Rapida: un registro dettagliato dei drink passati più una bottom sheet per registrarne uno nuovo con il minimo sforzo."
           ],
           gallery: {
             onboarding_welcome: "Onboarding — disclaimer di sicurezza, selettore di genere e slider a stepper (con limiti) per peso, altezza ed età",
@@ -313,12 +323,12 @@ const resources = {
           techStack: "Flutter, Riverpod, Hive, Google Gemini 2.5 Flash, Node.js",
           details: "Pensata per chi organizza da solo i propri pasti, come studenti fuori sede o giovani che vivono da soli, PantryPilot usa Google Gemini 2.5 Flash nel backend per leggere le diete direttamente da una foto o un PDF, trasformando il piano in una lista della spesa con prezzi stimati, un inventario della dispensa sempre aggiornato e ricette a spreco zero, il tutto in una dashboard analitica glassmorphic a doppia scheda.",
           highlights: [
-            "Scanner Dieta Multimodale — importa diete direttamente da foto o PDF tramite Gemini 2.5 Flash, gestendo OCR, traduzione e porzioni.",
-            "Stima Intelligente dei Prezzi — calcola il costo preciso di qualsiasi lista della spesa in più paesi (IT, DE, CH).",
-            "Generatore di Ricette a Spreco Zero (\"Svuota Frigo\") — trasforma gli alimenti in scadenza in ricette che riducono lo spreco.",
-            "Dashboard Analitica Unificata — vista a doppia scheda che traccia sia i macronutrienti sia la spesa.",
-            "Magic Pantry (novità) — scala automaticamente gli ingredienti delle ricette dall'inventario e unisce alimenti duplicati, ora con riutilizzo delle diete via calendario e un backend intelligente per gli allergeni.",
-            "UI Premium Minimalista — navigazione glassmorphic, modalità cucina immersiva, zero emoji."
+            "Scanner Dieta Multimodale: importa diete direttamente da foto o PDF tramite Gemini 2.5 Flash, gestendo OCR, traduzione e porzioni.",
+            "Stima Intelligente dei Prezzi: calcola il costo preciso di qualsiasi lista della spesa in più paesi (IT, DE, CH).",
+            "Generatore di Ricette a Spreco Zero (\"Svuota Frigo\"): trasforma gli alimenti in scadenza in ricette che riducono lo spreco.",
+            "Dashboard Analitica Unificata: vista a doppia scheda che traccia sia i macronutrienti sia la spesa.",
+            "Magic Pantry (novità): scala automaticamente gli ingredienti delle ricette dall'inventario e unisce alimenti duplicati, ora con riutilizzo delle diete via calendario e un backend intelligente per gli allergeni.",
+            "UI Premium Minimalista: navigazione glassmorphic, modalità cucina immersiva, zero emoji."
           ],
           gallery: {
             home: "Dashboard principale — punteggio di qualità della dieta, prossimo pasto, avvisi dispensa e piano di oggi",
@@ -334,12 +344,12 @@ const resources = {
           techStack: "Next.js 16, React 19, Tailwind CSS v4, shadcn/ui, GSAP",
           details: "Polify ti guida attraverso 68 temi politici documentati, confrontando ogni risposta con oltre 239 posizioni di partito verificate per calcolare la tua affinità, a livello nazionale e, per la prima volta, anche in altre 10 nazioni. Costruito in vista delle elezioni politiche italiane del 2027, il test è trasparente sui propri limiti: i partiti più piccoli o di nuova formazione (es. ORA!, Potere al Popolo) hanno ancora posizioni documentate su meno della metà dei 68 temi, e questa copertura è mostrata nella pagina di ogni partito invece di essere nascosta dietro una media.",
           highlights: [
-            "Motore di calcolo trasparente e documentato — confronta le risposte con oltre 239 posizioni di partito verificate e bloccate, pesate in base all'affidabilità della fonte (es. voto parlamentare vs. dichiarazione).",
-            "Match Internazionale (novità) — scopri le tue ideologie affini e i partiti corrispondenti in 10 nazioni diverse.",
-            "Analisi area per area — classifiche separate su 9 temi (economia, diritti, ecc.), perché nessuno è d'accordo su tutto con un solo partito.",
-            "Architettura a redazione separata — editor testuale locale per creare e valutare le domande in tempo reale, senza toccare codice.",
-            "Risultati e condivisione privacy-first — confronto crittografato via URL (\"Sfida\"); tutti i calcoli restano nel browser, nessun dato salvato sul server.",
-            "Estetica e UX Premium — interfaccia bianco e nero con dark mode nativa, micro-animazioni fluide, layout a colonna singola e glossario integrato per i termini complessi."
+            "Motore di calcolo trasparente e documentato: confronta le risposte con oltre 239 posizioni di partito verificate e bloccate, pesate in base all'affidabilità della fonte (es. voto parlamentare vs. dichiarazione).",
+            "Match Internazionale (novità): scopri le tue ideologie affini e i partiti corrispondenti in 10 nazioni diverse.",
+            "Analisi area per area: classifiche separate su 9 temi (economia, diritti, ecc.), perché nessuno è d'accordo su tutto con un solo partito.",
+            "Architettura a redazione separata: editor testuale locale per creare e valutare le domande in tempo reale, senza toccare codice.",
+            "Risultati e condivisione privacy-first: confronto crittografato via URL (\"Sfida\"); tutti i calcoli restano nel browser, nessun dato salvato sul server.",
+            "Estetica e UX Premium: interfaccia bianco e nero con dark mode nativa, micro-animazioni fluide, layout a colonna singola e glossario integrato per i termini complessi."
           ],
           gallery: {
             home: "La home page animata in tema scuro, con ritratti a inchiostro creati appositamente.",
@@ -358,11 +368,11 @@ const resources = {
           techStack: "Vanilla JS, Electron, Chart.js, LocalStorage | GitHub Pages",
           details: "Va oltre il semplice conto alla rovescia: un widget mini-timer, una bacheca delle attività in stile Notion e una dashboard analitica completa trasformano il classico flusso Pomodoro in un compagno di studio leggero, sul web o come app desktop.",
           highlights: [
-            "Widget Mini-Timer (novità) — una finestra flottante sempre in primo piano (desktop) o un popup (web) per restare consapevoli del tempo anche lavorando in altre app.",
-            "Bacheca Attività stile Notion (novità) — imposta una macro-materia, delinea gli argomenti e gestisci le attività in una tabella interattiva navigabile da tastiera, salvata automaticamente.",
-            "Pannello Info & Impostazioni (novità) — regola le durate, personalizza completamente il tema colore e attiva le bolle di sfondo decorative.",
-            "Dashboard Analitica — tieni traccia dei progressi giornalieri, settimanali, mensili e complessivi con grafici interattivi Chart.js.",
-            "Timer Principale — il classico flusso lavoro → pausa breve → pausa lunga con un indicatore di progresso circolare responsive."
+            "Widget Mini-Timer (novità): una finestra flottante sempre in primo piano (desktop) o un popup (web) per restare consapevoli del tempo anche lavorando in altre app.",
+            "Bacheca Attività stile Notion (novità): imposta una macro-materia, delinea gli argomenti e gestisci le attività in una tabella interattiva navigabile da tastiera, salvata automaticamente.",
+            "Pannello Info & Impostazioni (novità): regola le durate, personalizza completamente il tema colore e attiva le bolle di sfondo decorative.",
+            "Dashboard Analitica: tieni traccia dei progressi giornalieri, settimanali, mensili e complessivi con grafici interattivi Chart.js.",
+            "Timer Principale: il classico flusso lavoro → pausa breve → pausa lunga con un indicatore di progresso circolare responsive."
           ],
           gallery: {
             main_dashboard: "Vista completa dell'app — timer circolare con anteprima della pausa, il grafico di attività del pannello Stats e la bacheca delle attività in stile Notion per il focus corrente"
@@ -414,11 +424,11 @@ const resources = {
           techStack: "Python, Flask, scikit-learn, XGBoost, Pandas, SQLite | Render",
           details: "Eine Machine-Learning-Suite als \"virtuelle Boxenwand\": sie sagt Rundenzeiten, Startpositionen, Rennpace und Reifenstrategie für MotoGP voraus, basierend auf einer SQLite-Pipeline, die echte PDF-Zeitmessblätter verarbeitet (Saisons 2024-2026, 34 Fahrer, 23 Strecken, ~73.000 Runden).",
           highlights: [
-            "Live-Rundenzeit- & Positionsvorhersage — schätzt die finale Rundenzeit und die Live-Position an jedem Sektor mittels eines Ensembles aus 5 Regressoren (XGBoost, SVR, neuronales Netz, Ridge, AdaBoost).",
-            "Rennpace- & Reifenstrategie-Engine — sagt die durchschnittliche Rennpace, den Reifenabbau und die wahrscheinliche Mischungswahl anhand von Freien-Training-Telemetrie und Wetter voraus.",
-            "Rennwochenend-Analyse (neu) — Bewertung pro Session, ein \"Ideal-Lap\"-Score sowie Runde-für-Runde-Diagramme zu Position und Pace.",
-            "Analytics-Dashboard — algorithmische Fahrerbewertungen, Momentum-Indikator, Streckenanalyse, direkter Vergleich, Team-Performance-Trends.",
-            "Erweiterte EDA — 3D-Umweltmapping, Feature-Importance, K-Means/PCA-Streckenclustering."
+            "Live-Rundenzeit- & Positionsvorhersage: schätzt die finale Rundenzeit und die Live-Position an jedem Sektor mittels eines Ensembles aus 5 Regressoren (XGBoost, SVR, neuronales Netz, Ridge, AdaBoost).",
+            "Rennpace- & Reifenstrategie-Engine: sagt die durchschnittliche Rennpace, den Reifenabbau und die wahrscheinliche Mischungswahl anhand von Freien-Training-Telemetrie und Wetter voraus.",
+            "Rennwochenend-Analyse (neu): Bewertung pro Session, ein \"Ideal-Lap\"-Score sowie Runde-für-Runde-Diagramme zu Position und Pace.",
+            "Analytics-Dashboard: algorithmische Fahrerbewertungen, Momentum-Indikator, Streckenanalyse, direkter Vergleich, Team-Performance-Trends.",
+            "Erweiterte EDA: 3D-Umweltmapping, Feature-Importance, K-Means/PCA-Streckenclustering."
           ],
           gallery: {
             time_attack: "Time-Attack-Modus — Live-Session-Replay und Rangliste (Misano)",
@@ -437,8 +447,13 @@ const resources = {
         football: {
           title: "Football Predictions",
           summary: "Ein datengesteuerter Wettportfolio-Optimierer für die europäischen Top-Ligen.",
-          techStack: "Python, XGBoost, API-Integration",
-          details: "Dieses Projekt generiert nachhaltige wöchentliche Gewinne mithilfe fortschrittlicher ML-Vorhersagen in den fünf großen europäischen Ligen. Es integriert verschiedene statistische Indikatoren und die Teamform, um Ergebniswahrscheinlichkeiten zu berechnen und eine Wettstrategie zu optimieren."
+          techStack: "Python, scikit-learn, pandas, football-data.org API",
+          details: "Dieses Projekt generiert nachhaltige wöchentliche Gewinne mithilfe fortschrittlicher ML-Vorhersagen in den fünf großen europäischen Ligen. Es integriert verschiedene statistische Indikatoren und die Teamform, um Ergebniswahrscheinlichkeiten zu berechnen und eine Wettstrategie zu optimieren.",
+          highlights: [
+            "Stacking-Ensemble-Modell: kombiniert Random Forest, AdaBoost und Gradient Boosting mit einem Logistic-Regression-Metamodell, kalibriert für verlässliche Wahrscheinlichkeiten und mit 81,9% Trainingsgenauigkeit auf den 2025er-Daten.",
+            "Feature-Engineering-Pipeline mit 27 Merkmalen: verbindet klassische Metriken wie ELO-Ratings und Form mit neueren Ergänzungen wie Expected Goals (xG), Analyse der Ruhetage, direkten Duellen und exponentiellem Momentum-Verfall.",
+            "Gestaffeltes Wett-Portfolio: verteilt den wöchentlichen Einsatz auf vier Risikostufen, von Ultra Safe bis zu Wetten mit hohen Quoten, dimensioniert mit fraktioniertem Kelly-Kriterium und einer eingebauten Sicherheitsmarge auf die Wahrscheinlichkeit."
+          ]
         },
         f1: {
           title: "F1 Predictions 2024",
@@ -458,12 +473,12 @@ const resources = {
           techStack: "Python, Dash/Plotly, Flask, Pandas, scikit-learn, Quill.js",
           details: "Dieses Dashboard läuft vollständig lokal, ganz ohne ausgehende Netzwerkaufrufe: Es ist die präsentationsseitige Schicht einer deutlich größeren Thesis-Pipeline, ausgelegt für nach DSGVO Art. 9 sensible Gesundheitsdaten von Minderjährigen. Die IMU-Signalverarbeitung, das Feature Engineering, das rein sensorbasierte ADOS-Risikomodell (ein für die Data-Science-Analyse der Arbeit trainierter RandomForest, out-of-fold evaluiert) und die statistische Analyse hinter jeder gezeigten Zahl laufen alle vorgelagert auf derselben Maschine. Kliniknotizen werden von einem lokalen, extraktiven Textmodell zusammengefasst, das Sätze wörtlich übernimmt, nie von einem Cloud-LLM, gewählt, nachdem generative Zusammenfassungen nachweislich klinische Aussagen erfunden hatten.",
           highlights: [
-            "Synchronisierte Patientenansicht — Videowiedergabe bidirektional mit einer interaktiven Label-Zeitleiste und dem rohen IMU-Signalplot verknüpft; Spielzeug und Kamerawinkel werden pro Sitzung unabhängig ausgewählt.",
-            "Sensor-Only-Analyse (neu) — wendet das rein sensorbasierte ADOS-Risikomodell auf die Bewegungsdaten eines Kindes an, verglichen mit der Kohorte und gleich-risikoreichen Peers, mit drei überlagerten Bewegungszeitleisten, die automatische Erkennung mit dem menschlichen Protokoll vergleichen.",
-            "Datenqualitäts-Transparenz (neu) — ein gesättigter Sensor, eine unterbrochene Aufnahme oder geringe Sample-Abdeckung zeigen eine explizite Warnung neben der Vorhersage, statt einer still falschen Zahl.",
-            "Kliniknotizen mit extraktiver KI-Zusammenfassung (neu) — ein Rich-Text-Editor (mehrere Notizen/Kliniker pro Patient, exportierbar nach docx/pdf/txt), der Notizen zusammenfasst, indem er Sätze wörtlich übernimmt, nachdem generative Zusammenfassungen nachweislich klinische Aussagen erfunden hatten.",
-            "Toy Analytics — patientenübergreifende Ansicht von Aktionszahlen, Intentionalität (kindinitiiert / zufällig / pädagogengeführt) und Aktionsvielfalt pro Spielzeug.",
-            "Kohorten-Datenqualitätsübersicht — zeigt die Vollständigkeit pro Kind direkt an (fehlende Labels, unlesbare Daten, Sensorprobleme), statt sie hinter einem Aggregat zu verstecken."
+            "Synchronisierte Patientenansicht: Videowiedergabe bidirektional mit einer interaktiven Label-Zeitleiste und dem rohen IMU-Signalplot verknüpft; Spielzeug und Kamerawinkel werden pro Sitzung unabhängig ausgewählt.",
+            "Sensor-Only-Analyse (neu): wendet das rein sensorbasierte ADOS-Risikomodell auf die Bewegungsdaten eines Kindes an, verglichen mit der Kohorte und gleich-risikoreichen Peers, mit drei überlagerten Bewegungszeitleisten, die automatische Erkennung mit dem menschlichen Protokoll vergleichen.",
+            "Datenqualitäts-Transparenz (neu): ein gesättigter Sensor, eine unterbrochene Aufnahme oder geringe Sample-Abdeckung zeigen eine explizite Warnung neben der Vorhersage, statt einer still falschen Zahl.",
+            "Kliniknotizen mit extraktiver KI-Zusammenfassung (neu): ein Rich-Text-Editor (mehrere Notizen/Kliniker pro Patient, exportierbar nach docx/pdf/txt), der Notizen zusammenfasst, indem er Sätze wörtlich übernimmt, nachdem generative Zusammenfassungen nachweislich klinische Aussagen erfunden hatten.",
+            "Toy Analytics: patientenübergreifende Ansicht von Aktionszahlen, Intentionalität (kindinitiiert / zufällig / pädagogengeführt) und Aktionsvielfalt pro Spielzeug.",
+            "Kohorten-Datenqualitätsübersicht: zeigt die Vollständigkeit pro Kind direkt an (fehlende Labels, unlesbare Daten, Sensorprobleme), statt sie hinter einem Aggregat zu verstecken."
           ],
           gallery: {
             overview: "Dashboard-Übersicht — Kohorten-KPIs und ADOS-Score-Verteilung",
@@ -483,11 +498,11 @@ const resources = {
           techStack: "Flutter, Provider | iOS, Android, Web",
           details: "Enjoy the Night (Sober Track) schätzt den BAK-Abbau über die Zeit anhand des Nutzerprofils und der erfassten Drinks, jetzt mit Mythen-Aufklärung, dauerhaften Sicherheitshinweisen und vollständiger Mehrsprachigkeit.",
           highlights: [
-            "BAK-Berechnung in Echtzeit — präzise Blutalkoholschätzungen basierend auf Nutzerprofil und erfassten Drinks.",
-            "Berechnungs-Einblicke & Mythen-Aufklärung (neu) — interaktive Popups, die erklären, wie die Berechnung funktioniert, und gängige Trinkmythen widerlegen.",
-            "Gesundheits- und Sicherheitshinweis (neu) — ein dauerhafter Hinweis auf Dashboard, Verlauf und Einstellungen, der verantwortungsvolles Trinken fördert.",
-            "Mehrsprachigkeit (neu) — vollständig lokalisiert in Englisch, Deutsch, Spanisch, Französisch und Italienisch.",
-            "Drink-Verlauf & Schnellerfassung — ein detailliertes Protokoll vergangener Drinks plus ein Bottom-Sheet, um neue mit minimalem Aufwand zu erfassen."
+            "BAK-Berechnung in Echtzeit: präzise Blutalkoholschätzungen basierend auf Nutzerprofil und erfassten Drinks.",
+            "Berechnungs-Einblicke & Mythen-Aufklärung (neu): interaktive Popups, die erklären, wie die Berechnung funktioniert, und gängige Trinkmythen widerlegen.",
+            "Gesundheits- und Sicherheitshinweis (neu): ein dauerhafter Hinweis auf Dashboard, Verlauf und Einstellungen, der verantwortungsvolles Trinken fördert.",
+            "Mehrsprachigkeit (neu): vollständig lokalisiert in Englisch, Deutsch, Spanisch, Französisch und Italienisch.",
+            "Drink-Verlauf & Schnellerfassung: ein detailliertes Protokoll vergangener Drinks plus ein Bottom-Sheet, um neue mit minimalem Aufwand zu erfassen."
           ],
           gallery: {
             onboarding_welcome: "Onboarding — Sicherheitshinweis, Geschlechtsauswahl und begrenzte Stepper-Schieberegler für Gewicht, Größe und Alter",
@@ -506,12 +521,12 @@ const resources = {
           techStack: "Flutter, Riverpod, Hive, Google Gemini 2.5 Flash, Node.js",
           details: "Entwickelt für alle, die ihre Ernährung allein organisieren, etwa Studierende oder junge Berufstätige, die allein leben, liest PantryPilot Diätpläne im Backend mit Google Gemini 2.5 Flash direkt von einem Foto oder PDF und verwandelt sie in eine bepreiste Einkaufsliste, ein aktuelles Vorratsinventar und Zero-Waste-Rezepte, alles in einem glasmorphen Dual-Tab-Analytics-Dashboard.",
           highlights: [
-            "Multimodaler Diät-Scanner — importiert Diäten direkt von Foto oder PDF via Gemini 2.5 Flash, inklusive OCR, Übersetzung und Portionsgrößen.",
-            "Intelligente Preisschätzung — berechnet die genauen Kosten jeder Einkaufsliste in mehreren Ländern (IT, DE, CH).",
-            "Zero-Waste-Rezeptgenerator (\"Svuota Frigo\") — verwandelt ablaufende Vorräte in Rezepte, die Lebensmittelverschwendung minimieren.",
-            "Einheitliches Analytics-Dashboard — Dual-Tab-Ansicht für Makronährstoffe und Ausgaben.",
-            "Magic Pantry (neu) — zieht Rezeptzutaten automatisch vom Inventar ab und führt doppelte Lebensmittel zusammen, jetzt mit Diät-Wiederverwendung per Kalender und einem intelligenten Allergene-Backend.",
-            "Premium minimalistisches UI — glasmorphe Navigation, immersiver Kochmodus, keine Emojis."
+            "Multimodaler Diät-Scanner: importiert Diäten direkt von Foto oder PDF via Gemini 2.5 Flash, inklusive OCR, Übersetzung und Portionsgrößen.",
+            "Intelligente Preisschätzung: berechnet die genauen Kosten jeder Einkaufsliste in mehreren Ländern (IT, DE, CH).",
+            "Zero-Waste-Rezeptgenerator (\"Svuota Frigo\"): verwandelt ablaufende Vorräte in Rezepte, die Lebensmittelverschwendung minimieren.",
+            "Einheitliches Analytics-Dashboard: Dual-Tab-Ansicht für Makronährstoffe und Ausgaben.",
+            "Magic Pantry (neu): zieht Rezeptzutaten automatisch vom Inventar ab und führt doppelte Lebensmittel zusammen, jetzt mit Diät-Wiederverwendung per Kalender und einem intelligenten Allergene-Backend.",
+            "Premium minimalistisches UI: glasmorphe Navigation, immersiver Kochmodus, keine Emojis."
           ],
           gallery: {
             home: "Haupt-Dashboard — Diätqualitäts-Score, nächste Mahlzeit, Vorratswarnungen und Tagesplan",
@@ -527,12 +542,12 @@ const resources = {
           techStack: "Next.js 16, React 19, Tailwind CSS v4, shadcn/ui, GSAP",
           details: "Polify führt dich durch 68 dokumentierte politische Themen und vergleicht jede Antwort mit über 239 geprüften Parteipositionen, um deine Übereinstimmung zu berechnen, national und erstmals auch in 10 weiteren Ländern. Entstanden im Vorfeld der italienischen Parlamentswahl 2027, ist der Test transparent über seine eigenen Lücken: kleinere oder neuere Parteien (z. B. ORA!, Potere al Popolo) haben bisher zu weniger als der Hälfte der 68 Themen dokumentierte Positionen, diese Abdeckung wird auf der Seite jeder Partei angezeigt, statt hinter einem Durchschnitt versteckt zu werden.",
           highlights: [
-            "Transparente, dokumentierte Berechnungs-Engine — vergleicht Antworten mit über 239 geprüften, fixierten Parteipositionen, gewichtet nach Quellenzuverlässigkeit.",
-            "Internationaler Abgleich (neu) — entdecke deine nächstliegenden Ideologien und passende Parteien in 10 verschiedenen Ländern.",
-            "Analyse nach Themenbereich — getrennte Ranglisten für 9 Themenbereiche (Wirtschaft, Rechte usw.), denn niemand stimmt bei allem mit nur einer Partei überein.",
-            "Getrennte Redaktionsarchitektur — ein lokaler Text-Editor (auf eigenem Port) lässt Redakteure Fragen in Echtzeit erstellen und bewerten, ganz ohne Code.",
-            "Datenschutzfreundliche Ergebnisse & Teilen — verschlüsselter Vergleich per URL (\"Challenge\"); der Server speichert nichts, alle Berechnungen laufen im Browser, DSGVO-konform.",
-            "Premium-Ästhetik & UX — modernes Schwarz-Weiß-Interface mit nativem Dark Mode, flüssige Mikroanimationen, einspaltiges Layout und integriertes Glossar für komplexe Begriffe."
+            "Transparente, dokumentierte Berechnungs-Engine: vergleicht Antworten mit über 239 geprüften, fixierten Parteipositionen, gewichtet nach Quellenzuverlässigkeit.",
+            "Internationaler Abgleich (neu): entdecke deine nächstliegenden Ideologien und passende Parteien in 10 verschiedenen Ländern.",
+            "Analyse nach Themenbereich: getrennte Ranglisten für 9 Themenbereiche (Wirtschaft, Rechte usw.), denn niemand stimmt bei allem mit nur einer Partei überein.",
+            "Getrennte Redaktionsarchitektur: ein lokaler Text-Editor (auf eigenem Port) lässt Redakteure Fragen in Echtzeit erstellen und bewerten, ganz ohne Code.",
+            "Datenschutzfreundliche Ergebnisse & Teilen: verschlüsselter Vergleich per URL (\"Challenge\"); der Server speichert nichts, alle Berechnungen laufen im Browser, DSGVO-konform.",
+            "Premium-Ästhetik & UX: modernes Schwarz-Weiß-Interface mit nativem Dark Mode, flüssige Mikroanimationen, einspaltiges Layout und integriertes Glossar für komplexe Begriffe."
           ],
           gallery: {
             home: "Animierte Startseite im Dark Mode mit eigens erstellten Tuschezeichnungen-Portraits.",
@@ -551,11 +566,11 @@ const resources = {
           techStack: "Vanilla JS, Electron, Chart.js, LocalStorage | GitHub Pages",
           details: "Geht über einfaches Herunterzählen hinaus: ein Mini-Timer-Widget, ein Notion-artiges Aufgabenboard und ein vollständiges Analytics-Dashboard machen aus dem klassischen Pomodoro-Ablauf einen leichten Lernbegleiter, im Web oder als Desktop-App.",
           highlights: [
-            "Mini-Timer-Widget (neu) — ein schwebendes, immer im Vordergrund bleibendes Fenster (Desktop) oder Popup (Web), das dich auch in anderen Apps über die Zeit informiert.",
-            "Notion-artiges Aufgabenboard (neu) — lege ein Hauptthema fest, gliedere Themen und verwalte Aufgaben in einer interaktiven, per Tastatur navigierbaren Tabelle, automatisch gespeichert.",
-            "Info- & Einstellungspanel (neu) — passe Zeiten an, personalisiere das Farbthema vollständig und schalte dekorative Hintergrundblasen ein.",
-            "Analytics-Dashboard — verfolge täglichen, wöchentlichen, monatlichen und Gesamtfortschritt mit interaktiven Chart.js-Diagrammen.",
-            "Haupttimer — der klassische Ablauf Arbeit → kurze Pause → lange Pause mit einer responsiven kreisförmigen Fortschrittsanzeige."
+            "Mini-Timer-Widget (neu): ein schwebendes, immer im Vordergrund bleibendes Fenster (Desktop) oder Popup (Web), das dich auch in anderen Apps über die Zeit informiert.",
+            "Notion-artiges Aufgabenboard (neu): lege ein Hauptthema fest, gliedere Themen und verwalte Aufgaben in einer interaktiven, per Tastatur navigierbaren Tabelle, automatisch gespeichert.",
+            "Info- & Einstellungspanel (neu): passe Zeiten an, personalisiere das Farbthema vollständig und schalte dekorative Hintergrundblasen ein.",
+            "Analytics-Dashboard: verfolge täglichen, wöchentlichen, monatlichen und Gesamtfortschritt mit interaktiven Chart.js-Diagrammen.",
+            "Haupttimer: der klassische Ablauf Arbeit → kurze Pause → lange Pause mit einer responsiven kreisförmigen Fortschrittsanzeige."
           ],
           gallery: {
             main_dashboard: "Vollständige App-Ansicht — kreisförmiger Timer mit Pausenvorschau, das Aktivitätsdiagramm des Stats-Panels und das Notion-artige Aufgabenboard für den aktuellen Fokus"
