@@ -546,7 +546,7 @@ const dataAiProjects = [
 ];
 
 const mobileProjects = [
-  { id: 'pantrypilot', link: 'https://github.com/ManuCa93/flutter_alimenti', badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'img', iconContent: logoImg, gallery: alimentiGallery, hasHighlights: true, galleryOrientation: 'vertical' },
+  { id: 'pantrypilot', link: null, badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'img', iconContent: logoImg, gallery: alimentiGallery, hasHighlights: true, galleryOrientation: 'vertical' },
   { id: 'driving', link: 'https://github.com/ManuCa93/when_can_I_drive_app', badgeKey: 'to_publish', badgeClass: 'badge-to-publish', iconType: 'img', iconContent: enjoyLogo, gallery: enjoyGallery, hasHighlights: true, galleryOrientation: 'vertical' }
 ];
 
