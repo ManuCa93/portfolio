@@ -67,13 +67,13 @@ const resources = {
         },
         uni: {
           title: "University Projects",
-          summary: "26 academic repositories from my Bachelor's, spanning healthcare and biomedical work (drug design, bioinformatics, brain tumor classification, olive oil quality), time series forecasting, Bayesian statistics, blockchain, robotics/drone control, reinforcement learning and more.",
+          summary: "26 academic repositories from my Bachelor's, spanning healthcare and biomedical ML, time series forecasting, Bayesian statistics, blockchain, robotics and reinforcement learning.",
           techStack: "Python (Jupyter Notebook), R",
           details: "26 repositories from coursework across the degree, covering a wide range of topics: healthcare and biomedical data (drug design, bioinformatics, brain tumor classification from MRI, olive oil and food-compound quality), time series forecasting, Bayesian statistics and optimization, blockchain, robotics and drone control, reinforcement learning, anomaly detection with autoencoders, and sports/finance analytics (NBA shot data, credit risk). Written mostly as Jupyter notebooks and R Markdown, some solved individually and others in pairs or small groups depending on the course. Browse them all on GitHub."
         },
         adosDashboard: {
           title: "ADOS Clinical Dashboard (Thesis)",
-          summary: "The final deliverable of my Bachelor's thesis on autism-screening research: an offline clinical dashboard letting psychologists review a toddler's ADOS-2 session (video, IMU toy sensors and behavioral annotations) on one synchronized timeline.",
+          summary: "The final deliverable of my Bachelor's thesis on autism-screening research: an offline clinical dashboard for reviewing a toddler's ADOS-2 session on one synchronized timeline.",
           techStack: "Python, Dash/Plotly, Flask, Pandas, scikit-learn, Quill.js",
           details: "This dashboard runs entirely locally, with no outbound network calls: it's the presentation-facing layer of a much larger thesis pipeline built for GDPR Art. 9-sensitive health data of minors. The IMU signal processing, feature engineering, the sensor-only ADOS (Autism Diagnostic Observation Schedule) risk model (a RandomForest trained for the thesis's data-science analysis, evaluated out-of-fold) and the statistical analysis behind every number shown here all run upstream on the same machine. Clinician notes are summarized by a local, extractive text model that lifts sentences verbatim, never a cloud LLM, chosen after generative summaries were found to fabricate clinical claims. The thesis itself has already been completed and delivered; this dashboard is the part still being refined and polished.",
           highlights: [
@@ -122,7 +122,7 @@ const resources = {
         },
         pantrypilot: {
           title: "PantryPilot",
-          summary: "An AI-driven app for students and people living (and cooking) alone who need to keep diet, groceries and pantry under control without the mental overhead, merging diet tracking, grocery planning and pantry inventory into one minimalist Flutter experience.",
+          summary: "An AI-driven app for students and people living (and cooking) alone, merging diet tracking, grocery planning and pantry inventory into one minimalist Flutter experience.",
           techStack: "Flutter, Riverpod, Hive, Google Gemini 2.5 Flash, Node.js",
           details: "Built for anyone organizing their own food solo, like students or young professionals living alone, PantryPilot uses Google Gemini 2.5 Flash in the backend to read diets straight from a photo or PDF, then turns that plan into a priced grocery list, a live pantry inventory and zero-waste recipes, all inside one glassmorphic, dual-tab analytics dashboard. Before publishing it, I plan to test it myself during the two months I'll be living alone in Berlin, while I also figure out a monetization strategy.",
           highlights: [
@@ -143,7 +143,7 @@ const resources = {
         },
         polify: {
           title: "Polify",
-          summary: "A political matching test that explains every question before you answer, scoring your affinity with Italian and international parties across 68 real, documented issues, built ahead of Italy's 2027 elections, while several parties still haven't taken a public position on every topic.",
+          summary: "A political matching test that explains every question before you answer, scoring your affinity with Italian and international parties across 68 real, documented issues.",
           techStack: "Next.js 16, React 19, Tailwind CSS v4, shadcn/ui, GSAP",
           details: "Polify walks you through 68 documented political issues, weighting each answer against 239+ verified party positions to compute your affinity, nationally and, for the first time, across 10 other countries. Built in the run-up to the 2027 Italian general election, it's transparent about its own gaps: newer or smaller parties (e.g. ORA!, Potere al Popolo) still have positions documented on fewer than half of the 68 issues, and that coverage is shown on every party's page instead of being hidden behind an average.",
           highlights: [
@@ -266,13 +266,13 @@ const resources = {
         },
         uni: {
           title: "Progetti Universitari",
-          summary: "26 repository accademici della triennale, con lavori di ambito sanitario e biomedico (drug design, bioinformatica, classificazione di tumori cerebrali, qualità dell'olio d'oliva), previsione di serie storiche, statistica bayesiana, blockchain, controllo di droni/robot, reinforcement learning e altro.",
+          summary: "26 repository accademici della triennale, con lavori di ambito sanitario e biomedico, previsione di serie storiche, statistica bayesiana, blockchain, robotica e reinforcement learning.",
           techStack: "Python (Jupyter Notebook), R",
           details: "26 repository nati dagli esami del corso di laurea, che coprono un ampio ventaglio di temi: dati sanitari e biomedici (drug design, bioinformatica, classificazione di tumori cerebrali da risonanza, qualità dell'olio d'oliva e dei composti alimentari), previsione di serie storiche, statistica bayesiana e ottimizzazione, blockchain, robotica e controllo di droni, reinforcement learning, anomaly detection con autoencoder, e analisi sportive/finanziarie (dati sui tiri NBA, rischio di credito). Scritti perlopiù in notebook Jupyter e R Markdown, alcuni svolti da solo e altri in coppia o piccoli gruppi a seconda del corso. Si possono sfogliare tutti su GitHub."
         },
         adosDashboard: {
           title: "ADOS Clinical Dashboard (Tesi)",
-          summary: "L'output finale della mia tesi di Bachelor sulla ricerca nello screening dell'autismo: una dashboard clinica offline che permette a psicologi di rivedere una sessione ADOS-2 di un bambino (video, sensori IMU sui giochi e annotazioni comportamentali) su un'unica timeline sincronizzata.",
+          summary: "L'output finale della mia tesi di Bachelor sulla ricerca nello screening dell'autismo: una dashboard clinica offline per rivedere una sessione ADOS-2 di un bambino su un'unica timeline sincronizzata.",
           techStack: "Python, Dash/Plotly, Flask, Pandas, scikit-learn, Quill.js",
           details: "Questa dashboard gira interamente in locale, senza alcuna chiamata di rete in uscita: è lo strato presentativo di una pipeline di tesi molto più ampia, pensata per dati sanitari di minori sensibili ai sensi del GDPR Art. 9. L'elaborazione del segnale IMU, il feature engineering, il modello di rischio ADOS (Autism Diagnostic Observation Schedule) basato solo sui sensori (una RandomForest addestrata per l'analisi di data science della tesi, valutata out-of-fold) e l'analisi statistica dietro ogni numero mostrato girano tutti a monte, sulla stessa macchina. Le note dei clinici vengono riassunte da un modello di testo locale ed estrattivo, che riprende le frasi testualmente, mai da un LLM in cloud, scelto dopo che i riassunti generativi si erano dimostrati capaci di inventare affermazioni cliniche. La tesi è già stata completata e consegnata; la dashboard in sé è invece ancora in fase di rifinitura.",
           highlights: [
@@ -321,7 +321,7 @@ const resources = {
         },
         pantrypilot: {
           title: "PantryPilot",
-          summary: "Un'app basata su AI pensata per studenti e per chi vive (e cucina) da solo e deve tenere sotto controllo dieta, spesa e dispensa senza il carico mentale che comporta, unendo tracciamento della dieta, pianificazione della spesa e inventario della dispensa in un'esperienza Flutter minimalista e curata.",
+          summary: "Un'app basata su AI pensata per chi vive (e cucina) da solo, che unisce tracciamento della dieta, pianificazione della spesa e inventario della dispensa in un'unica esperienza Flutter minimalista.",
           techStack: "Flutter, Riverpod, Hive, Google Gemini 2.5 Flash, Node.js",
           details: "Pensata per chi organizza da solo i propri pasti, come studenti fuori sede o giovani che vivono da soli, PantryPilot usa Google Gemini 2.5 Flash nel backend per leggere le diete direttamente da una foto o un PDF, trasformando il piano in una lista della spesa con prezzi stimati, un inventario della dispensa sempre aggiornato e ricette a spreco zero, il tutto in una dashboard analitica glassmorphic a doppia scheda. Prima di pubblicarla, ho intenzione di testarla io stesso durante i due mesi in cui vivrò da solo a Berlino, mentre valuto anche una strategia di monetizzazione.",
           highlights: [
@@ -342,7 +342,7 @@ const resources = {
         },
         polify: {
           title: "Polify",
-          summary: "Un test politico che ti spiega ogni domanda prima di porla, calcolando quanto sei vicino a ciascun partito italiano e internazionale su 68 temi reali e documentati, pensato per il periodo a ridosso delle elezioni italiane del 2027, quando molti partiti non hanno ancora preso posizione pubblica su tutti i temi.",
+          summary: "Un test politico che ti spiega ogni domanda prima di porla, calcolando quanto sei vicino a ciascun partito italiano e internazionale su 68 temi reali e documentati.",
           techStack: "Next.js 16, React 19, Tailwind CSS v4, shadcn/ui, GSAP",
           details: "Polify ti guida attraverso 68 temi politici documentati, confrontando ogni risposta con oltre 239 posizioni di partito verificate per calcolare la tua affinità, a livello nazionale e, per la prima volta, anche in altre 10 nazioni. Costruito in vista delle elezioni politiche italiane del 2027, il test è trasparente sui propri limiti: i partiti più piccoli o di nuova formazione (es. ORA!, Potere al Popolo) hanno ancora posizioni documentate su meno della metà dei 68 temi, e questa copertura è mostrata nella pagina di ogni partito invece di essere nascosta dietro una media.",
           highlights: [
@@ -465,13 +465,13 @@ const resources = {
         },
         uni: {
           title: "Universitätsprojekte",
-          summary: "26 akademische Repositories aus dem Bachelorstudium, mit Arbeiten aus dem Gesundheits- und Biomedizinbereich (Drug Design, Bioinformatik, Hirntumor-Klassifikation, Olivenöl-Qualität), Zeitreihenprognosen, Bayes-Statistik, Blockchain, Drohnen-/Robotersteuerung, Reinforcement Learning und mehr.",
+          summary: "26 akademische Repositories aus dem Bachelorstudium, mit Arbeiten aus dem Gesundheits- und Biomedizinbereich, Zeitreihenprognosen, Bayes-Statistik, Blockchain, Robotik und Reinforcement Learning.",
           techStack: "Python (Jupyter Notebook), R",
           details: "26 Repositories aus Kursarbeiten des Studiums, die ein breites Themenspektrum abdecken: Gesundheits- und Biomedizindaten (Drug Design, Bioinformatik, Hirntumor-Klassifikation aus MRT-Bildern, Qualität von Olivenöl und Lebensmittelverbindungen), Zeitreihenprognosen, Bayes-Statistik und -Optimierung, Blockchain, Robotik und Drohnensteuerung, Reinforcement Learning, Anomalieerkennung mit Autoencodern sowie Sport-/Finanzanalysen (NBA-Wurfdaten, Kreditrisiko). Meist als Jupyter-Notebooks und R-Markdown geschrieben, manche allein, andere zu zweit oder in kleinen Gruppen, je nach Kurs. Alle einsehbar auf GitHub."
         },
         adosDashboard: {
           title: "ADOS Clinical Dashboard (Bachelorarbeit)",
-          summary: "Das finale Ergebnis meiner Bachelorarbeit zur Autismus-Screening-Forschung: ein offline-fähiges klinisches Dashboard, mit dem Psycholog:innen eine ADOS-2-Sitzung eines Kleinkinds (Video, IMU-Spielzeugsensoren und Verhaltensannotationen) auf einer synchronisierten Zeitleiste überprüfen können.",
+          summary: "Das finale Ergebnis meiner Bachelorarbeit zur Autismus-Screening-Forschung: ein offline-fähiges klinisches Dashboard zur Überprüfung einer ADOS-2-Sitzung eines Kleinkinds auf einer synchronisierten Zeitleiste.",
           techStack: "Python, Dash/Plotly, Flask, Pandas, scikit-learn, Quill.js",
           details: "Dieses Dashboard läuft vollständig lokal, ganz ohne ausgehende Netzwerkaufrufe: Es ist die präsentationsseitige Schicht einer deutlich größeren Thesis-Pipeline, ausgelegt für nach DSGVO Art. 9 sensible Gesundheitsdaten von Minderjährigen. Die IMU-Signalverarbeitung, das Feature Engineering, das rein sensorbasierte ADOS-Risikomodell (Autism Diagnostic Observation Schedule; ein für die Data-Science-Analyse der Arbeit trainierter RandomForest, out-of-fold evaluiert) und die statistische Analyse hinter jeder gezeigten Zahl laufen alle vorgelagert auf derselben Maschine. Kliniknotizen werden von einem lokalen, extraktiven Textmodell zusammengefasst, das Sätze wörtlich übernimmt, nie von einem Cloud-LLM, gewählt, nachdem generative Zusammenfassungen nachweislich klinische Aussagen erfunden hatten. Die Bachelorarbeit selbst wurde bereits abgeschlossen und eingereicht; das Dashboard selbst wird noch weiter verfeinert.",
           highlights: [
@@ -520,7 +520,7 @@ const resources = {
         },
         pantrypilot: {
           title: "PantryPilot",
-          summary: "Eine KI-gestützte App für Studierende und alle, die allein leben (und kochen) und Diät, Einkauf und Vorrat ohne den mentalen Aufwand im Griff behalten wollen, und vereint dabei Diät-Tracking, Einkaufsplanung und Vorratsverwaltung in einer minimalistischen Flutter-Erfahrung.",
+          summary: "Eine KI-gestützte App für alle, die allein leben (und kochen), die Diät-Tracking, Einkaufsplanung und Vorratsverwaltung in einer minimalistischen Flutter-Erfahrung vereint.",
           techStack: "Flutter, Riverpod, Hive, Google Gemini 2.5 Flash, Node.js",
           details: "Entwickelt für alle, die ihre Ernährung allein organisieren, etwa Studierende oder junge Berufstätige, die allein leben, liest PantryPilot Diätpläne im Backend mit Google Gemini 2.5 Flash direkt von einem Foto oder PDF und verwandelt sie in eine bepreiste Einkaufsliste, ein aktuelles Vorratsinventar und Zero-Waste-Rezepte, alles in einem glasmorphen Dual-Tab-Analytics-Dashboard. Bevor ich sie veröffentliche, will ich sie selbst während der zwei Monate testen, in denen ich allein in Berlin lebe, und dabei auch eine Monetarisierungsstrategie ausarbeiten.",
           highlights: [
@@ -541,7 +541,7 @@ const resources = {
         },
         polify: {
           title: "Polify",
-          summary: "Ein politischer Matching-Test, der jede Frage vor der Beantwortung erklärt und deine Übereinstimmung mit italienischen und internationalen Parteien anhand von 68 realen, dokumentierten Themen berechnet, konzipiert für die Zeit vor der italienischen Wahl 2027, in der viele Parteien noch keine öffentliche Position zu allen Themen bezogen haben.",
+          summary: "Ein politischer Matching-Test, der jede Frage vor der Beantwortung erklärt und deine Übereinstimmung mit italienischen und internationalen Parteien anhand von 68 realen, dokumentierten Themen berechnet.",
           techStack: "Next.js 16, React 19, Tailwind CSS v4, shadcn/ui, GSAP",
           details: "Polify führt dich durch 68 dokumentierte politische Themen und vergleicht jede Antwort mit über 239 geprüften Parteipositionen, um deine Übereinstimmung zu berechnen, national und erstmals auch in 10 weiteren Ländern. Entstanden im Vorfeld der italienischen Parlamentswahl 2027, ist der Test transparent über seine eigenen Lücken: kleinere oder neuere Parteien (z. B. ORA!, Potere al Popolo) haben bisher zu weniger als der Hälfte der 68 Themen dokumentierte Positionen, diese Abdeckung wird auf der Seite jeder Partei angezeigt, statt hinter einem Durchschnitt versteckt zu werden.",
           highlights: [
