@@ -73,7 +73,7 @@ const resources = {
         },
         adosDashboard: {
           title: "ADOS Clinical Dashboard (Thesis)",
-          summary: "The final deliverable of my Bachelor's thesis on autism-screening research: an offline clinical dashboard letting psychologists review a toddler's ADOS-2 session (video, IMU toy sensors and behavioral annotations) on one synchronized timeline.",
+          summary: "The final deliverable of my Bachelor's thesis on autism-screening research: an offline clinical dashboard letting psychologists review a toddler's ADOS-2 (Autism Diagnostic Observation Schedule) session (video, IMU toy sensors and behavioral annotations) on one synchronized timeline.",
           techStack: "Python, Dash/Plotly, Flask, Pandas, scikit-learn, Quill.js",
           details: "This dashboard runs entirely locally, with no outbound network calls: it's the presentation-facing layer of a much larger thesis pipeline built for GDPR Art. 9-sensitive health data of minors. The IMU signal processing, feature engineering, the sensor-only ADOS risk model (a RandomForest trained for the thesis's data-science analysis, evaluated out-of-fold) and the statistical analysis behind every number shown here all run upstream on the same machine. Clinician notes are summarized by a local, extractive text model that lifts sentences verbatim, never a cloud LLM, chosen after generative summaries were found to fabricate clinical claims. The thesis itself has already been completed and delivered; this dashboard is the part still being refined and polished.",
           highlights: [
@@ -94,7 +94,8 @@ const resources = {
             label_timeline_imu: "Synchronized Label Timeline: multi-clinician notes and raw IMU signal plot",
             toy_leaderboard: "Toy Leaderboard: the most-used toys, ranked",
             toy_entropy: "Toy Entropy: action diversity and intentionality per toy"
-          }
+          },
+          reference: "Related research: \"AutoPlay: a smart toys-kit for an objective analysis of children ludic behavior and development\" (Faraci et al., IEEE MeMeA 2018), the sensor-based, play-driven approach to early autism spectrum disorder screening this thesis builds on."
         },
         driving: {
           title: "Enjoy the Night",
@@ -271,7 +272,7 @@ const resources = {
         },
         adosDashboard: {
           title: "ADOS Clinical Dashboard (Tesi)",
-          summary: "L'output finale della mia tesi di Bachelor sulla ricerca nello screening dell'autismo: una dashboard clinica offline che permette a psicologi di rivedere una sessione ADOS-2 di un bambino (video, sensori IMU sui giochi e annotazioni comportamentali) su un'unica timeline sincronizzata.",
+          summary: "L'output finale della mia tesi di Bachelor sulla ricerca nello screening dell'autismo: una dashboard clinica offline che permette a psicologi di rivedere una sessione ADOS-2 (Autism Diagnostic Observation Schedule) di un bambino (video, sensori IMU sui giochi e annotazioni comportamentali) su un'unica timeline sincronizzata.",
           techStack: "Python, Dash/Plotly, Flask, Pandas, scikit-learn, Quill.js",
           details: "Questa dashboard gira interamente in locale, senza alcuna chiamata di rete in uscita: è lo strato presentativo di una pipeline di tesi molto più ampia, pensata per dati sanitari di minori sensibili ai sensi del GDPR Art. 9. L'elaborazione del segnale IMU, il feature engineering, il modello di rischio ADOS basato solo sui sensori (una RandomForest addestrata per l'analisi di data science della tesi, valutata out-of-fold) e l'analisi statistica dietro ogni numero mostrato girano tutti a monte, sulla stessa macchina. Le note dei clinici vengono riassunte da un modello di testo locale ed estrattivo, che riprende le frasi testualmente, mai da un LLM in cloud, scelto dopo che i riassunti generativi si erano dimostrati capaci di inventare affermazioni cliniche. La tesi è già stata completata e consegnata; la dashboard in sé è invece ancora in fase di rifinitura.",
           highlights: [
@@ -292,7 +293,8 @@ const resources = {
             label_timeline_imu: "Timeline delle Etichette Sincronizzata: note di più clinici e grafico del segnale IMU grezzo",
             toy_leaderboard: "Classifica Giocattoli: i giocattoli più utilizzati, in classifica",
             toy_entropy: "Entropia dei Giocattoli: diversità delle azioni e intenzionalità per giocattolo"
-          }
+          },
+          reference: "Ricerca correlata: \"AutoPlay: a smart toys-kit for an objective analysis of children ludic behavior and development\" (Faraci et al., IEEE MeMeA 2018), l'approccio basato su sensori e gioco per lo screening precoce del disturbo dello spettro autistico da cui questa tesi prende spunto."
         },
         driving: {
           title: "Enjoy the Night",
@@ -469,7 +471,7 @@ const resources = {
         },
         adosDashboard: {
           title: "ADOS Clinical Dashboard (Bachelorarbeit)",
-          summary: "Das finale Ergebnis meiner Bachelorarbeit zur Autismus-Screening-Forschung: ein offline-fähiges klinisches Dashboard, mit dem Psycholog:innen eine ADOS-2-Sitzung eines Kleinkinds (Video, IMU-Spielzeugsensoren und Verhaltensannotationen) auf einer synchronisierten Zeitleiste überprüfen können.",
+          summary: "Das finale Ergebnis meiner Bachelorarbeit zur Autismus-Screening-Forschung: ein offline-fähiges klinisches Dashboard, mit dem Psycholog:innen eine ADOS-2-Sitzung (Autism Diagnostic Observation Schedule) eines Kleinkinds (Video, IMU-Spielzeugsensoren und Verhaltensannotationen) auf einer synchronisierten Zeitleiste überprüfen können.",
           techStack: "Python, Dash/Plotly, Flask, Pandas, scikit-learn, Quill.js",
           details: "Dieses Dashboard läuft vollständig lokal, ganz ohne ausgehende Netzwerkaufrufe: Es ist die präsentationsseitige Schicht einer deutlich größeren Thesis-Pipeline, ausgelegt für nach DSGVO Art. 9 sensible Gesundheitsdaten von Minderjährigen. Die IMU-Signalverarbeitung, das Feature Engineering, das rein sensorbasierte ADOS-Risikomodell (ein für die Data-Science-Analyse der Arbeit trainierter RandomForest, out-of-fold evaluiert) und die statistische Analyse hinter jeder gezeigten Zahl laufen alle vorgelagert auf derselben Maschine. Kliniknotizen werden von einem lokalen, extraktiven Textmodell zusammengefasst, das Sätze wörtlich übernimmt, nie von einem Cloud-LLM, gewählt, nachdem generative Zusammenfassungen nachweislich klinische Aussagen erfunden hatten. Die Bachelorarbeit selbst wurde bereits abgeschlossen und eingereicht; das Dashboard selbst wird noch weiter verfeinert.",
           highlights: [
@@ -490,7 +492,8 @@ const resources = {
             label_timeline_imu: "Synchronisierte Label-Zeitleiste: Notizen mehrerer Kliniker und roher IMU-Signalplot",
             toy_leaderboard: "Spielzeug-Rangliste: die meistgenutzten Spielzeuge im Ranking",
             toy_entropy: "Spielzeug-Entropie: Aktionsvielfalt und Intentionalität pro Spielzeug"
-          }
+          },
+          reference: "Verwandte Forschung: \"AutoPlay: a smart toys-kit for an objective analysis of children ludic behavior and development\" (Faraci et al., IEEE MeMeA 2018), der sensorbasierte, spielgetriebene Ansatz zur frühen Erkennung von Autismus-Spektrum-Störungen, auf dem diese Arbeit aufbaut."
         },
         driving: {
           title: "Enjoy the Night",

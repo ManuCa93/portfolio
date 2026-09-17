@@ -249,7 +249,7 @@ const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
   );
 };
 
-const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, gallery, hasHighlights, galleryOrientation, phase, onToggle, onDetailsCollapsed }) => {
+const ProjectCard = ({ id, link, referenceUrl, badgeKey, badgeClass, iconType, iconContent, gallery, hasHighlights, galleryOrientation, phase, onToggle, onDetailsCollapsed }) => {
   const { t } = useTranslation();
   const [detailsHeight, setDetailsHeight] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState(null);
@@ -326,6 +326,11 @@ const ProjectCard = ({ id, link, badgeKey, badgeClass, iconType, iconContent, ga
           <div className="link-details">
             <div className="tech-stack"><strong>Tech Stack:</strong> {t(`projects.${id}.techStack`)}</div>
             <p>{t(`projects.${id}.details`)}</p>
+            {referenceUrl && (
+              <p className="project-reference">
+                <a href={referenceUrl} target="_blank" rel="noreferrer">{t(`projects.${id}.reference`)}</a>
+              </p>
+            )}
             {Array.isArray(highlights) && (
               <ul className="project-highlights">
                 {highlights.map((item, i) => {
@@ -538,7 +543,7 @@ const ProjectGrid = ({ className, projects }) => {
 };
 
 const dataAiProjects = [
-  { id: 'adosDashboard', link: null, badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'svg', gallery: adosGallery, hasHighlights: true, iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6" /></svg> },
+  { id: 'adosDashboard', link: null, referenceUrl: 'https://ieeexplore.ieee.org/document/8438636', badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'svg', gallery: adosGallery, hasHighlights: true, iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6" /></svg> },
   { id: 'motogp', link: 'https://motogp-analytics.onrender.com/', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'img', iconContent: motogpHelmet, gallery: motogpGallery, hasHighlights: true },
   { id: 'uni', link: 'https://github.com/ManuCa93?tab=repositories', badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'svg', iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" /></svg> },
   { id: 'football', link: 'https://github.com/ManuCa93/top-5-football-leagues-predictions', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', hasHighlights: true, iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 12l2 3h4M12 12l-2 3H6M12 12V7.5M7 4.5l2 3M17 4.5l-2 3M19.5 16l-3.5-1M4.5 16l3.5-1" /></svg> },
