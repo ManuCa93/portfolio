@@ -332,13 +332,6 @@ body {
     overflow: hidden;
   }
 
-  .link-desc {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
   .link-details {
     padding: 0 1.75rem 1.75rem 5.25rem;
     font-size: 0.95rem;
