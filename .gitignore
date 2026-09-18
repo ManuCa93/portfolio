@@ -22,3 +22,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Working files: screenshot deliveries & source packages
+# (unzip, move the images into src/assets/projects/<project>/, then delete the archive)
+*.zip
+_archive/
+
+# Raw screenshots dropped in the repo root before being sorted into src/assets/
+/Immagine*.jpg
+/Immagine*.png
+/*_screen.jpg
+/*_screen.png
