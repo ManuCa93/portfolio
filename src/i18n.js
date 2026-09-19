@@ -8,7 +8,39 @@ const resources = {
       profile: {
         title: "Manuel Cattoni",
         location: "Varese / Lugano",
-        subtitle: "Software Developer | Data & AI Enthusiast"
+        year: "Class of 2004",
+        subtitle: "Student & Software Developer | Data & AI Enthusiast"
+      },
+      hobbies: {
+        eyebrow: "Off the clock",
+        title: "Hobbies & passions",
+        intro: "What I spend my time on when I'm not writing code.",
+        items: {
+          football: {
+            title: "Football",
+            note: "Milan supporter. I collect shirts."
+          },
+          motogp: {
+            title: "MotoGP",
+            note: "MotoGP, Moto2 and Moto3, every session. Marquez fan."
+          },
+          f1: {
+            title: "Formula 1",
+            note: "Sundays are for the race. Lando Norris."
+          },
+          fitness: {
+            title: "Gym & running",
+            note: "Lifting during the week, running to clear my head."
+          },
+          finance: {
+            title: "Finance",
+            note: "Markets, investing and the data behind them."
+          },
+          tech: {
+            title: "Technology",
+            note: "New phone launches, hardware and whatever the industry ships next."
+          }
+        }
       },
       sections: {
         data_ai: "Data & AI Projects",
@@ -24,7 +56,7 @@ const resources = {
       projects: {
         motogp: {
           title: "MotoGP Position Estimator",
-          summary: "Machine learning models featuring race pace estimation and qualifying simulation.",
+          summary: "A virtual pit wall for MotoGP: live lap-time and position calls, race pace and tyre strategy, read off roughly 73,000 real laps.",
           techStack: "Python, Flask, scikit-learn, XGBoost, Pandas, SQLite | Render",
           details: "A machine learning suite acting as a \"Virtual Pit Wall\": it predicts live lap times, grid positions, race pace and tyre strategy for MotoGP, built on a SQLite pipeline ingesting real PDF timing sheets (2024-2026 seasons, 34 riders, 23 circuits, ~73k laps).",
           highlights: [
@@ -61,15 +93,35 @@ const resources = {
         },
         f1: {
           title: "F1 Predictions 2024",
-          summary: "Evaluation of machine learning predictions on the 2024 Formula 1 season.",
+          summary: "Neural networks put up against the 2024 Formula 1 season: who finishes where on a given Sunday, and what the championship table looks like by the end.",
           techStack: "Python, TensorFlow/Keras, Jupyter",
-          details: "Analyzes historical performance data to forecast race outcomes for the 2024 season. It compares different modeling approaches to predict driver standings and race-by-race finishing positions."
+          details: "Trained on historical performance data, the models call the 2024 season race by race: each driver's finishing position on a given Sunday, and the championship standings that fall out of those results. Several modelling approaches are lined up side by side to see which one reads a race weekend best."
         },
         uni: {
           title: "University Projects",
-          summary: "26 academic repositories from my Bachelor's, spanning healthcare and biomedical ML, time series forecasting, Bayesian statistics, blockchain, robotics and reinforcement learning.",
+          summary: "**26 academic repositories** from my Bachelor's, spanning healthcare and biomedical ML, time series forecasting, Bayesian statistics, blockchain, robotics and reinforcement learning.",
           techStack: "Python (Jupyter Notebook), R",
-          details: "26 repositories from coursework across the degree, covering a wide range of topics: healthcare and biomedical data (drug design, bioinformatics, brain tumor classification from MRI, olive oil and food-compound quality), time series forecasting, Bayesian statistics and optimization, blockchain, robotics and drone control, reinforcement learning, anomaly detection with autoencoders, and sports/finance analytics (NBA shot data, credit risk). Written mostly as Jupyter notebooks and R Markdown, some solved individually and others in pairs or small groups depending on the course. Browse them all on GitHub."
+          details: "**26 repositories** from coursework across the degree, covering a wide range of topics: healthcare and biomedical data (drug design, bioinformatics, brain tumor classification from MRI, olive oil and food-compound quality), time series forecasting, Bayesian statistics and optimization, blockchain, robotics and drone control, reinforcement learning, anomaly detection with autoencoders, and sports/finance analytics (NBA shot data, credit risk). Written mostly as Jupyter notebooks and R Markdown, some solved individually and others in pairs or small groups depending on the course. Browse them all on GitHub.",
+          gallery: {
+            unet_segmentation: "Tumour segmentation: U-Net validation predictions, with the scan, the ground-truth mask, the probability heatmap and the predicted mask",
+            mri_annotations: "Brain tumour MRI: annotated scans grouped by tumour category, with the labelled region boxed",
+            tumor_classification: "Brain tumour classification: predictions on 20 random test scans, each against its true label",
+            molecules: "Drug design: sample CYP2C19 inhibitor structures, the molecules the classifier has to tell apart",
+            drone_pipeline: "Drone vision pipeline: the raw frame, the segmentation mask and the overlay with the detected centroid",
+            robot_arm: "Robotics: a real robot-arm run played back, 3D end-effector trajectory with height profile and position error",
+            drone_obstacle: "Drone navigation: the onboard camera view of an obstacle, the input to the avoidance logic",
+            ml_vs_map: "Estimation theory: maximum likelihood against maximum a posteriori under a Gaussian prior",
+            bayesian: "Bayesian statistics: hierarchical regression, posterior station intercepts with partial pooling, on Ticino temperature data",
+            ev_fleet: "Time series forecasting: hourly energy consumption and vehicle presence across an electric fleet",
+            drone_vision: "Drone vision: the red ball's centroid and area, detected frame by frame from the onboard camera",
+            drone_control: "Drone control: time-of-flight distance profile over a run, with the dodge, clear and stop thresholds",
+            intrusion: "Network traffic classification: row-normalised confusion matrix of the multi-class Random Forest across nine classes",
+            drug_design: "Drug design: best cross-validated AUROC per feature set (descriptors, Morgan fingerprints, combined) and per model",
+            nba_shots: "Sports analytics: NBA shot density map, with every attempt overlaid on the court",
+            credit_risk: "Credit risk fairness: outcome by gender, the bias the project set out to measure",
+            citations: "Research analytics: the 15 features most correlated with a paper's citation count",
+            revenue: "Business time series: revenue over time across eight cities"
+          }
         },
         adosDashboard: {
           title: "ADOS Clinical Dashboard (Thesis)",
@@ -198,7 +250,27 @@ const resources = {
         visit_project: "Visit Project",
         coming_soon: "Coming soon",
         lightbox_zoom_in: "Click image to zoom in",
-        lightbox_zoom_reset: "Click image to reset zoom"
+        lightbox_zoom_reset: "Click image to reset zoom",
+        details: "Details",
+        tech_stack: "Tech stack",
+        overview: "Overview",
+        highlights: "Highlights",
+        gallery: "Gallery",
+        other_projects: "Other projects",
+        projects_label: "projects",
+        projects_count_one: "{{count}} project",
+        projects_count_other: "{{count}} projects",
+        browse_by_category: "Browse by category",
+        contact_links: "Contact links",
+        skip_to_content: "Skip to content",
+        back_to_top: "Back to top",
+        menu: "Menu",
+        close: "Close",
+        previous_image: "Previous image",
+        next_image: "Next image",
+        lang_en: "Switch to English",
+        lang_it: "Passa all'italiano",
+        lang_de: "Zu Deutsch wechseln"
       }
     }
   },
@@ -207,7 +279,39 @@ const resources = {
       profile: {
         title: "Manuel Cattoni",
         location: "Varese / Lugano",
-        subtitle: "Sviluppatore Software | Appassionato di Dati e IA"
+        year: "Classe 2004",
+        subtitle: "Studente e Sviluppatore Software | Appassionato di Dati e IA"
+      },
+      hobbies: {
+        eyebrow: "Fuori dal codice",
+        title: "Hobby e passioni",
+        intro: "Come passo il tempo quando non sto scrivendo codice.",
+        items: {
+          football: {
+            title: "Calcio",
+            note: "Tifoso del Milan. Colleziono maglie."
+          },
+          motogp: {
+            title: "MotoGP",
+            note: "MotoGP, Moto2 e Moto3, ogni sessione. Tifo Marquez."
+          },
+          f1: {
+            title: "Formula 1",
+            note: "La domenica è della gara. Lando Norris."
+          },
+          fitness: {
+            title: "Palestra e corsa",
+            note: "Pesi durante la settimana, corsa per staccare la testa."
+          },
+          finance: {
+            title: "Finanza",
+            note: "Mercati, investimenti e i dati che ci stanno dietro."
+          },
+          tech: {
+            title: "Tecnologia",
+            note: "Uscite di nuovi telefoni, hardware e le novità che escono nel settore."
+          }
+        }
       },
       sections: {
         data_ai: "Progetti Dati e IA",
@@ -223,7 +327,7 @@ const resources = {
       projects: {
         motogp: {
           title: "MotoGP Position Estimator",
-          summary: "Modelli di machine learning per la stima del passo gara e simulazione delle qualifiche.",
+          summary: "Un box radio virtuale per la MotoGP: tempi sul giro e posizioni in tempo reale, passo gara e strategia gomme, letti da circa 73.000 giri veri.",
           techStack: "Python, Flask, scikit-learn, XGBoost, Pandas, SQLite | Render",
           details: "Una suite di machine learning che funge da \"box radio virtuale\": prevede tempi sul giro, posizioni in griglia, passo gara e strategia gomme in MotoGP, basata su una pipeline SQLite che elabora fogli tempi PDF reali (stagioni 2024-2026, 34 piloti, 23 circuiti, ~73mila giri).",
           highlights: [
@@ -260,15 +364,35 @@ const resources = {
         },
         f1: {
           title: "F1 Predictions 2024",
-          summary: "Valutazione delle previsioni di machine learning sulla stagione 2024 di Formula 1.",
+          summary: "Reti neurali contro la stagione 2024 di Formula 1: chi arriva dove in una data domenica, e che faccia ha la classifica alla fine.",
           techStack: "Python, TensorFlow/Keras, Jupyter",
-          details: "Analizza i dati storici delle prestazioni per prevedere i risultati delle gare della stagione 2024. Confronta diversi approcci di modellazione per prevedere le classifiche dei piloti e le posizioni di arrivo gara per gara."
+          details: "Addestrati sui dati storici delle prestazioni, i modelli chiamano la stagione 2024 gara per gara: la posizione d'arrivo di ogni pilota in una data domenica e la classifica piloti che ne viene fuori. Diversi approcci di modellazione vengono messi uno accanto all'altro per vedere quale legge meglio un weekend di gara."
         },
         uni: {
           title: "Progetti Universitari",
-          summary: "26 repository accademici della triennale, con lavori di ambito sanitario e biomedico, previsione di serie storiche, statistica bayesiana, blockchain, robotica e reinforcement learning.",
+          summary: "**26 repository accademici** della triennale, con lavori di ambito sanitario e biomedico, previsione di serie storiche, statistica bayesiana, blockchain, robotica e reinforcement learning.",
           techStack: "Python (Jupyter Notebook), R",
-          details: "26 repository nati dagli esami del corso di laurea, che coprono un ampio ventaglio di temi: dati sanitari e biomedici (drug design, bioinformatica, classificazione di tumori cerebrali da risonanza, qualità dell'olio d'oliva e dei composti alimentari), previsione di serie storiche, statistica bayesiana e ottimizzazione, blockchain, robotica e controllo di droni, reinforcement learning, anomaly detection con autoencoder, e analisi sportive/finanziarie (dati sui tiri NBA, rischio di credito). Scritti perlopiù in notebook Jupyter e R Markdown, alcuni svolti da solo e altri in coppia o piccoli gruppi a seconda del corso. Si possono sfogliare tutti su GitHub."
+          details: "**26 repository** nati dagli esami del corso di laurea, che coprono un ampio ventaglio di temi: dati sanitari e biomedici (drug design, bioinformatica, classificazione di tumori cerebrali da risonanza, qualità dell'olio d'oliva e dei composti alimentari), previsione di serie storiche, statistica bayesiana e ottimizzazione, blockchain, robotica e controllo di droni, reinforcement learning, anomaly detection con autoencoder, e analisi sportive/finanziarie (dati sui tiri NBA, rischio di credito). Scritti perlopiù in notebook Jupyter e R Markdown, alcuni svolti da solo e altri in coppia o piccoli gruppi a seconda del corso. Si possono sfogliare tutti su GitHub.",
+          gallery: {
+            unet_segmentation: "Segmentazione del tumore: predizioni U-Net sul validation set, con scansione, maschera reale, heatmap di probabilità e maschera predetta",
+            mri_annotations: "MRI di tumori cerebrali: scansioni annotate raggruppate per categoria di tumore, con la regione etichettata evidenziata",
+            tumor_classification: "Classificazione di tumori cerebrali: predizioni su 20 scansioni di test casuali, ciascuna a confronto con l'etichetta reale",
+            molecules: "Drug design: strutture di alcuni inibitori del CYP2C19, le molecole che il classificatore deve distinguere",
+            drone_pipeline: "Pipeline di visione del drone: fotogramma grezzo, maschera di segmentazione e overlay con il centroide rilevato",
+            robot_arm: "Robotica: replay di una corsa reale del braccio robotico, traiettoria 3D dell'end-effector con profilo di altezza ed errore di posizione",
+            drone_obstacle: "Navigazione del drone: la vista della camera di bordo su un ostacolo, l'input della logica di evitamento",
+            ml_vs_map: "Teoria della stima: massima verosimiglianza contro massimo a posteriori con prior gaussiana",
+            bayesian: "Statistica bayesiana: regressione gerarchica, intercette a posteriori per stazione con partial pooling, su dati di temperatura del Ticino",
+            ev_fleet: "Previsione di serie storiche: consumo energetico orario e presenza dei veicoli di una flotta elettrica",
+            drone_vision: "Visione del drone: centroide e area della palla rossa, rilevati fotogramma per fotogramma dalla camera di bordo",
+            drone_control: "Controllo del drone: profilo di distanza time-of-flight durante una corsa, con le soglie di scarto, via libera e stop",
+            intrusion: "Classificazione del traffico di rete: matrice di confusione normalizzata per riga del Random Forest multi-classe su nove classi",
+            drug_design: "Drug design: miglior AUROC in cross-validation per set di feature (descrittori, fingerprint di Morgan, combinati) e per modello",
+            nba_shots: "Sports analytics: mappa di densità dei tiri NBA, con ogni tentativo sovrapposto al campo",
+            credit_risk: "Equità nel credit risk: esito per genere, il bias che il progetto voleva misurare",
+            citations: "Analisi della ricerca: le 15 feature più correlate al numero di citazioni di un paper",
+            revenue: "Serie storiche di business: ricavi nel tempo su otto città"
+          }
         },
         adosDashboard: {
           title: "ADOS Clinical Dashboard (Tesi)",
@@ -397,7 +521,27 @@ const resources = {
         visit_project: "Visita il Progetto",
         coming_soon: "Presto online",
         lightbox_zoom_in: "Clicca sull'immagine per ingrandire",
-        lightbox_zoom_reset: "Clicca sull'immagine per azzerare lo zoom"
+        lightbox_zoom_reset: "Clicca sull'immagine per azzerare lo zoom",
+        details: "Dettagli",
+        tech_stack: "Tech stack",
+        overview: "Panoramica",
+        highlights: "In evidenza",
+        gallery: "Galleria",
+        other_projects: "Altri progetti",
+        projects_label: "progetti",
+        projects_count_one: "{{count}} progetto",
+        projects_count_other: "{{count}} progetti",
+        browse_by_category: "Naviga per categoria",
+        contact_links: "Link di contatto",
+        skip_to_content: "Vai al contenuto",
+        back_to_top: "Torna su",
+        menu: "Menu",
+        close: "Chiudi",
+        previous_image: "Immagine precedente",
+        next_image: "Immagine successiva",
+        lang_en: "Switch to English",
+        lang_it: "Passa all'italiano",
+        lang_de: "Zu Deutsch wechseln"
       }
     }
   },
@@ -406,7 +550,39 @@ const resources = {
       profile: {
         title: "Manuel Cattoni",
         location: "Varese / Lugano",
-        subtitle: "Softwareentwickler | Daten- & KI-Enthusiast"
+        year: "Jahrgang 2004",
+        subtitle: "Student & Softwareentwickler | Daten- & KI-Enthusiast"
+      },
+      hobbies: {
+        eyebrow: "Abseits vom Code",
+        title: "Hobbys & Leidenschaften",
+        intro: "Womit ich meine Zeit verbringe, wenn ich nicht programmiere.",
+        items: {
+          football: {
+            title: "Fußball",
+            note: "Milan-Fan. Ich sammle Trikots."
+          },
+          motogp: {
+            title: "MotoGP",
+            note: "MotoGP, Moto2 und Moto3, jede Session. Marquez-Fan."
+          },
+          f1: {
+            title: "Formel 1",
+            note: "Sonntags läuft das Rennen. Lando Norris."
+          },
+          fitness: {
+            title: "Gym & Laufen",
+            note: "Unter der Woche Gewichte, Laufen zum Abschalten."
+          },
+          finance: {
+            title: "Finanzen",
+            note: "Märkte, Investieren und die Daten dahinter."
+          },
+          tech: {
+            title: "Technologie",
+            note: "Neue Smartphones, Hardware und was die Branche sonst so bringt."
+          }
+        }
       },
       sections: {
         data_ai: "Daten- & KI-Projekte",
@@ -422,7 +598,7 @@ const resources = {
       projects: {
         motogp: {
           title: "MotoGP Position Estimator",
-          summary: "Machine-Learning-Modelle für Rennpace-Schätzung und Qualifying-Simulation.",
+          summary: "Eine virtuelle Boxenmauer für die MotoGP: Rundenzeiten und Positionen live, Rennpace und Reifenstrategie, aus rund 73.000 echten Runden gelesen.",
           techStack: "Python, Flask, scikit-learn, XGBoost, Pandas, SQLite | Render",
           details: "Eine Machine-Learning-Suite als \"virtuelle Boxenwand\": sie sagt Rundenzeiten, Startpositionen, Rennpace und Reifenstrategie für MotoGP voraus, basierend auf einer SQLite-Pipeline, die echte PDF-Zeitmessblätter verarbeitet (Saisons 2024-2026, 34 Fahrer, 23 Strecken, ~73.000 Runden).",
           highlights: [
@@ -459,15 +635,35 @@ const resources = {
         },
         f1: {
           title: "F1 Predictions 2024",
-          summary: "Evaluierung von Machine-Learning-Vorhersagen für die Formel-1-Saison 2024.",
+          summary: "Neuronale Netze gegen die Formel-1-Saison 2024: wer an einem bestimmten Sonntag wo landet, und wie die Tabelle am Ende aussieht.",
           techStack: "Python, TensorFlow/Keras, Jupyter",
-          details: "Analysiert historische Leistungsdaten, um Rennergebnisse für die Saison 2024 vorherzusagen. Es vergleicht verschiedene Modellierungsansätze, um die Fahrerwertung und die Rennplatzierungen Rennen für Rennen vorherzusagen."
+          details: "Auf historischen Leistungsdaten trainiert, rufen die Modelle die Saison 2024 Rennen für Rennen aus: die Zielposition jedes Fahrers an einem bestimmten Sonntag und die Fahrerwertung, die sich daraus ergibt. Mehrere Modellierungsansätze stehen nebeneinander, um zu sehen, welcher ein Rennwochenende am besten liest."
         },
         uni: {
           title: "Universitätsprojekte",
-          summary: "26 akademische Repositories aus dem Bachelorstudium, mit Arbeiten aus dem Gesundheits- und Biomedizinbereich, Zeitreihenprognosen, Bayes-Statistik, Blockchain, Robotik und Reinforcement Learning.",
+          summary: "**26 akademische Repositories** aus dem Bachelorstudium, mit Arbeiten aus dem Gesundheits- und Biomedizinbereich, Zeitreihenprognosen, Bayes-Statistik, Blockchain, Robotik und Reinforcement Learning.",
           techStack: "Python (Jupyter Notebook), R",
-          details: "26 Repositories aus Kursarbeiten des Studiums, die ein breites Themenspektrum abdecken: Gesundheits- und Biomedizindaten (Drug Design, Bioinformatik, Hirntumor-Klassifikation aus MRT-Bildern, Qualität von Olivenöl und Lebensmittelverbindungen), Zeitreihenprognosen, Bayes-Statistik und -Optimierung, Blockchain, Robotik und Drohnensteuerung, Reinforcement Learning, Anomalieerkennung mit Autoencodern sowie Sport-/Finanzanalysen (NBA-Wurfdaten, Kreditrisiko). Meist als Jupyter-Notebooks und R-Markdown geschrieben, manche allein, andere zu zweit oder in kleinen Gruppen, je nach Kurs. Alle einsehbar auf GitHub."
+          details: "**26 Repositories** aus Kursarbeiten des Studiums, die ein breites Themenspektrum abdecken: Gesundheits- und Biomedizindaten (Drug Design, Bioinformatik, Hirntumor-Klassifikation aus MRT-Bildern, Qualität von Olivenöl und Lebensmittelverbindungen), Zeitreihenprognosen, Bayes-Statistik und -Optimierung, Blockchain, Robotik und Drohnensteuerung, Reinforcement Learning, Anomalieerkennung mit Autoencodern sowie Sport-/Finanzanalysen (NBA-Wurfdaten, Kreditrisiko). Meist als Jupyter-Notebooks und R-Markdown geschrieben, manche allein, andere zu zweit oder in kleinen Gruppen, je nach Kurs. Alle einsehbar auf GitHub.",
+          gallery: {
+            unet_segmentation: "Tumorsegmentierung: U-Net-Vorhersagen auf dem Validierungsset, mit Aufnahme, echter Maske, Wahrscheinlichkeits-Heatmap und vorhergesagter Maske",
+            mri_annotations: "MRT von Hirntumoren: annotierte Aufnahmen nach Tumorkategorie gruppiert, mit markierter Region",
+            tumor_classification: "Hirntumor-Klassifikation: Vorhersagen auf 20 zufälligen Test-Aufnahmen, jeweils gegen das echte Label",
+            molecules: "Drug Design: Strukturen einiger CYP2C19-Inhibitoren, die Molekule, die der Klassifikator unterscheiden muss",
+            drone_pipeline: "Drohnen-Bildverarbeitung: Rohbild, Segmentierungsmaske und Overlay mit erkanntem Schwerpunkt",
+            robot_arm: "Robotik: Wiedergabe eines echten Roboterarm-Laufs, 3D-Trajektorie des Endeffektors mit Hohenprofil und Positionsfehler",
+            drone_obstacle: "Drohnennavigation: Blick der Bordkamera auf ein Hindernis, die Eingabe fur die Ausweichlogik",
+            ml_vs_map: "Schatztheorie: Maximum Likelihood gegen Maximum a posteriori unter einer Gauss-Prior",
+            bayesian: "Bayessche Statistik: hierarchische Regression, A-posteriori-Achsenabschnitte je Station mit Partial Pooling, auf Temperaturdaten aus dem Tessin",
+            ev_fleet: "Zeitreihenprognose: stündlicher Energieverbrauch und Fahrzeugpräsenz einer Elektroflotte",
+            drone_vision: "Drohnen-Bildverarbeitung: Schwerpunkt und Fläche des roten Balls, Bild für Bild aus der Bordkamera erkannt",
+            drone_control: "Drohnensteuerung: Time-of-Flight-Distanzprofil über einen Lauf, mit den Schwellen für Ausweichen, Freigabe und Stopp",
+            intrusion: "Klassifikation von Netzwerkverkehr: zeilennormierte Konfusionsmatrix des Multiklassen-Random-Forest über neun Klassen",
+            drug_design: "Drug Design: bestes kreuzvalidiertes AUROC je Feature-Set (Deskriptoren, Morgan-Fingerprints, kombiniert) und je Modell",
+            nba_shots: "Sportanalyse: Dichtekarte der NBA-Würfe, mit jedem Versuch über dem Spielfeld",
+            credit_risk: "Fairness im Kreditrisiko: Ergebnis nach Geschlecht, der Bias, den das Projekt messen sollte",
+            citations: "Forschungsanalyse: die 15 Merkmale mit der stärksten Korrelation zur Zitationszahl eines Papers",
+            revenue: "Business-Zeitreihen: Umsatzverlauf über acht Städte"
+          }
         },
         adosDashboard: {
           title: "ADOS Clinical Dashboard (Bachelorarbeit)",
@@ -596,7 +792,27 @@ const resources = {
         visit_project: "Projekt besuchen",
         coming_soon: "Demnächst verfügbar",
         lightbox_zoom_in: "Bild anklicken zum Vergrößern",
-        lightbox_zoom_reset: "Bild anklicken, um Zoom zurückzusetzen"
+        lightbox_zoom_reset: "Bild anklicken, um Zoom zurückzusetzen",
+        details: "Details",
+        tech_stack: "Tech-Stack",
+        overview: "Überblick",
+        highlights: "Highlights",
+        gallery: "Galerie",
+        other_projects: "Weitere Projekte",
+        projects_label: "Projekte",
+        projects_count_one: "{{count}} Projekt",
+        projects_count_other: "{{count}} Projekte",
+        browse_by_category: "Nach Kategorie stöbern",
+        contact_links: "Kontakt-Links",
+        skip_to_content: "Zum Inhalt springen",
+        back_to_top: "Nach oben",
+        menu: "Menü",
+        close: "Schließen",
+        previous_image: "Vorheriges Bild",
+        next_image: "Nächstes Bild",
+        lang_en: "Switch to English",
+        lang_it: "Passa all'italiano",
+        lang_de: "Zu Deutsch wechseln"
       }
     }
   }

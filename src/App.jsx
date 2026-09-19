@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import iconIco from './assets/icons/icon.ico';
@@ -42,12 +42,233 @@ import enjoyHistory24h from './assets/projects/enjoythenight/06_history_chart_24
 import enjoyHistory3h from './assets/projects/enjoythenight/07_history_chart_3h_range.png';
 import enjoyDateRangePicker from './assets/projects/enjoythenight/08_custom_date_range_picker.png';
 import enjoySettings from './assets/projects/enjoythenight/09_settings_screen.png';
+import uniBayesian from './assets/projects/uni/01_bayesian_hierarchical_stations.png';
+import uniIntrusion from './assets/projects/uni/02_intrusion_confusion_matrix.png';
+import uniNbaShots from './assets/projects/uni/03_nba_shot_density_map.png';
+import uniDroneBall from './assets/projects/uni/04_drone_ball_detection.png';
+import uniDroneTof from './assets/projects/uni/05_drone_tof_distance_profile.png';
+import uniEvFleet from './assets/projects/uni/06_ev_fleet_energy_timeseries.png';
+import uniDrugDesign from './assets/projects/uni/07_drug_design_auroc.png';
+import uniCreditRisk from './assets/projects/uni/08_credit_risk_by_gender.png';
+import uniCitations from './assets/projects/uni/09_citation_feature_importance.png';
+import uniRevenue from './assets/projects/uni/10_revenue_by_city.png';
+import uniMolecules from './assets/projects/uni/11_drug_design_molecules.png';
+import uniDronePipeline from './assets/projects/uni/12_drone_vision_pipeline.png';
+import uniDroneObstacle from './assets/projects/uni/13_drone_obstacle_view.png';
+import uniRobotArm from './assets/projects/uni/14_robot_arm_trajectory.png';
+import uniMlMap from './assets/projects/uni/15_ml_vs_map_estimate.png';
+import uniMriAnnotations from './assets/projects/uni/16_mri_tumor_annotations.jpg';
+import uniUnetSeg from './assets/projects/uni/17_unet_segmentation.jpg';
+import uniTumorClass from './assets/projects/uni/18_tumor_classification.jpg';
 import alimentiHome from './assets/projects/alimenti/01_home_dashboard.png';
 import alimentiPantry from './assets/projects/alimenti/02_pantry_inventory.png';
 import alimentiShoppingList from './assets/projects/alimenti/03_shopping_list.png';
 import alimentiRecipes from './assets/projects/alimenti/04_recipes_cookbook.png';
 import alimentiDietCalendar from './assets/projects/alimenti/05_diet_calendar.png';
 
+/* ---------------------------------------------------------------------------
+   Icons
+   Single stroke weight, currentColor everywhere, so any icon inherits whatever
+   accent or ink colour its container sets.
+   --------------------------------------------------------------------------- */
+const Ico = ({ d, fill = 'none', children, ...rest }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill={fill}
+    stroke={fill === 'none' ? 'currentColor' : 'none'}
+    strokeWidth="1.7"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+    focusable="false"
+    {...rest}
+  >
+    {d ? <path d={d} /> : children}
+  </svg>
+);
+
+const IconPin = () => (
+  <Ico>
+    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
+    <circle cx="12" cy="10" r="3" />
+  </Ico>
+);
+const IconCake = () => (
+  <Ico>
+    <path d="M4 20h16M5 20v-6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v6" />
+    <path d="M12 12V9M9 12V9.5M15 12V9.5" />
+  </Ico>
+);
+const IconArrowRight = () => <Ico d="M5 12h14M13 6l6 6-6 6" />;
+const IconArrowUp = () => <Ico d="M12 19V5M6 11l6-6 6 6" />;
+const IconExternal = () => (
+  <Ico>
+    <path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" />
+    <path d="M14 4h6v6M20 4L10 14" />
+  </Ico>
+);
+const IconClose = () => <Ico d="M6 18L18 6M6 6l12 12" />;
+const IconMenu = () => <Ico d="M4 7h16M4 12h16M4 17h16" />;
+const IconChevronLeft = () => <Ico d="M15 19l-7-7 7-7" />;
+const IconChevronRight = () => <Ico d="M9 5l7 7-7 7" />;
+const IconClock = () => (
+  <Ico>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 7v5l3 2" />
+  </Ico>
+);
+const IconLinkedIn = () => (
+  <Ico fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+);
+const IconGitHub = () => (
+  <Ico fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.2 5 18.2 5.3 18.2 5.3c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z" />
+);
+const IconMail = () => (
+  <Ico>
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+    <path d="M22 6l-10 7L2 6" />
+  </Ico>
+);
+const IconDoc = () => (
+  <Ico>
+    <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5z" />
+    <path d="M14 3v5h5M9 13h6M9 17h4" />
+  </Ico>
+);
+const IconInstagram = () => (
+  <Ico>
+    <rect x="3" y="3" width="18" height="18" rx="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none" />
+  </Ico>
+);
+
+/* Flags for the language switcher: real vector artwork, not emoji, so they
+   stay sharp at any size and need no external files. Italy and Germany are
+   natively 3:2; the Union Jack is 1:2, so it fills the same 3:2 tile with
+   `slice` and loses a sliver of each side, keeping the switcher even. */
+const FlagIT = () => (
+  <svg className="lang-flag" viewBox="0 0 3 2" aria-hidden="true" focusable="false">
+    <rect width="3" height="2" fill="#f4f5f0" />
+    <rect width="1" height="2" fill="#009246" />
+    <rect x="2" width="1" height="2" fill="#ce2b37" />
+  </svg>
+);
+
+const FlagDE = () => (
+  <svg className="lang-flag" viewBox="0 0 3 2" aria-hidden="true" focusable="false">
+    <rect width="3" height="2" fill="#ffce00" />
+    <rect width="3" height="1.3333" fill="#dd0000" />
+    <rect width="3" height="0.6667" fill="#000000" />
+  </svg>
+);
+
+const FlagGB = () => (
+  <svg
+    className="lang-flag"
+    viewBox="0 0 60 30"
+    preserveAspectRatio="xMidYMid slice"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <clipPath id="flag-gb-diagonals">
+      <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z" />
+    </clipPath>
+    <rect width="60" height="30" fill="#012169" />
+    <path d="M0,0 L60,30 M60,0 L0,30" stroke="#ffffff" strokeWidth="6" />
+    <path
+      d="M0,0 L60,30 M60,0 L0,30"
+      clipPath="url(#flag-gb-diagonals)"
+      stroke="#c8102e"
+      strokeWidth="4"
+    />
+    <path d="M30,0 v30 M0,15 h60" stroke="#ffffff" strokeWidth="10" />
+    <path d="M30,0 v30 M0,15 h60" stroke="#c8102e" strokeWidth="6" />
+  </svg>
+);
+
+const LANGUAGES = [
+  { code: 'en', flag: <FlagGB /> },
+  { code: 'it', flag: <FlagIT /> },
+  { code: 'de', flag: <FlagDE /> }
+];
+
+/* Hobby icons */
+const IconBall = () => (
+  <Ico>
+    <circle cx="12" cy="12" r="9.2" />
+    <path d="M12 12l2.6 3.8h4.4M12 12L9.4 15.8H5M12 12V7.3M6.6 4.6l2.8 2.7M17.4 4.6l-2.8 2.7M21 15.6l-4.1-1.2M3 15.6l4.1-1.2" />
+  </Ico>
+);
+const IconHelmet = () => (
+  <Ico>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M3.4 14.6h9.1a4.6 4.6 0 0 0 4.6-4.6v-.7" />
+    <path d="M12.5 14.6V21" />
+  </Ico>
+);
+const IconFlag = () => (
+  <Ico>
+    <path d="M4 21V4M4 4.5s1.6-1.2 4.5-1.2S13 5.8 16 5.8s4-1.2 4-1.2v9.6s-1.1 1.2-4 1.2-4.6-2.5-7.5-2.5S4 14.1 4 14.1" />
+  </Ico>
+);
+const IconDumbbell = () => (
+  <Ico>
+    <path d="M3 9v6M6.5 6.5v11M17.5 6.5v11M21 9v6M6.5 12h11" />
+  </Ico>
+);
+const IconPhone = () => (
+  <Ico>
+    <rect x="6" y="2" width="12" height="20" rx="2.5" />
+    <path d="M10.5 5.5h3" />
+    <path d="M10 18.5h4" />
+  </Ico>
+);
+const IconTrend = () => (
+  <Ico>
+    <path d="M3 20h18M6 16l4-5 3.5 3L20 6" />
+    <path d="M20 10.5V6h-4.5" />
+  </Ico>
+);
+
+/* Project icons */
+const IconPulse = () => <Ico d="M3 12h4l2-7 4 14 2-7h6" />;
+const IconGraduation = () => (
+  <Ico>
+    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+    <path d="M6 12v5c3 3 9 3 12 0v-5" />
+  </Ico>
+);
+const IconCar = () => (
+  <Ico>
+    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+    <path d="M4 22v-7" />
+  </Ico>
+);
+const IconBank = () => (
+  <Ico>
+    <path d="M12 2L3 7v2h18V7L12 2z" />
+    <path d="M5 9v9M9 9v9M15 9v9M19 9v9M3 20h18" />
+  </Ico>
+);
+const IconTag = () => (
+  <Ico>
+    <path d="M20.6 12.6l-8 8a2 2 0 0 1-2.9 0l-6.3-6.3a2 2 0 0 1-.6-1.4V4.8A1.8 1.8 0 0 1 4.6 3h8.1c.5 0 1 .2 1.4.6l6.5 6.5a2 2 0 0 1 0 2.5z" />
+    <circle cx="8" cy="8" r="1.3" />
+  </Ico>
+);
+const IconGamepad = () => (
+  <Ico>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M10.3 9.3l4.4 2.7-4.4 2.7z" />
+  </Ico>
+);
+
+/* ---------------------------------------------------------------------------
+   Galleries — unchanged, they mirror what's on disk in src/assets/projects/
+   --------------------------------------------------------------------------- */
 const motogpGallery = [
   { src: motogpTimeAttack, captionKey: 'time_attack' },
   { src: motogpPreRacePace, captionKey: 'race_pace' },
@@ -73,9 +294,7 @@ const polifyGallery = [
   { src: polifyPartiti, captionKey: 'partiti' }
 ];
 
-const pomodoroGallery = [
-  { src: pomodoroMainDashboard, captionKey: 'main_dashboard' }
-];
+const pomodoroGallery = [{ src: pomodoroMainDashboard, captionKey: 'main_dashboard' }];
 
 const adosGallery = [
   { src: adosOverview, captionKey: 'overview' },
@@ -100,6 +319,29 @@ const enjoyGallery = [
   { src: enjoySettings, captionKey: 'settings' }
 ];
 
+/* Plots lifted straight out of the notebooks in the coursework repos, one per
+   subject, so the university work is shown rather than just listed. */
+const uniGallery = [
+  { src: uniUnetSeg, captionKey: 'unet_segmentation' },
+  { src: uniMolecules, captionKey: 'molecules' },
+  { src: uniMriAnnotations, captionKey: 'mri_annotations' },
+  { src: uniDronePipeline, captionKey: 'drone_pipeline' },
+  { src: uniTumorClass, captionKey: 'tumor_classification' },
+  { src: uniRobotArm, captionKey: 'robot_arm' },
+  { src: uniBayesian, captionKey: 'bayesian' },
+  { src: uniDroneObstacle, captionKey: 'drone_obstacle' },
+  { src: uniEvFleet, captionKey: 'ev_fleet' },
+  { src: uniMlMap, captionKey: 'ml_vs_map' },
+  { src: uniDroneBall, captionKey: 'drone_vision' },
+  { src: uniDroneTof, captionKey: 'drone_control' },
+  { src: uniIntrusion, captionKey: 'intrusion' },
+  { src: uniDrugDesign, captionKey: 'drug_design' },
+  { src: uniNbaShots, captionKey: 'nba_shots' },
+  { src: uniCreditRisk, captionKey: 'credit_risk' },
+  { src: uniCitations, captionKey: 'citations' },
+  { src: uniRevenue, captionKey: 'revenue' }
+];
+
 const alimentiGallery = [
   { src: alimentiHome, captionKey: 'home' },
   { src: alimentiPantry, captionKey: 'pantry' },
@@ -108,21 +350,258 @@ const alimentiGallery = [
   { src: alimentiDietCalendar, captionKey: 'diet_calendar' }
 ];
 
+/* ---------------------------------------------------------------------------
+   Project data
+   `gallery` present => the project gets its own card, covered by gallery[0].
+   `gallery` absent  => it falls into the category's single condensed card.
+   --------------------------------------------------------------------------- */
+const dataAiProjects = [
+  {
+    id: 'adosDashboard',
+    link: null,
+    referenceUrl: 'https://ieeexplore.ieee.org/document/8438636',
+    badgeKey: 'in_progress',
+    badgeClass: 'badge-in-progress',
+    icon: <IconPulse />,
+    gallery: adosGallery,
+    hasHighlights: true
+  },
+  {
+    id: 'motogp',
+    link: 'https://motogp-analytics.onrender.com/',
+    badgeKey: 'ended',
+    badgeClass: 'badge-ended',
+    iconImg: motogpHelmet,
+    iconZoom: 1.12,
+    gallery: motogpGallery,
+    hasHighlights: true
+  },
+  {
+    id: 'uni',
+    link: 'https://github.com/ManuCa93?tab=repositories',
+    badgeKey: 'in_progress',
+    badgeClass: 'badge-in-progress',
+    icon: <IconGraduation />,
+    gallery: uniGallery,
+    // one card, but it stands for 26 separate coursework repositories
+    countsAs: 26
+  },
+  {
+    id: 'football',
+    link: 'https://github.com/ManuCa93/top-5-football-leagues-predictions',
+    badgeKey: 'ended',
+    badgeClass: 'badge-ended',
+    icon: <IconBall />,
+    hasHighlights: true
+  },
+  {
+    id: 'f1',
+    link: 'https://github.com/ManuCa93/F1_pred_2024',
+    badgeKey: 'ended',
+    badgeClass: 'badge-ended',
+    icon: <IconCar />
+  }
+];
+
+const mobileProjects = [
+  {
+    id: 'pantrypilot',
+    link: null,
+    badgeKey: 'in_progress',
+    badgeClass: 'badge-in-progress',
+    iconImg: logoImg,
+    iconZoom: 1.45,
+    gallery: alimentiGallery,
+    hasHighlights: true,
+    galleryOrientation: 'vertical'
+  },
+  {
+    id: 'driving',
+    link: 'https://github.com/ManuCa93/when_can_I_drive_app',
+    badgeKey: 'to_publish',
+    badgeClass: 'badge-to-publish',
+    iconImg: enjoyLogo,
+    iconZoom: 2.1,
+    gallery: enjoyGallery,
+    hasHighlights: true,
+    galleryOrientation: 'vertical'
+  }
+];
+
+const webProjects = [
+  {
+    id: 'polify',
+    link: null,
+    badgeKey: 'in_progress',
+    badgeClass: 'badge-in-progress',
+    icon: <IconBank />,
+    gallery: polifyGallery,
+    hasHighlights: true
+  },
+  {
+    id: 'pomodoro',
+    link: 'https://manuca93.github.io/pomodoroTimer/',
+    badgeKey: 'ended',
+    badgeClass: 'badge-ended',
+    iconImg: iconIco,
+    iconZoom: 1.5,
+    gallery: pomodoroGallery,
+    hasHighlights: true
+  },
+  {
+    id: 'priceTracker',
+    link: 'https://github.com/ManuCa93/price-tracker',
+    badgeKey: 'ended',
+    badgeClass: 'badge-ended',
+    icon: <IconTag />
+  }
+];
+
+const gameProjects = [
+  {
+    id: 'brickbreakers',
+    link: 'https://github.com/ManuCa93/brickbrakers-F1',
+    badgeKey: 'ended',
+    badgeClass: 'badge-ended',
+    icon: <IconGamepad />
+  }
+];
+
+const countProjects = projects => projects.reduce((n, p) => n + (p.countsAs || 1), 0);
+
+const CATEGORIES = [
+  { id: 'data_ai', projects: dataAiProjects },
+  { id: 'mobile', projects: mobileProjects },
+  { id: 'websites', projects: webProjects },
+  { id: 'games', projects: gameProjects }
+];
+
+const HOBBIES = [
+  { id: 'football', icon: <IconBall /> },
+  { id: 'motogp', icon: <IconHelmet /> },
+  { id: 'f1', icon: <IconFlag /> },
+  { id: 'fitness', icon: <IconDumbbell /> },
+  { id: 'finance', icon: <IconTrend /> },
+  { id: 'tech', icon: <IconPhone /> }
+];
+
+const SOCIALS = [
+  { id: 'github', href: 'https://github.com/ManuCa93', label: 'GitHub', icon: <IconGitHub /> },
+  {
+    id: 'linkedin',
+    href: 'https://www.linkedin.com/in/manuel-cattoni-169631339/',
+    label: 'LinkedIn',
+    icon: <IconLinkedIn />
+  },
+  { id: 'email', href: 'mailto:manuel.cattoni93@gmail.com', label: 'Email', icon: <IconMail /> },
+  { id: 'cv', href: './Cattoni_Resume.pdf?v=2', label: 'CV', icon: <IconDoc /> },
+  { id: 'instagram', href: 'https://instagram.com/cattonii', label: 'Instagram', icon: <IconInstagram /> }
+];
+
+/* Locking scroll on <body> collapses the document height, because html's
+   `overflow-x: clip` stops body's overflow from propagating to the viewport,
+   so body becomes its own scroll container and the page's scrollTop gets
+   clamped. The page then reopened higher up than it was left. Locking the
+   real scrolling element instead keeps the position; scrollTo is a belt-and-
+   braces restore, and must be instant or `scroll-behavior: smooth` animates it. */
+const lockScroll = () => {
+  const root = document.documentElement;
+  const y = window.scrollY;
+  const prevOverflow = root.style.overflow;
+  const prevGutter = root.style.scrollbarGutter;
+  root.style.overflow = 'hidden';
+  root.style.scrollbarGutter = 'stable';
+  return () => {
+    root.style.overflow = prevOverflow;
+    root.style.scrollbarGutter = prevGutter;
+    window.scrollTo({ top: y, behavior: 'instant' });
+  };
+};
+
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Overlays animate in on mount, but unmounting is instant, so closing one just
+   made it vanish. This keeps it mounted for the length of its exit animation,
+   flagged with `closing` so CSS can play that animation, and only then hands
+   control back to the parent. With reduced motion it closes straight away. */
+const EXIT_MS = 320;
+
+const useAnimatedClose = onClose => {
+  const [closing, setClosing] = useState(false);
+  const timerRef = useRef(null);
+
+  useEffect(() => () => clearTimeout(timerRef.current), []);
+
+  const requestClose = useCallback(() => {
+    if (timerRef.current) return; // already on the way out
+    if (prefersReducedMotion()) {
+      onClose();
+      return;
+    }
+    setClosing(true);
+    timerRef.current = setTimeout(onClose, EXIT_MS);
+  }, [onClose]);
+
+  return [closing, requestClose];
+};
+
+/* Lets a translated string emphasise a fragment with **double asterisks**,
+   without pulling in a Markdown dependency for one phrase. */
+const RichText = ({ text }) => {
+  if (typeof text !== 'string' || !text.includes('**')) return text;
+  return text
+    .split(/\*\*(.+?)\*\*/g)
+    .map((part, i) => (i % 2 ? <strong key={i}>{part}</strong> : part));
+};
+
+/* Captions read "Label: rest of the sentence"; the label is emphasised. */
 const FormattedCaption = ({ text }) => {
-  const separatorIndex = text.indexOf(': ');
-  if (separatorIndex === -1) return text;
+  const i = typeof text === 'string' ? text.indexOf(': ') : -1;
+  if (i === -1) return text;
   return (
     <>
-      <strong>{text.slice(0, separatorIndex + 1)}</strong>
-      {text.slice(separatorIndex + 1)}
+      <strong>{text.slice(0, i + 1)}</strong>
+      {text.slice(i + 1)}
     </>
   );
 };
 
+/* ---------------------------------------------------------------------------
+   Scroll reveal — one observer for every [data-reveal] node on the page.
+   With reduced motion the nodes are simply marked revealed and nothing animates.
+   --------------------------------------------------------------------------- */
+const useScrollReveal = () => {
+  useEffect(() => {
+    const nodes = Array.from(document.querySelectorAll('[data-reveal]'));
+    if (prefersReducedMotion() || !('IntersectionObserver' in window)) {
+      nodes.forEach(n => n.classList.add('is-revealed'));
+      return;
+    }
+    const io = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-revealed');
+          io.unobserve(entry.target);
+        });
+      },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+    );
+    nodes.forEach(n => io.observe(n));
+    return () => io.disconnect();
+  }, []);
+};
+
+/* ---------------------------------------------------------------------------
+   Lightbox — full-bleed image viewer, opened from a gallery inside the modal.
+   `enabled` is false while it isn't mounted, so the modal keeps Escape.
+   --------------------------------------------------------------------------- */
 const ZOOM_LEVELS = [1, 1.6, 2.4, 3.2];
 
 const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
   const { t } = useTranslation();
+  const [closing, requestClose] = useAnimatedClose(onClose);
   const [index, setIndex] = useState(startIndex);
   const [zoomStep, setZoomStep] = useState(0);
   const [zoomOrigin, setZoomOrigin] = useState('center center');
@@ -141,80 +620,103 @@ const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
     setIndex(i => (i - 1 + gallery.length) % gallery.length);
   }, [gallery.length]);
 
-  const originFromEvent = (e) => {
+  const originFromEvent = e => {
     const rect = wrapRef.current.getBoundingClientRect();
     const x = Math.min(100, Math.max(0, ((e.clientX - rect.left) / rect.width) * 100));
     const y = Math.min(100, Math.max(0, ((e.clientY - rect.top) / rect.height) * 100));
     return `${x}% ${y}%`;
   };
 
-  const handleImageClick = (e) => {
+  const handleImageClick = e => {
     setZoomOrigin(originFromEvent(e));
     setZoomStep(s => (s + 1) % ZOOM_LEVELS.length);
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = e => {
     if (zoomStep === 0) return;
     const origin = originFromEvent(e);
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
     rafRef.current = requestAnimationFrame(() => setZoomOrigin(origin));
   };
 
-  const handleTouchStart = (e) => {
+  const handleTouchStart = e => {
     if (e.touches.length !== 1) return;
-    const t = e.touches[0];
-    touchRef.current = { x: t.clientX, y: t.clientY };
+    touchRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
   };
 
-  const handleTouchMove = (e) => {
+  const handleTouchMove = e => {
     if (!touchRef.current || zoomStep === 0 || e.touches.length !== 1) return;
     const origin = originFromEvent(e.touches[0]);
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
     rafRef.current = requestAnimationFrame(() => setZoomOrigin(origin));
   };
 
-  const handleTouchEnd = (e) => {
+  const handleTouchEnd = e => {
     const start = touchRef.current;
     touchRef.current = null;
     if (!start || zoomStep > 0) return;
-    const t = e.changedTouches[0];
-    const dx = t.clientX - start.x;
-    const dy = t.clientY - start.y;
+    const touch = e.changedTouches[0];
+    const dx = touch.clientX - start.x;
+    const dy = touch.clientY - start.y;
     if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) {
-      if (dx < 0) goNext(); else goPrev();
+      if (dx < 0) goNext();
+      else goPrev();
     }
   };
 
   useEffect(() => {
-    const handleKey = (e) => {
-      if (e.key === 'Escape') onClose();
-      else if (e.key === 'ArrowRight') goNext();
+    const handleKey = e => {
+      if (e.key === 'Escape') {
+        e.stopPropagation();
+        requestClose();
+      } else if (e.key === 'ArrowRight') goNext();
       else if (e.key === 'ArrowLeft') goPrev();
     };
     window.addEventListener('keydown', handleKey);
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
     return () => {
       window.removeEventListener('keydown', handleKey);
-      document.body.style.overflow = prevOverflow;
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [goNext, goPrev, onClose]);
+  }, [goNext, goPrev, requestClose]);
 
   const img = gallery[index];
   const caption = t(`projects.${projectId}.gallery.${img.captionKey}`);
 
+  // The lightbox portals to <body>, but it still sits inside the modal's React
+  // tree, so every click here would otherwise bubble up and close the modal too.
+  const closeOnly = e => {
+    e.stopPropagation();
+    requestClose();
+  };
+
   return createPortal(
-    <div className={`lightbox-overlay ${zoomed ? 'is-zoomed' : ''}`} onClick={onClose}>
-      <button className="lightbox-close" onClick={onClose} aria-label="Close">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="22" height="22"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    <div
+      className={`lightbox-overlay ${zoomed ? 'is-zoomed' : ''} ${closing ? 'is-closing' : ''}`}
+      onClick={closeOnly}
+      role="dialog"
+      aria-modal="true"
+      aria-label={caption}
+    >
+      <button className="lightbox-close" onClick={closeOnly} aria-label={t('ui.close')} type="button">
+        <IconClose />
       </button>
       {gallery.length > 1 && (
-        <button className="lightbox-nav lightbox-prev" onClick={(e) => { e.stopPropagation(); goPrev(); }} aria-label="Previous image">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="22" height="22"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
+        <button
+          className="lightbox-nav lightbox-prev"
+          onClick={e => {
+            e.stopPropagation();
+            goPrev();
+          }}
+          aria-label={t('ui.previous_image')}
+          type="button"
+        >
+          <IconChevronLeft />
         </button>
       )}
-      <div className={`lightbox-content ${zoomed ? 'is-zoomed' : ''}`} onClick={(e) => e.stopPropagation()}>
+      <div
+        className={`lightbox-content ${zoomed ? 'is-zoomed' : ''}`}
+        onClick={e => e.stopPropagation()}
+      >
         <div
           className="lightbox-img-wrap"
           ref={wrapRef}
@@ -226,20 +728,36 @@ const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
           <img
             src={img.src}
             alt={caption}
-            className={`lightbox-img ${zoomed ? 'zoomed' : ''}`}
+            className={`lightbox-img ${zoomed ? 'is-zoomed' : ''}`}
             style={{ transform: `scale(${ZOOM_LEVELS[zoomStep]})`, transformOrigin: zoomOrigin }}
             onClick={handleImageClick}
           />
         </div>
-        {caption && <p className="lightbox-caption"><FormattedCaption text={caption} /></p>}
+        {caption && (
+          <p className="lightbox-caption">
+            <FormattedCaption text={caption} />
+          </p>
+        )}
         <div className="lightbox-meta">
-          <span className="lightbox-counter">{index + 1} / {gallery.length}</span>
-          <span className="lightbox-zoom-hint">{zoomStep === ZOOM_LEVELS.length - 1 ? t('ui.lightbox_zoom_reset') : t('ui.lightbox_zoom_in')}</span>
+          <span>
+            {index + 1} / {gallery.length}
+          </span>
+          <span className="lightbox-zoom-hint">
+            {zoomStep === ZOOM_LEVELS.length - 1 ? t('ui.lightbox_zoom_reset') : t('ui.lightbox_zoom_in')}
+          </span>
         </div>
       </div>
       {gallery.length > 1 && (
-        <button className="lightbox-nav lightbox-next" onClick={(e) => { e.stopPropagation(); goNext(); }} aria-label="Next image">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="22" height="22"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
+        <button
+          className="lightbox-nav lightbox-next"
+          onClick={e => {
+            e.stopPropagation();
+            goNext();
+          }}
+          aria-label={t('ui.next_image')}
+          type="button"
+        >
+          <IconChevronRight />
         </button>
       )}
     </div>,
@@ -247,130 +765,189 @@ const Lightbox = ({ gallery, projectId, startIndex, onClose }) => {
   );
 };
 
-const ProjectCard = ({ id, link, referenceUrl, badgeKey, badgeClass, iconType, iconContent, gallery, hasHighlights, galleryOrientation, phase, onToggle, onDetailsCollapsed }) => {
+/* ---------------------------------------------------------------------------
+   Project modal — full-screen sheet on phones, centred dialog from 46rem up.
+   Owns the lightbox so it can ignore Escape while an image is open.
+   --------------------------------------------------------------------------- */
+const ProjectModal = ({ project, categoryId, onClose }) => {
   const { t } = useTranslation();
-  const [detailsHeight, setDetailsHeight] = useState(0);
+  const [closing, requestClose] = useAnimatedClose(onClose);
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const modalRef = useRef(null);
+  const closeRef = useRef(null);
+  const returnFocusRef = useRef(null);
+
+  const { id, link, referenceUrl, badgeKey, badgeClass, gallery, hasHighlights, galleryOrientation } = project;
   const highlights = hasHighlights ? t(`projects.${id}.highlights`, { returnObjects: true }) : null;
-  const isVerticalGallery = galleryOrientation === 'vertical';
-  const detailsInnerRef = useRef(null);
-  const cardRef = useRef(null);
-  const detailsWrapRef = useRef(null);
-
-  // The card occupies the full row for every phase except `narrowing`, during which the
-  // slot has already shrunk back and the card is being animated down to match it.
-  const isWide = phase === 'widening' || phase === 'open' || phase === 'collapsing';
-  const isHeightOpen = phase === 'open';
-  const isResizing = phase === 'widening' || phase === 'narrowing';
-
-  // Measure after the card has already reflowed to its expanded (full-width) layout,
-  // not before — the gallery grid wraps into far fewer rows once the card isn't narrow.
-  useLayoutEffect(() => {
-    if (isHeightOpen && detailsInnerRef.current) {
-      setDetailsHeight(detailsInnerRef.current.scrollHeight);
-    }
-  }, [isHeightOpen]);
+  const isVertical = galleryOrientation === 'vertical';
 
   useEffect(() => {
-    if (!isHeightOpen) return;
-    const handleResize = () => {
-      if (detailsInnerRef.current) setDetailsHeight(detailsInnerRef.current.scrollHeight);
+    returnFocusRef.current = document.activeElement;
+    const unlockScroll = lockScroll();
+    closeRef.current?.focus({ preventScroll: true });
+    return () => {
+      unlockScroll();
+      if (returnFocusRef.current instanceof HTMLElement) {
+        returnFocusRef.current.focus({ preventScroll: true });
+      }
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isHeightOpen]);
+  }, []);
 
-  const handleDetailsTransitionEnd = (e) => {
-    if (e.target !== detailsWrapRef.current || e.propertyName !== 'max-height') return;
-    onDetailsCollapsed();
-  };
+  useEffect(() => {
+    const handleKey = e => {
+      if (lightboxIndex !== null) return; // the lightbox is on top and handles its own keys
+      if (e.key === 'Escape') {
+        requestClose();
+        return;
+      }
+      if (e.key !== 'Tab' || !modalRef.current) return;
+      const focusable = modalRef.current.querySelectorAll(
+        'a[href], button:not([disabled]), figure[tabindex], [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [lightboxIndex, requestClose]);
 
-  return (
-    <div className={`card-slot ${isWide ? 'is-expanded' : ''}`} data-card-id={id}>
+  return createPortal(
     <div
-      ref={cardRef}
-      className={`link-card ${isWide ? 'expanded' : ''} ${isResizing ? 'is-resizing' : ''}`}
-      onClick={(e) => {
-        if(e.target.closest('.external-link-btn') || e.target.closest('.gallery-item')) return;
-        onToggle(id);
-      }}
+      className={`modal-backdrop ${closing ? 'is-closing' : ''}`}
+      data-accent={categoryId}
+      onClick={requestClose}
     >
-      <div className="link-card-header">
-        <span className={`card-badge ${badgeClass}`}>{t(`badges.${badgeKey}`)}</span>
-        <div className="link-icon-wrapper">
-          {iconType === 'img' ? (
-            <img src={iconContent} alt={id} style={id === 'pantrypilot' || id === 'pomodoro' || id === 'driving' ? {transform: 'scale(1.5)'} : {}} />
-          ) : (
-            iconContent
-          )}
-        </div>
-        <div className="link-content">
-          <div className="link-title">{t(`projects.${id}.title`)}</div>
-          <div className="link-desc">{t(`projects.${id}.summary`)}</div>
-        </div>
-        <div className="link-arrow">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20" style={{ transform: isWide ? 'rotate(90deg)' : 'rotate(0deg)' }}>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </div>
-      </div>
       <div
-        ref={detailsWrapRef}
-        className={`link-details-wrap ${isHeightOpen ? 'is-open' : ''}`}
-        style={{ maxHeight: isHeightOpen ? `${detailsHeight}px` : '0px' }}
-        onTransitionEnd={handleDetailsTransitionEnd}
+        className="modal"
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`modal-title-${id}`}
+        onClick={e => e.stopPropagation()}
       >
-        <div className="link-details-inner" ref={detailsInnerRef}>
-          <div className="link-details">
-            <div className="tech-stack"><strong>Tech Stack:</strong> {t(`projects.${id}.techStack`)}</div>
-            <p>{t(`projects.${id}.details`)}</p>
-            {referenceUrl && (
-              <p className="project-reference">
-                <a href={referenceUrl} target="_blank" rel="noreferrer">{t(`projects.${id}.reference`)}</a>
+        <div className="modal-head">
+          <div className="modal-heading">
+            <div className="modal-eyebrow">
+              <span>{t(`sections.${categoryId}`)}</span>
+              <span className={`badge ${badgeClass}`}>{t(`badges.${badgeKey}`)}</span>
+            </div>
+            <h2 className="modal-title" id={`modal-title-${id}`}>
+              {t(`projects.${id}.title`)}
+            </h2>
+          </div>
+          <button
+            className="modal-close"
+            ref={closeRef}
+            onClick={requestClose}
+            aria-label={t('ui.close')}
+            type="button"
+          >
+            <IconClose />
+          </button>
+        </div>
+
+        <div className="modal-body">
+          <section className="modal-section">
+            <h3 className="modal-label">{t('ui.tech_stack')}</h3>
+            <p className="modal-stack">{t(`projects.${id}.techStack`)}</p>
+          </section>
+
+          <section className="modal-section">
+            <h3 className="modal-label">{t('ui.overview')}</h3>
+            <p className="modal-text">
+              <RichText text={t(`projects.${id}.details`)} />
+            </p>
+          </section>
+
+          {referenceUrl && (
+            <section className="modal-section">
+              <p className="modal-ref">
+                <a href={referenceUrl} target="_blank" rel="noreferrer">
+                  {t(`projects.${id}.reference`)}
+                </a>
               </p>
-            )}
-            {Array.isArray(highlights) && (
-              <ul className="project-highlights">
+            </section>
+          )}
+
+          {Array.isArray(highlights) && highlights.length > 0 && (
+            <section className="modal-section">
+              <h3 className="modal-label">{t('ui.highlights')}</h3>
+              <ul className="highlights">
                 {highlights.map((item, i) => {
-                  const sepIndex = item.indexOf(': ');
-                  if (sepIndex === -1) return <li key={i}>{item}</li>;
+                  const sep = item.indexOf(': ');
                   return (
                     <li key={i}>
-                      <strong>{item.slice(0, sepIndex)}</strong>
-                      {item.slice(sepIndex)}
+                      {sep === -1 ? (
+                        item
+                      ) : (
+                        <>
+                          <strong>{item.slice(0, sep)}</strong>
+                          {item.slice(sep)}
+                        </>
+                      )}
                     </li>
                   );
                 })}
               </ul>
-            )}
-            {Array.isArray(gallery) && gallery.length > 0 && (
-              <div className={`project-gallery ${isVerticalGallery ? 'project-gallery--vertical' : ''}`}>
-                {gallery.map((img, i) => (
-                  <figure
-                    className={`gallery-item ${isVerticalGallery ? 'gallery-item--vertical' : ''}`}
-                    key={i}
-                    onClick={() => setLightboxIndex(i)}
-                  >
-                    <img src={img.src} alt={t(`projects.${id}.gallery.${img.captionKey}`)} loading="lazy" />
-                    <figcaption><FormattedCaption text={t(`projects.${id}.gallery.${img.captionKey}`)} /></figcaption>
-                  </figure>
-                ))}
+            </section>
+          )}
+
+          {Array.isArray(gallery) && gallery.length > 0 && (
+            <section className="modal-section">
+              <h3 className="modal-label">{t('ui.gallery')}</h3>
+              <div className={`gallery ${isVertical ? 'gallery--vertical' : ''}`}>
+                {gallery.map((img, i) => {
+                  const caption = t(`projects.${id}.gallery.${img.captionKey}`);
+                  return (
+                    <figure
+                      className="gallery-item"
+                      key={img.captionKey}
+                      tabIndex={0}
+                      role="button"
+                      aria-label={caption}
+                      onClick={() => setLightboxIndex(i)}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          setLightboxIndex(i);
+                        }
+                      }}
+                    >
+                      <img src={img.src} alt={caption} loading="lazy" />
+                      <figcaption>
+                        <FormattedCaption text={caption} />
+                      </figcaption>
+                    </figure>
+                  );
+                })}
               </div>
-            )}
+            </section>
+          )}
+
+          <div className="modal-actions">
             {link ? (
-              <a href={link} target="_blank" rel="noreferrer" className="external-link-btn">
+              <a href={link} target="_blank" rel="noreferrer" className="btn btn-primary">
                 {t('ui.visit_project')}
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                <IconExternal />
               </a>
             ) : (
-              <span className="external-link-btn coming-soon-btn">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              <span className="btn btn-ghost">
+                <IconClock />
                 {t('ui.coming_soon')}
               </span>
             )}
           </div>
         </div>
       </div>
+
       {lightboxIndex !== null && (
         <Lightbox
           gallery={gallery}
@@ -379,278 +956,432 @@ const ProjectCard = ({ id, link, referenceUrl, badgeKey, badgeClass, iconType, i
           onClose={() => setLightboxIndex(null)}
         />
       )}
-    </div>
+    </div>,
+    document.body
+  );
+};
+
+/* --------------------------------------------------------------------------- */
+const ProjectCard = ({ project, index, onOpen }) => {
+  const { t } = useTranslation();
+  const { id, badgeKey, badgeClass, icon, iconImg, iconZoom, gallery } = project;
+  const cover = gallery[0];
+  const title = t(`projects.${id}.title`);
+
+  // The card is an <article>, not a <button>: a button may only contain phrasing
+  // content, and this one holds a heading and a paragraph. The title button
+  // stretches an invisible ::after over the whole card instead, so the entire
+  // card is clickable while the accessible name stays just the project title.
+  return (
+    <article className="project-card" data-reveal style={{ '--reveal-i': index }}>
+      <div className="project-cover">
+        <img src={cover.src} alt={t(`projects.${id}.gallery.${cover.captionKey}`)} loading="lazy" />
+      </div>
+      <div className="project-body">
+        <div className="project-top">
+          <span className="project-icon">
+            {iconImg ? <img src={iconImg} alt="" style={{ '--icon-zoom': iconZoom }} /> : icon}
+          </span>
+          <h3 className="project-title">
+            <button type="button" className="project-open" onClick={() => onOpen(project)}>
+              {title}
+            </button>
+          </h3>
+          <span className={`badge ${badgeClass}`}>{t(`badges.${badgeKey}`)}</span>
+        </div>
+        <p className="project-summary">
+          <RichText text={t(`projects.${id}.summary`)} />
+        </p>
+        <div className="project-foot">
+          <span className="project-more" aria-hidden="true">
+            {t('ui.details')}
+            <IconArrowRight />
+          </span>
+        </div>
+      </div>
+    </article>
+  );
+};
+
+/* Every image-less project of a category, gathered into one compact block. */
+const CondensedCard = ({ projects, index, onOpen }) => {
+  const { t } = useTranslation();
+  return (
+    <div className="condensed" data-reveal style={{ '--reveal-i': index }}>
+      <div className="condensed-head">
+        <h3 className="condensed-title">{t('ui.other_projects')}</h3>
+      </div>
+      {projects.map(project => {
+        const title = t(`projects.${project.id}.title`);
+        return (
+          <div className="condensed-row" key={project.id}>
+            <button type="button" className="condensed-main" onClick={() => onOpen(project)}>
+              <span className="condensed-name">
+                {title}
+                <span className={`badge ${project.badgeClass}`}>{t(`badges.${project.badgeKey}`)}</span>
+              </span>
+              <span className="condensed-desc">{t(`projects.${project.id}.summary`)}</span>
+            </button>
+            {project.link && (
+              <a
+                className="condensed-link"
+                href={project.link}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`${title} — ${t('ui.visit_project')}`}
+              >
+                <IconExternal />
+              </a>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };
 
-const FLIP_MS = 500;
-const FLIP_EASE = 'cubic-bezier(0.65, 0, 0.35, 1)';
-
-/**
- * Owns the expand/collapse state for a whole row of cards.
- *
- * The state has to live here rather than inside each card because of how the
- * animation works. When a card grows to full row width its siblings don't slide
- * anywhere — flex-wrap simply reflows them onto the next line in a single frame,
- * which reads as a hard jump no matter what is transitioned. So the layout change
- * is committed instantly and the resulting jump is replayed as a FLIP animation:
- * every card is transformed back to where it just was and then released, which
- * only works if one component sees the whole set of cards at once.
- *
- * Phases: closed -> widening -> open -> collapsing -> narrowing -> closed.
- * Width moves first on the way out and last on the way back in, so the card is
- * always exactly one row wide while its body is growing or shrinking.
- */
-const ProjectGrid = ({ className, projects }) => {
-  const [openId, setOpenId] = useState(null);
-  const [phase, setPhase] = useState('closed');
-  const gridRef = useRef(null);
-  const firstRef = useRef(null);
-  const pendingRef = useRef(null);
-  const timerRef = useRef(null);
-  const isDesktopRef = useRef(typeof window !== 'undefined' && window.matchMedia('(min-width: 900px)').matches);
-
-  useEffect(() => {
-    const mq = window.matchMedia('(min-width: 900px)');
-    const handleChange = () => { isDesktopRef.current = mq.matches; };
-    handleChange();
-    mq.addEventListener('change', handleChange);
-    return () => mq.removeEventListener('change', handleChange);
-  }, []);
-
-  // "First" half of FLIP: where everything sits *before* React commits the new layout.
-  const snapshot = useCallback(() => {
-    const grid = gridRef.current;
-    if (!grid || !isDesktopRef.current) return;
-    const slots = new Map();
-    Array.from(grid.children).forEach(slot => {
-      slots.set(slot.dataset.cardId, slot.getBoundingClientRect());
-    });
-    firstRef.current = { slots, gridHeight: grid.getBoundingClientRect().height };
-  }, []);
-
-  const handleToggle = useCallback((id) => {
-    if (phase === 'closed') {
-      snapshot();
-      setOpenId(id);
-      setPhase('widening');
-    } else if (phase === 'open') {
-      // Clicking a different card queues it up; it opens once this one is fully closed.
-      pendingRef.current = id === openId ? null : id;
-      setPhase('collapsing');
-    }
-    // Any other phase is mid-flight: ignore the click rather than fight the animation.
-  }, [phase, openId, snapshot]);
-
-  const handleDetailsCollapsed = useCallback(() => {
-    if (phase !== 'collapsing') return;
-    snapshot();
-    setPhase('narrowing');
-  }, [phase, snapshot]);
-
-  // "Last / Invert / Play": measure the committed layout, transform every card back to
-  // where it was, then release it so the browser interpolates the jump.
-  useLayoutEffect(() => {
-    if (phase !== 'widening' && phase !== 'narrowing') return;
-    const grid = gridRef.current;
-    const first = firstRef.current;
-    firstRef.current = null;
-    const duration = isDesktopRef.current ? FLIP_MS : 0;
-
-    const clearInlineStyles = () => {
-      if (!grid) return;
-      grid.style.transition = '';
-      grid.style.height = '';
-      Array.from(grid.children).forEach(slot => {
-        const card = slot.firstElementChild;
-        if (!card) return;
-        card.style.transition = '';
-        card.style.transform = '';
-        card.style.width = '';
-        card.style.willChange = '';
-      });
-    };
-
-    if (grid && first && duration > 0) {
-      const slots = Array.from(grid.children);
-      const lastGridHeight = grid.getBoundingClientRect().height;
-
-      // The grid gains/loses a whole row the instant the layout commits, which would
-      // shove everything below the section. Pin it and animate it over the same curve.
-      grid.style.transition = 'none';
-      grid.style.height = `${first.gridHeight}px`;
-
-      slots.forEach(slot => {
-        const card = slot.firstElementChild;
-        const firstRect = first.slots.get(slot.dataset.cardId);
-        if (!card || !firstRect) return;
-        const lastRect = slot.getBoundingClientRect();
-        card.style.transition = 'none';
-        card.style.willChange = 'transform, width';
-        card.style.transform = `translate(${firstRect.left - lastRect.left}px, ${firstRect.top - lastRect.top}px)`;
-        // The card changing size is the only one whose width is animated; the siblings
-        // keep their size and just travel.
-        if (slot.dataset.cardId === openId) card.style.width = `${firstRect.width}px`;
-      });
-
-      grid.offsetHeight; // eslint-disable-line no-unused-expressions -- flush the inverted state
-
-      grid.style.transition = `height ${duration}ms ${FLIP_EASE}`;
-      grid.style.height = `${lastGridHeight}px`;
-      slots.forEach(slot => {
-        const card = slot.firstElementChild;
-        if (!card) return;
-        card.style.transition = `transform ${duration}ms ${FLIP_EASE}, width ${duration}ms ${FLIP_EASE}`;
-        card.style.transform = '';
-        card.style.width = '';
-      });
-    }
-
-    timerRef.current = setTimeout(() => {
-      clearInlineStyles();
-      setPhase(phase === 'widening' ? 'open' : 'closed');
-    }, duration + 20);
-
-    return () => clearTimeout(timerRef.current);
-  }, [phase, openId]);
-
-  // Open whatever was queued while another card was still closing.
-  useEffect(() => {
-    if (phase !== 'closed' || pendingRef.current == null) return;
-    const next = pendingRef.current;
-    pendingRef.current = null;
-    snapshot();
-    setOpenId(next);
-    setPhase('widening');
-  }, [phase, snapshot]);
+/* --------------------------------------------------------------------------- */
+const CategorySection = ({ category, onOpen }) => {
+  const { t } = useTranslation();
+  const withImages = category.projects.filter(p => Array.isArray(p.gallery) && p.gallery.length > 0);
+  const withoutImages = category.projects.filter(p => !Array.isArray(p.gallery) || p.gallery.length === 0);
 
   return (
-    <div className={className} ref={gridRef}>
-      {projects.map(proj => (
-        <ProjectCard
-          key={proj.id}
-          {...proj}
-          phase={proj.id === openId ? phase : 'closed'}
-          onToggle={handleToggle}
-          onDetailsCollapsed={handleDetailsCollapsed}
-        />
-      ))}
-    </div>
+    <section className="section" id={category.id} data-accent={category.id}>
+      <div className="shell">
+        <header className="section-head" data-reveal>
+          <p className="section-eyebrow">
+            {t('ui.projects_count', { count: countProjects(category.projects) })}
+          </p>
+          <h2 className="section-title">{t(`sections.${category.id}`)}</h2>
+        </header>
+        {withImages.length > 0 && (
+          <div className="project-grid">
+            {withImages.map((project, i) => (
+              <ProjectCard key={project.id} project={project} index={i} onOpen={onOpen} />
+            ))}
+          </div>
+        )}
+        {withoutImages.length > 0 && (
+          <CondensedCard projects={withoutImages} index={withImages.length} onOpen={onOpen} />
+        )}
+      </div>
+    </section>
   );
 };
 
-const dataAiProjects = [
-  { id: 'adosDashboard', link: null, referenceUrl: 'https://ieeexplore.ieee.org/document/8438636', badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'svg', gallery: adosGallery, hasHighlights: true, iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6" /></svg> },
-  { id: 'motogp', link: 'https://motogp-analytics.onrender.com/', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'img', iconContent: motogpHelmet, gallery: motogpGallery, hasHighlights: true },
-  { id: 'uni', link: 'https://github.com/ManuCa93?tab=repositories', badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'svg', iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" /></svg> },
-  { id: 'football', link: 'https://github.com/ManuCa93/top-5-football-leagues-predictions', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', hasHighlights: true, iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 12l2 3h4M12 12l-2 3H6M12 12V7.5M7 4.5l2 3M17 4.5l-2 3M19.5 16l-3.5-1M4.5 16l3.5-1" /></svg> },
-  { id: 'f1', link: 'https://github.com/ManuCa93/F1_pred_2024', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" y1="22" x2="4" y2="15" /></svg> }
-];
-
-const mobileProjects = [
-  { id: 'pantrypilot', link: null, badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'img', iconContent: logoImg, gallery: alimentiGallery, hasHighlights: true, galleryOrientation: 'vertical' },
-  { id: 'driving', link: 'https://github.com/ManuCa93/when_can_I_drive_app', badgeKey: 'to_publish', badgeClass: 'badge-to-publish', iconType: 'img', iconContent: enjoyLogo, gallery: enjoyGallery, hasHighlights: true, galleryOrientation: 'vertical' }
-];
-
-const webProjects = [
-  { id: 'polify', link: null, badgeKey: 'in_progress', badgeClass: 'badge-in-progress', iconType: 'svg', gallery: polifyGallery, hasHighlights: true, iconContent: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L3 7v2h18V7L12 2z" /><path d="M5 9v9M9 9v9M15 9v9M19 9v9" /><path d="M3 20h18" /></svg> },
-  { id: 'pomodoro', link: 'https://manuca93.github.io/pomodoroTimer/', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'img', iconContent: iconIco, gallery: pomodoroGallery, hasHighlights: true },
-  { id: 'priceTracker', link: 'https://github.com/ManuCa93/price-tracker', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', iconContent: (
-    <div style={{ position: 'relative', width: '24px', height: '24px' }}>
-      <svg viewBox="0 0 24 24" fill="#3776AB" width="24" height="24" style={{ position: 'absolute' }}>
-        <path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.31-.33.4-.25.5-.16.6-.07.7-.02.77v5.36l.02.8.06.7.13.6.19.5.25.4.3.3.34.2.36.1.37.03h.36l.33-.03.28-.08.21-.11.13-.13.04-.13V20.5l.02-.2.05-.2.1-.2.15-.2.22-.2.29-.19.38-.17.47-.13.57-.1.68-.05h4.63l.6-.06.53-.13.43-.22.31-.3.2-.4.1-.5.02-.6v-2.05l-.02-.13-.05-.13-.1-.13-.15-.13-.2-.12-.25-.1-.3-.08-.34-.05-.36-.02H18l-.2.02-.2.05-.17.08-.12.11-.06.13-.01.14v1.83l-.02.13-.05.1-.1.08-.14.05-.18.03-.2.01h-2.15l-.2-.01-.18-.03-.14-.05-.1-.08-.05-.1-.02-.13V18.1l.02-.13.05-.1.1-.08.14-.05.18-.03.2-.01h2.15l.6-.05.54-.12.45-.22.34-.33.23-.44.13-.57.03-.7v-3.32l-.03-.7-.13-.57-.23-.44-.34-.33-.45-.22-.54-.12-.6-.05h-4.63l-.68-.05-.57-.1-.47-.13-.38-.17-.29-.19-.22-.2-.15-.2-.1-.2-.05-.2-.02-.2v-2.05l.02-.13.05-.13.1-.13.15-.13.2-.12.25-.1.3-.08.34-.05.36-.02H13.6l.2-.02.2-.05.17-.08.12-.11.06-.13.01-.14V3.65l.02-.13.05-.1.1-.08.14-.05.18-.03.2-.01h2.15l.2.01.18.03.14.05.1.08.05.1.02.13v1.82l-.02.13-.05.1-.1.08-.14.05-.18.03-.2.01h-2.15l-.2-.01-.18-.03-.14-.05-.1-.08-.05-.1-.02-.13V3.65z" />
-      </svg>
-      <svg viewBox="0 0 24 24" fill="none" stroke="var(--card-bg)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" width="16" height="16" style={{ position: 'absolute', transform: 'translate(6px, -4px)' }}>
-        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
-      </svg>
-      <svg viewBox="0 0 24 24" fill="var(--text-primary)" stroke="var(--text-primary)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" width="16" height="16" style={{ position: 'absolute', transform: 'translate(6px, -4px)' }}>
-        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
-      </svg>
-    </div>
-  ) }
-];
-
-const gameProjects = [
-  { id: 'brickbreakers', link: 'https://github.com/ManuCa93/brickbrakers-F1', badgeKey: 'ended', badgeClass: 'badge-ended', iconType: 'svg', iconContent: <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> }
-];
-
+/* --------------------------------------------------------------------------- */
 function App() {
   const { t, i18n } = useTranslation();
+  const [openProject, setOpenProject] = useState(null);
+  const [compact, setCompact] = useState(false);
+  const [activeId, setActiveId] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const drawerCloseRef = useRef(null);
+  const navToggleRef = useRef(null);
 
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
+  /* Below 46rem the header nav is hidden and the category chips scroll away with
+     the hero, which left no way to jump between categories once you were down
+     the page. The drawer is that way back. */
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = e => e.key === 'Escape' && setMenuOpen(false);
+    const mq = window.matchMedia('(min-width: 46rem)');
+    const onWide = () => mq.matches && setMenuOpen(false);
+    const toggle = navToggleRef.current; // captured now; the cleanup runs later
+    const unlockScroll = lockScroll();
+    // The drawer is still `visibility: hidden` this tick, and focus() is
+    // rejected on a hidden subtree, so move focus once the frame has painted.
+    // preventScroll matters: a plain focus() scrolls the target into view, which
+    // is what was shifting the page up every time an overlay opened.
+    const focusFrame = requestAnimationFrame(() =>
+      drawerCloseRef.current?.focus({ preventScroll: true })
+    );
+    window.addEventListener('keydown', onKey);
+    mq.addEventListener('change', onWide);
+    return () => {
+      cancelAnimationFrame(focusFrame);
+      window.removeEventListener('keydown', onKey);
+      mq.removeEventListener('change', onWide);
+      unlockScroll();
+      toggle?.focus({ preventScroll: true });
+    };
+  }, [menuOpen]);
+
+  useScrollReveal();
+
+  // Sticky header turns compact once the hero starts scrolling away.
+  useEffect(() => {
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setCompact(window.scrollY > 48);
+        ticking = false;
+      });
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  /* Scrollspy: highlights the nav entry for the category currently in view.
+     The observer only reports sections whose visibility changed, so the ratios
+     are kept in a map and the winner recomputed each time. Without that, the
+     first category to scroll into view stayed highlighted forever, including
+     back up at the hero where no category is on screen at all. */
+  useEffect(() => {
+    if (!('IntersectionObserver' in window)) return;
+    const sections = CATEGORIES.map(c => document.getElementById(c.id)).filter(Boolean);
+    const ratios = new Map();
+    const io = new IntersectionObserver(
+      entries => {
+        entries.forEach(e => ratios.set(e.target.id, e.isIntersecting ? e.intersectionRatio : 0));
+        let best = null;
+        let bestRatio = 0;
+        ratios.forEach((ratio, id) => {
+          if (ratio > bestRatio) {
+            bestRatio = ratio;
+            best = id;
+          }
+        });
+        setActiveId(best);
+      },
+      { rootMargin: '-25% 0px -55% 0px', threshold: [0, 0.15, 0.4, 0.75] }
+    );
+    sections.forEach(s => io.observe(s));
+    return () => io.disconnect();
+  }, []);
+
+  const handleOpen = useCallback(project => setOpenProject(project), []);
+  const handleClose = useCallback(() => setOpenProject(null), []);
+
+  const openCategoryId = useMemo(
+    () => (openProject ? CATEGORIES.find(c => c.projects.some(p => p.id === openProject.id))?.id : null),
+    [openProject]
+  );
+
+  const langButtons = LANGUAGES.map(({ code, flag }) => (
+    <button
+      key={code}
+      type="button"
+      className={`lang-btn ${i18n.resolvedLanguage === code ? 'is-active' : ''}`}
+      onClick={() => i18n.changeLanguage(code)}
+      aria-label={t(`ui.lang_${code}`)}
+      aria-pressed={i18n.resolvedLanguage === code}
+    >
+      {flag}
+      <span className="lang-code">{code.toUpperCase()}</span>
+    </button>
+  ));
+
+  // Everything but the mailto opens in a new tab, the CV included.
+  const socialLinks = SOCIALS.map(s => (
+    <a
+      key={s.id}
+      className="icon-link"
+      href={s.href}
+      aria-label={s.label}
+      {...(s.href.startsWith('mailto:') ? {} : { target: '_blank', rel: 'noreferrer' })}
+    >
+      {s.icon}
+      <span>{s.label}</span>
+    </a>
+  ));
 
   return (
-    <div className="container">
-      <div className="language-switcher">
-        <button className={`lang-btn ${i18n.resolvedLanguage === 'en' ? 'active' : ''}`} onClick={() => changeLanguage('en')}>EN</button>
-        <button className={`lang-btn ${i18n.resolvedLanguage === 'it' ? 'active' : ''}`} onClick={() => changeLanguage('it')}>IT</button>
-        <button className={`lang-btn ${i18n.resolvedLanguage === 'de' ? 'active' : ''}`} onClick={() => changeLanguage('de')}>DE</button>
-      </div>
-      
-      <header className="header">
-        <div className="header-profile">
-          <img
-            src="https://github.com/ManuCa93.png"
-            alt="Manuel Cattoni"
-            className="avatar"
-          />
-          <div className="header-info">
-            <h1 className="title">{t('profile.title')}</h1>
-            <p className="location">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-              {t('profile.location')}
-            </p>
-            <p className="subtitle">{t('profile.subtitle')}</p>
+    <>
+      <a className="skip-link" href="#main">
+        {t('ui.skip_to_content')}
+      </a>
 
-            <div className="social-links">
-              {/* LinkedIn */}
-              <a href="https://www.linkedin.com/in/manuel-cattoni-169631339/" target="_blank" rel="noreferrer" className="social-icon" aria-label="LinkedIn">
-                <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-              </a>
-              {/* GitHub */}
-              <a href="https://github.com/ManuCa93" target="_blank" rel="noreferrer" className="social-icon" aria-label="GitHub">
-                <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-              </a>
-              {/* Email */}
-              <a href="mailto:manuel.cattoni93@gmail.com" className="social-icon" aria-label="Email">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><path d="M22 6l-10 7L2 6" /></svg>
-              </a>
-              {/* CV / Resume */}
-              <a href="./Cattoni_Resume.pdf?v=2" target="_blank" rel="noreferrer" className="social-icon" aria-label="Curriculum Vitae">
-                <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v6h6v10H6zm2-8h8v2H8v-2zm0 4h5v2H8v-2z" /></svg>
-              </a>
-              {/* Instagram */}
-              <a href="https://instagram.com/cattonii" target="_blank" rel="noreferrer" className="social-icon" aria-label="Instagram">
-                <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
-              </a>
-            </div>
-          </div>
+      <header className={`site-header ${compact ? 'is-compact' : ''}`}>
+        <div className="shell site-header-inner">
+          <a className="brand" href="#top">
+            <span className="brand-mark" aria-hidden="true">
+              MC
+            </span>
+            <span className="brand-name">{t('profile.title')}</span>
+          </a>
+
+          <nav className="header-nav" aria-label={t('ui.projects_label')}>
+            <ul>
+              {CATEGORIES.map(c => (
+                <li key={c.id} data-accent={c.id}>
+                  <a href={`#${c.id}`} className={activeId === c.id ? 'is-active' : ''}>
+                    {t(`sections.${c.id}`)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="lang-switcher lang-switcher--header">{langButtons}</div>
+
+          <button
+            type="button"
+            className="nav-toggle"
+            ref={navToggleRef}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
+            aria-label={t('ui.menu')}
+            onClick={() => setMenuOpen(true)}
+          >
+            <IconMenu />
+          </button>
         </div>
+
       </header>
 
-      <div className="fade-in">
-        <h2 className="section-title">{t('sections.data_ai')}</h2>
-        <ProjectGrid className="grid grid--data-ai" projects={dataAiProjects} />
-      </div>
 
-      <div className="fade-in delay-1">
-        <h2 className="section-title">{t('sections.mobile')}</h2>
-        <ProjectGrid className="grid grid--mobile" projects={mobileProjects} />
-      </div>
+      <div
+        className={`nav-scrim ${menuOpen ? 'is-open' : ''}`}
+        onClick={() => setMenuOpen(false)}
+        aria-hidden="true"
+      />
 
-      <div className="fade-in delay-2">
-        <h2 className="section-title">{t('sections.websites')}</h2>
-        <ProjectGrid className="grid grid--web" projects={webProjects} />
-      </div>
+      <nav
+        id="mobile-nav"
+        className={`nav-drawer ${menuOpen ? 'is-open' : ''}`}
+        aria-label={t('ui.browse_by_category')}
+      >
+        <div className="nav-drawer-head">
+          <span className="nav-drawer-title">{t('ui.menu')}</span>
+          <button
+            type="button"
+            className="nav-toggle"
+            ref={drawerCloseRef}
+            onClick={() => setMenuOpen(false)}
+            aria-label={t('ui.close')}
+          >
+            <IconClose />
+          </button>
+        </div>
+        <div className="lang-switcher lang-switcher--menu">{langButtons}</div>
+        <ul>
+          <li>
+            <a href="#hobbies" onClick={() => setMenuOpen(false)}>
+              <span className="chip-dot" aria-hidden="true" />
+              <span className="nav-drawer-label">{t('hobbies.title')}</span>
+            </a>
+          </li>
+          {CATEGORIES.map(c => (
+            <li key={c.id} data-accent={c.id}>
+              <a href={`#${c.id}`} onClick={() => setMenuOpen(false)}>
+                <span className="chip-dot" aria-hidden="true" />
+                <span className="nav-drawer-label">{t(`sections.${c.id}`)}</span>
+                <span className="chip-count">{countProjects(c.projects)}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
-      <div className="fade-in delay-3">
-        <h2 className="section-title">{t('sections.games')}</h2>
-        <ProjectGrid className="grid grid--games" projects={gameProjects} />
-      </div>
-    </div>
+      <main id="main">
+        <section className="hero" id="top">
+          <div className="shell hero-grid">
+            <img
+              className="hero-portrait"
+              src="https://github.com/ManuCa93.png"
+              alt={t('profile.title')}
+              width="120"
+              height="120"
+              data-reveal
+            />
+            <div>
+              <h1 className="hero-name" data-reveal>
+                {t('profile.title')}
+              </h1>
+              <p className="hero-meta" data-reveal style={{ '--reveal-i': 1 }}>
+                <span className="hero-meta-item">
+                  <IconPin />
+                  {t('profile.location')}
+                </span>
+                <span className="hero-meta-sep" aria-hidden="true" />
+                <span className="hero-meta-item">
+                  <IconCake />
+                  {t('profile.year')}
+                </span>
+              </p>
+              <p className="hero-tagline" data-reveal style={{ '--reveal-i': 2 }}>
+                {t('profile.subtitle')}
+              </p>
+              <nav className="hero-links" aria-label={t('ui.contact_links')} data-reveal style={{ '--reveal-i': 3 }}>
+                {socialLinks}
+              </nav>
+            </div>
+          </div>
+        </section>
+
+        <section className="chip-nav" aria-labelledby="chip-nav-title">
+          <div className="shell">
+            <h2 className="visually-hidden" id="chip-nav-title">
+              {t('ui.browse_by_category')}
+            </h2>
+            <div className="chip-row">
+              {CATEGORIES.map((c, i) => (
+                <a
+                  key={c.id}
+                  className="chip"
+                  href={`#${c.id}`}
+                  data-accent={c.id}
+                  data-reveal
+                  style={{ '--reveal-i': i }}
+                >
+                  <span className="chip-dot" aria-hidden="true" />
+                  <span className="chip-label">{t(`sections.${c.id}`)}</span>
+                  <span className="chip-count">{countProjects(c.projects)}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="hobbies">
+          <div className="shell">
+            <header className="section-head" data-reveal>
+              <p className="section-eyebrow">{t('hobbies.eyebrow')}</p>
+              <h2 className="section-title">{t('hobbies.title')}</h2>
+              <p className="section-note">{t('hobbies.intro')}</p>
+            </header>
+            <div className="hobby-grid">
+              {HOBBIES.map((h, i) => (
+                <article className="hobby-card" key={h.id} data-reveal style={{ '--reveal-i': i }}>
+                  <span className="hobby-icon">{h.icon}</span>
+                  <h3 className="hobby-title">{t(`hobbies.items.${h.id}.title`)}</h3>
+                  <p className="hobby-note">{t(`hobbies.items.${h.id}.note`)}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {CATEGORIES.map(category => (
+          <CategorySection key={category.id} category={category} onOpen={handleOpen} />
+        ))}
+      </main>
+
+      <footer className="site-footer">
+        <div className="shell footer-inner">
+          <nav className="hero-links" aria-label={t('ui.contact_links')}>
+            {socialLinks}
+          </nav>
+          <div>
+            <p className="footer-note">
+              © {new Date().getFullYear()} {t('profile.title')}
+            </p>
+            <a className="footer-note" href="#top">
+              <IconArrowUp /> {t('ui.back_to_top')}
+            </a>
+          </div>
+        </div>
+      </footer>
+
+      {openProject && (
+        <ProjectModal project={openProject} categoryId={openCategoryId} onClose={handleClose} />
+      )}
+    </>
   );
 }
 
