@@ -22,11 +22,11 @@ const resources = {
           },
           motogp: {
             title: "MotoGP",
-            note: "MotoGP, Moto2 and Moto3, every session. Marquez fan."
+            note: "Three classes, no session skipped: Moto3, Moto2 and MotoGP. Marquez above all."
           },
           f1: {
             title: "Formula 1",
-            note: "Sundays are for the race. Lando Norris."
+            note: "Sunday afternoons are booked from March to December. Lando Norris."
           },
           fitness: {
             title: "Gym & running",
@@ -293,11 +293,11 @@ const resources = {
           },
           motogp: {
             title: "MotoGP",
-            note: "MotoGP, Moto2 e Moto3, ogni sessione. Tifo Marquez."
+            note: "Tre classi, nessuna sessione saltata: Moto3, Moto2 e MotoGP. Marquez su tutti."
           },
           f1: {
             title: "Formula 1",
-            note: "La domenica è della gara. Lando Norris."
+            note: "La domenica pomeriggio è prenotata da marzo a dicembre. Lando Norris."
           },
           fitness: {
             title: "Palestra e corsa",
@@ -564,11 +564,11 @@ const resources = {
           },
           motogp: {
             title: "MotoGP",
-            note: "MotoGP, Moto2 und Moto3, jede Session. Marquez-Fan."
+            note: "Drei Klassen, keine Session ausgelassen: Moto3, Moto2 und MotoGP. Marquez über allen."
           },
           f1: {
             title: "Formel 1",
-            note: "Sonntags läuft das Rennen. Lando Norris."
+            note: "Sonntagnachmittage sind von März bis Dezember vergeben. Lando Norris."
           },
           fitness: {
             title: "Gym & Laufen",
