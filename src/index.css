@@ -1343,10 +1343,93 @@ ul {
   font-weight: 700;
 }
 
+/* Folder tabs: 26 coursework repos read as one undifferentiated strip
+   otherwise, so the shots are filed by topic and switched here. */
+.folder-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.folder-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 40px;
+  padding-inline: 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  transition: color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease),
+    background-color var(--t-fast) var(--ease);
+}
+
+.folder-tab:hover {
+  border-color: rgba(var(--accent-rgb), 0.6);
+  color: var(--accent-ink);
+}
+
+.folder-tab.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+.folder-tab-count {
+  display: grid;
+  place-items: center;
+  min-width: 1.35rem;
+  height: 1.35rem;
+  padding-inline: 0.3rem;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink-mute);
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.folder-tab.is-active .folder-tab-count {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
   gap: 0.75rem;
+  transition: opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease),
+    height 300ms var(--ease);
+}
+
+/* While one folder hands over to the next the grid holds an explicit height,
+   so it has to clip rather than spill over the section below it. */
+.gallery.is-swapping {
+  overflow: hidden;
+}
+
+.gallery.is-leaving {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+@keyframes gallery-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.gallery.is-entering .gallery-item {
+  animation: gallery-enter var(--t-mid) var(--ease) backwards;
+  animation-delay: calc(var(--swap-i, 0) * 32ms);
 }
 
 .gallery--vertical {
@@ -1701,6 +1784,7 @@ a.footer-note:hover {
   *::before,
   *::after {
     animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     transition-delay: 0ms !important;

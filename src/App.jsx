@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useCallback, useRef, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import iconIco from './assets/icons/icon.ico';
@@ -60,6 +60,19 @@ import uniMlMap from './assets/projects/uni/15_ml_vs_map_estimate.png';
 import uniMriAnnotations from './assets/projects/uni/16_mri_tumor_annotations.jpg';
 import uniUnetSeg from './assets/projects/uni/17_unet_segmentation.jpg';
 import uniTumorClass from './assets/projects/uni/18_tumor_classification.jpg';
+import uniTumorRoc from './assets/projects/uni/19_tumor_roc_curves.png';
+import uniTumorConfusion from './assets/projects/uni/20_tumor_confusion_matrix.png';
+import uniFleetForecast from './assets/projects/uni/21_fleet_forecast_24h.png';
+import uniFleetProb from './assets/projects/uni/22_fleet_probabilistic_forecast.png';
+import uniRevenueForecast from './assets/projects/uni/23_revenue_forecast_unseen.png';
+import uniHoltWinters from './assets/projects/uni/24_holt_winters_residuals.png';
+import uniForecastCompare from './assets/projects/uni/25_forecast_model_comparison.png';
+import uniTrafficConfusion from './assets/projects/uni/26_traffic_confusion_matrices.png';
+import uniTrafficRoc from './assets/projects/uni/27_traffic_roc_curves.png';
+import uniCreditConfusion from './assets/projects/uni/28_credit_confusion_matrix.png';
+import uniCreditRoc from './assets/projects/uni/29_credit_roc_curve.png';
+import uniMachineryConfusion from './assets/projects/uni/30_machinery_confusion_matrix.png';
+import uniCitationGcn from './assets/projects/uni/31_citation_gcn_results.png';
 import alimentiHome from './assets/projects/alimenti/01_home_dashboard.png';
 import alimentiPantry from './assets/projects/alimenti/02_pantry_inventory.png';
 import alimentiShoppingList from './assets/projects/alimenti/03_shopping_list.png';
@@ -319,27 +332,71 @@ const enjoyGallery = [
   { src: enjoySettings, captionKey: 'settings' }
 ];
 
-/* Plots lifted straight out of the notebooks in the coursework repos, one per
-   subject, so the university work is shown rather than just listed. */
-const uniGallery = [
-  { src: uniUnetSeg, captionKey: 'unet_segmentation' },
-  { src: uniMolecules, captionKey: 'molecules' },
-  { src: uniMriAnnotations, captionKey: 'mri_annotations' },
-  { src: uniDronePipeline, captionKey: 'drone_pipeline' },
-  { src: uniTumorClass, captionKey: 'tumor_classification' },
-  { src: uniRobotArm, captionKey: 'robot_arm' },
-  { src: uniBayesian, captionKey: 'bayesian' },
-  { src: uniDroneObstacle, captionKey: 'drone_obstacle' },
-  { src: uniEvFleet, captionKey: 'ev_fleet' },
-  { src: uniMlMap, captionKey: 'ml_vs_map' },
-  { src: uniDroneBall, captionKey: 'drone_vision' },
-  { src: uniDroneTof, captionKey: 'drone_control' },
-  { src: uniIntrusion, captionKey: 'intrusion' },
-  { src: uniDrugDesign, captionKey: 'drug_design' },
-  { src: uniNbaShots, captionKey: 'nba_shots' },
-  { src: uniCreditRisk, captionKey: 'credit_risk' },
-  { src: uniCitations, captionKey: 'citations' },
-  { src: uniRevenue, captionKey: 'revenue' }
+/* Plots lifted straight out of the notebooks in the coursework repos. 26 repos
+   is too many to read as one strip, so they are filed under macro topics and
+   the shots from a single project stay next to each other inside its folder. */
+const uniGalleryGroups = [
+  {
+    id: 'biomedical',
+    images: [
+      { src: uniMriAnnotations, captionKey: 'mri_annotations' },
+      { src: uniUnetSeg, captionKey: 'unet_segmentation' },
+      { src: uniTumorClass, captionKey: 'tumor_classification' },
+      { src: uniTumorConfusion, captionKey: 'tumor_confusion' },
+      { src: uniTumorRoc, captionKey: 'tumor_roc' },
+      { src: uniMolecules, captionKey: 'molecules' },
+      { src: uniDrugDesign, captionKey: 'drug_design' }
+    ]
+  },
+  {
+    id: 'robotics',
+    images: [
+      { src: uniDronePipeline, captionKey: 'drone_pipeline' },
+      { src: uniDroneBall, captionKey: 'drone_vision' },
+      { src: uniDroneObstacle, captionKey: 'drone_obstacle' },
+      { src: uniDroneTof, captionKey: 'drone_control' },
+      { src: uniRobotArm, captionKey: 'robot_arm' }
+    ]
+  },
+  {
+    id: 'forecasting',
+    images: [
+      { src: uniEvFleet, captionKey: 'ev_fleet' },
+      { src: uniFleetForecast, captionKey: 'fleet_forecast' },
+      { src: uniFleetProb, captionKey: 'fleet_probabilistic' },
+      { src: uniRevenue, captionKey: 'revenue' },
+      { src: uniRevenueForecast, captionKey: 'revenue_forecast' },
+      { src: uniForecastCompare, captionKey: 'forecast_comparison' },
+      { src: uniHoltWinters, captionKey: 'holt_winters' }
+    ]
+  },
+  {
+    id: 'bayesian',
+    images: [
+      { src: uniBayesian, captionKey: 'bayesian' },
+      { src: uniMlMap, captionKey: 'ml_vs_map' }
+    ]
+  },
+  {
+    id: 'security',
+    images: [
+      { src: uniIntrusion, captionKey: 'intrusion' },
+      { src: uniTrafficConfusion, captionKey: 'traffic_confusion' },
+      { src: uniTrafficRoc, captionKey: 'traffic_roc' }
+    ]
+  },
+  {
+    id: 'analytics',
+    images: [
+      { src: uniCreditRisk, captionKey: 'credit_risk' },
+      { src: uniCreditConfusion, captionKey: 'credit_confusion' },
+      { src: uniCreditRoc, captionKey: 'credit_roc' },
+      { src: uniCitations, captionKey: 'citations' },
+      { src: uniCitationGcn, captionKey: 'citation_gcn' },
+      { src: uniMachineryConfusion, captionKey: 'machinery_confusion' },
+      { src: uniNbaShots, captionKey: 'nba_shots' }
+    ]
+  }
 ];
 
 const alimentiGallery = [
@@ -382,7 +439,8 @@ const dataAiProjects = [
     badgeKey: 'in_progress',
     badgeClass: 'badge-in-progress',
     icon: <IconGraduation />,
-    gallery: uniGallery,
+    galleryGroups: uniGalleryGroups,
+    ctaKey: 'visit_projects',
     // one card, but it stands for 26 separate coursework repositories
     countsAs: 26
   },
@@ -467,6 +525,10 @@ const gameProjects = [
   }
 ];
 
+/* A project's shots live either in one flat list or in topic folders. */
+const projectImages = p =>
+  p.galleryGroups ? p.galleryGroups.flatMap(g => g.images) : p.gallery || [];
+
 const countProjects = projects => projects.reduce((n, p) => n + (p.countsAs || 1), 0);
 
 const CATEGORIES = [
@@ -544,6 +606,75 @@ const useAnimatedClose = onClose => {
   }, [onClose]);
 
   return [closing, requestClose];
+};
+
+/* Switching folder replaced the whole grid in one frame, which read as a jump:
+   different shots, different row count, no transition between the two. This
+   fades the outgoing images out, animates the container to the height the new
+   folder needs, then fades the incoming ones in with a short stagger. The tab
+   highlight moves immediately so the click still feels instant. */
+const SWAP_OUT_MS = 180;
+const SWAP_HEIGHT_MS = 300;
+const SWAP_IN_MS = 560;
+
+const useFolderSwap = (folderIndex, setFolderIndex) => {
+  const ref = useRef(null);
+  const [phase, setPhase] = useState('idle'); // idle | out | in
+  const [pending, setPending] = useState(null);
+  const timers = useRef([]);
+
+  const clearTimers = useCallback(() => {
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+  }, []);
+
+  useEffect(() => clearTimers, [clearTimers]);
+
+  const select = useCallback(
+    index => {
+      if (index === folderIndex && pending === null) return;
+      clearTimers();
+      if (prefersReducedMotion()) {
+        setPending(null);
+        setPhase('idle');
+        setFolderIndex(index);
+        return;
+      }
+      const el = ref.current;
+      if (el) el.style.height = `${el.offsetHeight}px`; // hold the outgoing height
+      setPending(index);
+      setPhase('out');
+      timers.current.push(
+        setTimeout(() => {
+          setFolderIndex(index);
+          setPending(null);
+          setPhase('in');
+        }, SWAP_OUT_MS)
+      );
+    },
+    [clearTimers, folderIndex, pending, setFolderIndex]
+  );
+
+  useLayoutEffect(() => {
+    if (phase !== 'in') return undefined;
+    const el = ref.current;
+    if (!el) return undefined;
+    const from = el.style.height;
+    el.style.height = 'auto';
+    const to = `${el.offsetHeight}px`; // images carry an aspect-ratio, so this is
+    el.style.height = from || to; //      known before any of them has loaded
+    void el.offsetHeight; // commit the old height before animating to the new one
+    el.style.height = to;
+    timers.current.push(
+      setTimeout(() => {
+        if (ref.current) ref.current.style.height = '';
+      }, SWAP_HEIGHT_MS)
+    );
+    timers.current.push(setTimeout(() => setPhase('idle'), SWAP_IN_MS));
+    return undefined;
+  }, [phase, folderIndex]);
+
+  return { ref, phase, select, activeIndex: pending === null ? folderIndex : pending };
 };
 
 /* Lets a translated string emphasise a fragment with **double asterisks**,
@@ -777,9 +908,18 @@ const ProjectModal = ({ project, categoryId, onClose }) => {
   const closeRef = useRef(null);
   const returnFocusRef = useRef(null);
 
-  const { id, link, referenceUrl, badgeKey, badgeClass, gallery, hasHighlights, galleryOrientation } = project;
+  const { id, link, referenceUrl, badgeKey, badgeClass, gallery, hasHighlights, galleryOrientation, ctaKey } =
+    project;
   const highlights = hasHighlights ? t(`projects.${id}.highlights`, { returnObjects: true }) : null;
   const isVertical = galleryOrientation === 'vertical';
+  // One flat list and a set of folders are the same thing to everything below.
+  const folders = project.galleryGroups || (gallery?.length ? [{ id: null, images: gallery }] : []);
+  const [folderIndex, setFolderIndex] = useState(0);
+  const { ref: galleryRef, phase: swapPhase, select: selectFolder, activeIndex } = useFolderSwap(
+    folderIndex,
+    setFolderIndex
+  );
+  const shown = folders[folderIndex]?.images || [];
 
   useEffect(() => {
     returnFocusRef.current = document.activeElement;
@@ -900,16 +1040,45 @@ const ProjectModal = ({ project, categoryId, onClose }) => {
             </section>
           )}
 
-          {Array.isArray(gallery) && gallery.length > 0 && (
+          {shown.length > 0 && (
             <section className="modal-section">
               <h3 className="modal-label">{t('ui.gallery')}</h3>
-              <div className={`gallery ${isVertical ? 'gallery--vertical' : ''}`}>
-                {gallery.map((img, i) => {
+              {folders.length > 1 && (
+                <div className="folder-tabs" role="tablist" aria-label={t('ui.gallery')}>
+                  {folders.map((f, i) => (
+                    <button
+                      key={f.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={i === activeIndex}
+                      className={`folder-tab ${i === activeIndex ? 'is-active' : ''}`}
+                      onClick={() => selectFolder(i)}
+                    >
+                      {t(`projects.${id}.folders.${f.id}`)}
+                      <span className="folder-tab-count">{f.images.length}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+              <div
+                className={[
+                  'gallery',
+                  isVertical && 'gallery--vertical',
+                  swapPhase !== 'idle' && 'is-swapping',
+                  swapPhase === 'out' && 'is-leaving',
+                  swapPhase === 'in' && 'is-entering'
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+                ref={galleryRef}
+              >
+                {shown.map((img, i) => {
                   const caption = t(`projects.${id}.gallery.${img.captionKey}`);
                   return (
                     <figure
                       className="gallery-item"
                       key={img.captionKey}
+                      style={{ '--swap-i': i }}
                       tabIndex={0}
                       role="button"
                       aria-label={caption}
@@ -935,7 +1104,7 @@ const ProjectModal = ({ project, categoryId, onClose }) => {
           <div className="modal-actions">
             {link ? (
               <a href={link} target="_blank" rel="noreferrer" className="btn btn-primary">
-                {t('ui.visit_project')}
+                {t(`ui.${ctaKey || 'visit_project'}`)}
                 <IconExternal />
               </a>
             ) : (
@@ -950,7 +1119,7 @@ const ProjectModal = ({ project, categoryId, onClose }) => {
 
       {lightboxIndex !== null && (
         <Lightbox
-          gallery={gallery}
+          gallery={shown}
           projectId={id}
           startIndex={lightboxIndex}
           onClose={() => setLightboxIndex(null)}
@@ -964,8 +1133,8 @@ const ProjectModal = ({ project, categoryId, onClose }) => {
 /* --------------------------------------------------------------------------- */
 const ProjectCard = ({ project, index, onOpen }) => {
   const { t } = useTranslation();
-  const { id, badgeKey, badgeClass, icon, iconImg, iconZoom, gallery } = project;
-  const cover = gallery[0];
+  const { id, badgeKey, badgeClass, icon, iconImg, iconZoom } = project;
+  const cover = projectImages(project)[0];
   const title = t(`projects.${id}.title`);
 
   // The card is an <article>, not a <button>: a button may only contain phrasing
@@ -1004,13 +1173,18 @@ const ProjectCard = ({ project, index, onOpen }) => {
 };
 
 /* Every image-less project of a category, gathered into one compact block. */
-const CondensedCard = ({ projects, index, onOpen }) => {
+const CondensedCard = ({ projects, index, standalone, onOpen }) => {
   const { t } = useTranslation();
   return (
     <div className="condensed" data-reveal style={{ '--reveal-i': index }}>
-      <div className="condensed-head">
-        <h3 className="condensed-title">{t('ui.other_projects')}</h3>
-      </div>
+      {/* "Other projects" only makes sense next to the illustrated ones; when
+          this card is all the category has, the heading has nothing to be
+          other than. */}
+      {!standalone && (
+        <div className="condensed-head">
+          <h3 className="condensed-title">{t('ui.other_projects')}</h3>
+        </div>
+      )}
       {projects.map(project => {
         const title = t(`projects.${project.id}.title`);
         return (
@@ -1043,8 +1217,8 @@ const CondensedCard = ({ projects, index, onOpen }) => {
 /* --------------------------------------------------------------------------- */
 const CategorySection = ({ category, onOpen }) => {
   const { t } = useTranslation();
-  const withImages = category.projects.filter(p => Array.isArray(p.gallery) && p.gallery.length > 0);
-  const withoutImages = category.projects.filter(p => !Array.isArray(p.gallery) || p.gallery.length === 0);
+  const withImages = category.projects.filter(p => projectImages(p).length > 0);
+  const withoutImages = category.projects.filter(p => projectImages(p).length === 0);
 
   return (
     <section className="section" id={category.id} data-accent={category.id}>
@@ -1063,7 +1237,12 @@ const CategorySection = ({ category, onOpen }) => {
           </div>
         )}
         {withoutImages.length > 0 && (
-          <CondensedCard projects={withoutImages} index={withImages.length} onOpen={onOpen} />
+          <CondensedCard
+            projects={withoutImages}
+            index={withImages.length}
+            standalone={withImages.length === 0}
+            onOpen={onOpen}
+          />
         )}
       </div>
     </section>
@@ -1109,6 +1288,13 @@ function App() {
   }, [menuOpen]);
 
   useScrollReveal();
+
+  /* Keep <html lang> in step with the chosen language: screen readers pick the
+     pronunciation rules from it, so leaving it on "en" reads Italian and German
+     copy with English phonetics. */
+  useEffect(() => {
+    document.documentElement.lang = i18n.resolvedLanguage || 'en';
+  }, [i18n.resolvedLanguage]);
 
   // Sticky header turns compact once the hero starts scrolling away.
   useEffect(() => {
