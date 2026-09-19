@@ -18,27 +18,27 @@ const resources = {
         items: {
           football: {
             title: "Football",
-            note: "Milan supporter. I collect shirts."
+            note: "Milan supporter and shirt collector."
           },
           motorsport: {
             title: "Motorsport",
-            note: "MotoGP first: three classes, no session skipped, Marquez above all. Then Formula 1 — Sunday afternoons are booked from March to December. Lando Norris."
+            note: "MotoGP and Formula 1: every race weekend, backing Marquez and Norris."
           },
           travel: {
             title: "Travel",
-            note: "South Korea on one side of the world, Europe by interrail on the other. Give me a backpack and a departure board and I am happy."
+            note: "Exploring new places whenever I can: from European capitals to South Korea."
           },
           fitness: {
             title: "Gym & running",
-            note: "Lifting during the week, running to clear my head."
+            note: "Lifting during the week and weekend runs to stay in shape."
           },
           finance: {
             title: "Finance",
-            note: "Markets, investing and the data behind them."
+            note: "Financial markets, investing and data analysis."
           },
           tech: {
             title: "Technology",
-            note: "New phone launches, hardware and whatever the industry ships next."
+            note: "Hardware, benchmarks, new devices and tech industry trends."
           }
         }
       },
@@ -318,27 +318,27 @@ const resources = {
         items: {
           football: {
             title: "Calcio",
-            note: "Tifoso del Milan. Colleziono maglie."
+            note: "Milanista e collezionista di maglie."
           },
           motorsport: {
             title: "Motorsport",
-            note: "Prima la MotoGP: tre classi, nessuna sessione saltata, Marquez su tutti. Poi la Formula 1 — la domenica pomeriggio è prenotata da marzo a dicembre. Lando Norris."
+            note: "MotoGP e Formula 1: ogni weekend di gara, con il tifo per Marquez e Norris."
           },
           travel: {
             title: "Viaggi",
-            note: "La Corea del Sud da una parte del mondo, l'Europa in interrail dall'altra. Datemi uno zaino e un tabellone delle partenze e sono a posto."
+            note: "Girare posti nuovi ogni volta che posso: dalle capitali europee fino alla Corea del Sud."
           },
           fitness: {
             title: "Palestra e corsa",
-            note: "Pesi durante la settimana, corsa per staccare la testa."
+            note: "Sala pesi in settimana e corsa nel weekend per tenersi in forma."
           },
           finance: {
             title: "Finanza",
-            note: "Mercati, investimenti e i dati che ci stanno dietro."
+            note: "Mercati finanziari, investimenti e analisi dati."
           },
           tech: {
             title: "Tecnologia",
-            note: "Uscite di nuovi telefoni, hardware e le novità che escono nel settore."
+            note: "Hardware, benchmark, nuovi dispositivi e tendenze del settore tech."
           }
         }
       },
@@ -618,27 +618,27 @@ const resources = {
         items: {
           football: {
             title: "Fußball",
-            note: "Milan-Fan. Ich sammle Trikots."
+            note: "Milan-Fan und Trikotsammler."
           },
           motorsport: {
             title: "Motorsport",
-            note: "Zuerst MotoGP: drei Klassen, keine Session ausgelassen, Marquez über allen. Dann Formel 1 — Sonntagnachmittage sind von März bis Dezember vergeben. Lando Norris."
+            note: "MotoGP und Formel 1: jedes Rennwochenende dabei, mit Daumendrücken für Marquez und Norris."
           },
           travel: {
             title: "Reisen",
-            note: "Südkorea auf der einen Seite der Welt, Europa per Interrail auf der anderen. Ein Rucksack und eine Abfahrtstafel genügen mir."
+            note: "Neue Orte entdecken, wann immer es geht: von europäischen Hauptstädten bis nach Südkorea."
           },
           fitness: {
             title: "Gym & Laufen",
-            note: "Unter der Woche Gewichte, Laufen zum Abschalten."
+            note: "Gewichte unter der Woche und Laufen am Wochenende, um fit zu bleiben."
           },
           finance: {
             title: "Finanzen",
-            note: "Märkte, Investieren und die Daten dahinter."
+            note: "Finanzmärkte, Investieren und Datenanalyse."
           },
           tech: {
             title: "Technologie",
-            note: "Neue Smartphones, Hardware und was die Branche sonst so bringt."
+            note: "Hardware, Benchmarks, neue Geräte und Trends in der Tech-Branche."
           }
         }
       },
