@@ -3,7 +3,14 @@ import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import iconIco from './assets/icons/icon.ico';
 import logoImg from './assets/icons/logo.png';
+import portraitImg from './assets/portrait.jpg';
 import motogpHelmet from './assets/icons/motogp_helmet.png';
+
+/* The GitHub avatar is the site's mark: the favicon, the share card and the
+   logo you click to get home. The hero shows the real photo instead, so the
+   two are deliberately separate -- changing one never touches the other. */
+const BRAND_AVATAR_SRC = 'https://github.com/ManuCa93.png';
+const HERO_PORTRAIT_SRC = portraitImg;
 import motogpTimeAttack from './assets/projects/motogp/01_time_attack.jpg';
 import motogpPreRacePace from './assets/projects/motogp/02_pre_race_pace.jpg';
 import motogpLiveSimulation from './assets/projects/motogp/03_live_race_simulation.jpg';
@@ -73,6 +80,13 @@ import uniCreditConfusion from './assets/projects/uni/28_credit_confusion_matrix
 import uniCreditRoc from './assets/projects/uni/29_credit_roc_curve.png';
 import uniMachineryConfusion from './assets/projects/uni/30_machinery_confusion_matrix.png';
 import uniCitationGcn from './assets/projects/uni/31_citation_gcn_results.png';
+import uniStressSignals from './assets/projects/uni/32_stress_raw_wrist_signals.png';
+import uniStressConfusion from './assets/projects/uni/33_stress_confusion_matrices.png';
+import uniStressShap from './assets/projects/uni/34_stress_shap_summary.png';
+import uniEvooFluorescence from './assets/projects/uni/35_evoo_fluorescence_maps.png';
+import uniSweetBitter from './assets/projects/uni/36_sweet_bitter_feature_selection.png';
+import uniAutoencoderError from './assets/projects/uni/37_autoencoder_reconstruction_error.png';
+import uniGpEstimate from './assets/projects/uni/38_gp_true_vs_estimated.png';
 import alimentiHome from './assets/projects/alimenti/01_home_dashboard.png';
 import alimentiPantry from './assets/projects/alimenti/02_pantry_inventory.png';
 import alimentiShoppingList from './assets/projects/alimenti/03_shopping_list.png';
@@ -215,16 +229,18 @@ const IconBall = () => (
     <path d="M12 12l2.6 3.8h4.4M12 12L9.4 15.8H5M12 12V7.3M6.6 4.6l2.8 2.7M17.4 4.6l-2.8 2.7M21 15.6l-4.1-1.2M3 15.6l4.1-1.2" />
   </Ico>
 );
-const IconHelmet = () => (
+/* A plain waving flag just reads as "flag". Chequered squares say motorsport
+   the moment you see them, and the filled cells stay legible at the 20px the
+   hobby icons render at, where thin outlines start to mush together. */
+const IconCheckeredFlag = () => (
   <Ico>
-    <circle cx="12" cy="12" r="9" />
-    <path d="M3.4 14.6h9.1a4.6 4.6 0 0 0 4.6-4.6v-.7" />
-    <path d="M12.5 14.6V21" />
-  </Ico>
-);
-const IconFlag = () => (
-  <Ico>
-    <path d="M4 21V4M4 4.5s1.6-1.2 4.5-1.2S13 5.8 16 5.8s4-1.2 4-1.2v9.6s-1.1 1.2-4 1.2-4.6-2.5-7.5-2.5S4 14.1 4 14.1" />
+    <path d="M4.85 21.5V3.5" />
+    <path d="M5 4h16v12H5z" />
+    <path
+      fill="currentColor"
+      stroke="none"
+      d="M5 4h4v4H5zM13 4h4v4h-4zM9 8h4v4H9zM17 8h4v4h-4zM5 12h4v4H5zM13 12h4v4h-4z"
+    />
   </Ico>
 );
 const IconDumbbell = () => (
@@ -237,6 +253,13 @@ const IconPhone = () => (
     <rect x="6" y="2" width="12" height="20" rx="2.5" />
     <path d="M10.5 5.5h3" />
     <path d="M10 18.5h4" />
+  </Ico>
+);
+const IconGlobe = () => (
+  <Ico>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M3 12h18" />
+    <path d="M12 3c2.5 2.4 3.8 5.4 3.8 9s-1.3 6.6-3.8 9c-2.5-2.4-3.8-5.4-3.8-9S9.5 5.4 12 3z" />
   </Ico>
 );
 const IconTrend = () => (
@@ -345,7 +368,12 @@ const uniGalleryGroups = [
       { src: uniTumorConfusion, captionKey: 'tumor_confusion' },
       { src: uniTumorRoc, captionKey: 'tumor_roc' },
       { src: uniMolecules, captionKey: 'molecules' },
-      { src: uniDrugDesign, captionKey: 'drug_design' }
+      { src: uniDrugDesign, captionKey: 'drug_design' },
+      { src: uniStressSignals, captionKey: 'stress_signals' },
+      { src: uniStressConfusion, captionKey: 'stress_confusion' },
+      { src: uniStressShap, captionKey: 'stress_shap' },
+      { src: uniEvooFluorescence, captionKey: 'evoo_fluorescence' },
+      { src: uniSweetBitter, captionKey: 'sweet_bitter' }
     ]
   },
   {
@@ -374,7 +402,8 @@ const uniGalleryGroups = [
     id: 'bayesian',
     images: [
       { src: uniBayesian, captionKey: 'bayesian' },
-      { src: uniMlMap, captionKey: 'ml_vs_map' }
+      { src: uniMlMap, captionKey: 'ml_vs_map' },
+      { src: uniGpEstimate, captionKey: 'gp_estimate' }
     ]
   },
   {
@@ -394,7 +423,8 @@ const uniGalleryGroups = [
       { src: uniCitations, captionKey: 'citations' },
       { src: uniCitationGcn, captionKey: 'citation_gcn' },
       { src: uniMachineryConfusion, captionKey: 'machinery_confusion' },
-      { src: uniNbaShots, captionKey: 'nba_shots' }
+      { src: uniNbaShots, captionKey: 'nba_shots' },
+      { src: uniAutoencoderError, captionKey: 'autoencoder_error' }
     ]
   }
 ];
@@ -538,10 +568,11 @@ const CATEGORIES = [
   { id: 'games', projects: gameProjects }
 ];
 
+/* MotoGP and F1 are one interest, so they share a single Motorsport card. */
 const HOBBIES = [
   { id: 'football', icon: <IconBall /> },
-  { id: 'motogp', icon: <IconHelmet /> },
-  { id: 'f1', icon: <IconFlag /> },
+  { id: 'motorsport', icon: <IconCheckeredFlag /> },
+  { id: 'travel', icon: <IconGlobe /> },
   { id: 'fitness', icon: <IconDumbbell /> },
   { id: 'finance', icon: <IconTrend /> },
   { id: 'tech', icon: <IconPhone /> }
@@ -1252,6 +1283,11 @@ const CategorySection = ({ category, onOpen }) => {
 /* --------------------------------------------------------------------------- */
 function App() {
   const { t, i18n } = useTranslation();
+  /* On a phone the name sits beside the portrait with the surname on its own
+     line, so it is split explicitly rather than left to wrap wherever the
+     column happens to end. */
+  const [nameFirst, ...nameRest] = t('profile.title').split(' ');
+  const nameLast = nameRest.join(' ');
   const [openProject, setOpenProject] = useState(null);
   const [compact, setCompact] = useState(false);
   const [activeId, setActiveId] = useState(null);
@@ -1385,9 +1421,14 @@ function App() {
       <header className={`site-header ${compact ? 'is-compact' : ''}`}>
         <div className="shell site-header-inner">
           <a className="brand" href="#top">
-            <span className="brand-mark" aria-hidden="true">
-              MC
-            </span>
+            <img
+              className="brand-mark"
+              src={BRAND_AVATAR_SRC}
+              alt=""
+              width="120"
+              height="120"
+              aria-hidden="true"
+            />
             <span className="brand-name">{t('profile.title')}</span>
           </a>
 
@@ -1469,15 +1510,16 @@ function App() {
           <div className="shell hero-grid">
             <img
               className="hero-portrait"
-              src="https://github.com/ManuCa93.png"
+              src={HERO_PORTRAIT_SRC}
               alt={t('profile.title')}
-              width="120"
-              height="120"
+              width="600"
+              height="600"
               data-reveal
             />
-            <div>
+            <div className="hero-intro">
               <h1 className="hero-name" data-reveal>
-                {t('profile.title')}
+                <span className="hero-name-part">{nameFirst}</span>
+                {nameLast && <> <span className="hero-name-part">{nameLast}</span></>}
               </h1>
               <p className="hero-meta" data-reveal style={{ '--reveal-i': 1 }}>
                 <span className="hero-meta-item">

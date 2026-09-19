@@ -20,13 +20,13 @@ const resources = {
             title: "Football",
             note: "Milan supporter. I collect shirts."
           },
-          motogp: {
-            title: "MotoGP",
-            note: "Three classes, no session skipped: Moto3, Moto2 and MotoGP. Marquez above all."
+          motorsport: {
+            title: "Motorsport",
+            note: "MotoGP first: three classes, no session skipped, Marquez above all. Then Formula 1 — Sunday afternoons are booked from March to December. Lando Norris."
           },
-          f1: {
-            title: "Formula 1",
-            note: "Sunday afternoons are booked from March to December. Lando Norris."
+          travel: {
+            title: "Travel",
+            note: "South Korea on one side of the world, Europe by interrail on the other. Give me a backpack and a departure board and I am happy."
           },
           fitness: {
             title: "Gym & running",
@@ -99,9 +99,9 @@ const resources = {
         },
         uni: {
           title: "University Projects",
-          summary: "**26 academic repositories** from my Bachelor's, spanning healthcare and biomedical ML, time series forecasting, Bayesian statistics, blockchain, robotics and reinforcement learning.",
+          summary: "**26 academic repositories** from my Bachelor's, spanning healthcare and biomedical ML, wearable sensing, time series forecasting, Bayesian statistics, blockchain, robotics and reinforcement learning.",
           techStack: "Python (Jupyter Notebook), R",
-          details: "**26 repositories** from coursework across the degree, covering a wide range of topics: healthcare and biomedical data (drug design, bioinformatics, brain tumor classification from MRI, olive oil and food-compound quality), time series forecasting, Bayesian statistics and optimization, blockchain, robotics and drone control, reinforcement learning, anomaly detection with autoencoders, and sports/finance analytics (NBA shot data, credit risk). Written mostly as Jupyter notebooks and R Markdown, some solved individually and others in pairs or small groups depending on the course. Browse them all on GitHub.",
+          details: "**26 repositories** from coursework across the degree, covering a wide range of topics: healthcare and biomedical data (drug design, bioinformatics, brain tumor classification from MRI, stress detection from wrist-worn sensors, olive oil and food-compound quality), time series forecasting, Bayesian statistics and optimization, blockchain, robotics and drone control, reinforcement learning, anomaly detection with autoencoders, and sports/finance analytics (NBA shot data, credit risk). Written mostly as Jupyter notebooks and R Markdown, some solved individually and others in pairs or small groups depending on the course. Browse them all on GitHub.",
           folders: {
             biomedical: "Healthcare & biomedical",
             robotics: "Robotics & drones",
@@ -111,6 +111,13 @@ const resources = {
             analytics: "Finance, sport & research"
           },
           gallery: {
+            stress_signals: "Raw wrist signals for one subject: blood volume pulse, skin conductance, temperature and acceleration under the study protocol labels",
+            stress_confusion: "Stress against non-stress: confusion matrices for four models under leave-one-subject-out validation",
+            stress_shap: "SHAP summary for the stress classifier: mean heart rate and skin conductance carry most of the signal",
+            evoo_fluorescence: "Olive oil under fluorescence spectroscopy: excitation-emission maps at three stages of ageing",
+            sweet_bitter: "Sweet against bitter compounds: validation accuracy as the feature selector keeps adding features",
+            gp_estimate: "Gaussian process surrogate against the true function across three input dimensions, inside the Bayesian optimization loop",
+            autoencoder_error: "Autoencoder anomaly detection: the reconstructions that failed hardest are the Fashion-MNIST items the model never trained on",
             tumor_confusion: "Brain tumour classifier: confusion matrix on the validation set, tumour against non-tumour",
             tumor_roc: "Brain tumour classifiers compared: ROC curves for logistic regression, a CNN and a fully connected CNN",
             fleet_forecast: "24h-ahead fleet forecast: the model's continuation against the naive, mean and seasonal-naive baselines",
@@ -313,13 +320,13 @@ const resources = {
             title: "Calcio",
             note: "Tifoso del Milan. Colleziono maglie."
           },
-          motogp: {
-            title: "MotoGP",
-            note: "Tre classi, nessuna sessione saltata: Moto3, Moto2 e MotoGP. Marquez su tutti."
+          motorsport: {
+            title: "Motorsport",
+            note: "Prima la MotoGP: tre classi, nessuna sessione saltata, Marquez su tutti. Poi la Formula 1 — la domenica pomeriggio è prenotata da marzo a dicembre. Lando Norris."
           },
-          f1: {
-            title: "Formula 1",
-            note: "La domenica pomeriggio è prenotata da marzo a dicembre. Lando Norris."
+          travel: {
+            title: "Viaggi",
+            note: "La Corea del Sud da una parte del mondo, l'Europa in interrail dall'altra. Datemi uno zaino e un tabellone delle partenze e sono a posto."
           },
           fitness: {
             title: "Palestra e corsa",
@@ -392,9 +399,9 @@ const resources = {
         },
         uni: {
           title: "Progetti Universitari",
-          summary: "**26 repository accademici** della triennale, con lavori di ambito sanitario e biomedico, previsione di serie storiche, statistica bayesiana, blockchain, robotica e reinforcement learning.",
+          summary: "**26 repository accademici** della triennale, con lavori di ambito sanitario e biomedico, sensori indossabili, previsione di serie storiche, statistica bayesiana, blockchain, robotica e reinforcement learning.",
           techStack: "Python (Jupyter Notebook), R",
-          details: "**26 repository** nati dagli esami del corso di laurea, che coprono un ampio ventaglio di temi: dati sanitari e biomedici (drug design, bioinformatica, classificazione di tumori cerebrali da risonanza, qualità dell'olio d'oliva e dei composti alimentari), previsione di serie storiche, statistica bayesiana e ottimizzazione, blockchain, robotica e controllo di droni, reinforcement learning, anomaly detection con autoencoder, e analisi sportive/finanziarie (dati sui tiri NBA, rischio di credito). Scritti perlopiù in notebook Jupyter e R Markdown, alcuni svolti da solo e altri in coppia o piccoli gruppi a seconda del corso. Si possono sfogliare tutti su GitHub.",
+          details: "**26 repository** nati dagli esami del corso di laurea, che coprono un ampio ventaglio di temi: dati sanitari e biomedici (drug design, bioinformatica, classificazione di tumori cerebrali da risonanza, rilevamento dello stress da sensori da polso, qualità dell'olio d'oliva e dei composti alimentari), previsione di serie storiche, statistica bayesiana e ottimizzazione, blockchain, robotica e controllo di droni, reinforcement learning, anomaly detection con autoencoder, e analisi sportive/finanziarie (dati sui tiri NBA, rischio di credito). Scritti perlopiù in notebook Jupyter e R Markdown, alcuni svolti da solo e altri in coppia o piccoli gruppi a seconda del corso. Si possono sfogliare tutti su GitHub.",
           folders: {
             biomedical: "Sanitario e biomedico",
             robotics: "Robotica e droni",
@@ -404,6 +411,13 @@ const resources = {
             analytics: "Finanza, sport e ricerca"
           },
           gallery: {
+            stress_signals: "Segnali grezzi da polso di un soggetto: volume del polso sanguigno, conduttanza cutanea, temperatura e accelerazione sotto le etichette del protocollo",
+            stress_confusion: "Stress contro non-stress: matrici di confusione di quattro modelli con validazione leave-one-subject-out",
+            stress_shap: "Riepilogo SHAP del classificatore dello stress: frequenza cardiaca media e conduttanza cutanea portano gran parte del segnale",
+            evoo_fluorescence: "Olio d'oliva alla spettroscopia di fluorescenza: mappe eccitazione-emissione a tre stadi di invecchiamento",
+            sweet_bitter: "Composti dolci contro amari: accuratezza di validazione man mano che il selettore aggiunge feature",
+            gp_estimate: "Surrogato a processo gaussiano contro la funzione vera su tre dimensioni di input, dentro il ciclo di ottimizzazione bayesiana",
+            autoencoder_error: "Anomaly detection con autoencoder: le ricostruzioni peggiori sono i capi Fashion-MNIST su cui il modello non si è mai allenato",
             tumor_confusion: "Classificatore di tumori cerebrali: matrice di confusione sul validation set, tumore contro non tumore",
             tumor_roc: "Classificatori a confronto: curve ROC di regressione logistica, CNN e CNN completamente connessa",
             fleet_forecast: "Previsione della flotta a 24 ore: la continuazione del modello contro le baseline naive, media e naive stagionale",
@@ -606,13 +620,13 @@ const resources = {
             title: "Fußball",
             note: "Milan-Fan. Ich sammle Trikots."
           },
-          motogp: {
-            title: "MotoGP",
-            note: "Drei Klassen, keine Session ausgelassen: Moto3, Moto2 und MotoGP. Marquez über allen."
+          motorsport: {
+            title: "Motorsport",
+            note: "Zuerst MotoGP: drei Klassen, keine Session ausgelassen, Marquez über allen. Dann Formel 1 — Sonntagnachmittage sind von März bis Dezember vergeben. Lando Norris."
           },
-          f1: {
-            title: "Formel 1",
-            note: "Sonntagnachmittage sind von März bis Dezember vergeben. Lando Norris."
+          travel: {
+            title: "Reisen",
+            note: "Südkorea auf der einen Seite der Welt, Europa per Interrail auf der anderen. Ein Rucksack und eine Abfahrtstafel genügen mir."
           },
           fitness: {
             title: "Gym & Laufen",
@@ -685,9 +699,9 @@ const resources = {
         },
         uni: {
           title: "Universitätsprojekte",
-          summary: "**26 akademische Repositories** aus dem Bachelorstudium, mit Arbeiten aus dem Gesundheits- und Biomedizinbereich, Zeitreihenprognosen, Bayes-Statistik, Blockchain, Robotik und Reinforcement Learning.",
+          summary: "**26 akademische Repositories** aus dem Bachelorstudium, mit Arbeiten aus dem Gesundheits- und Biomedizinbereich, Wearable-Sensorik, Zeitreihenprognosen, Bayes-Statistik, Blockchain, Robotik und Reinforcement Learning.",
           techStack: "Python (Jupyter Notebook), R",
-          details: "**26 Repositories** aus Kursarbeiten des Studiums, die ein breites Themenspektrum abdecken: Gesundheits- und Biomedizindaten (Drug Design, Bioinformatik, Hirntumor-Klassifikation aus MRT-Bildern, Qualität von Olivenöl und Lebensmittelverbindungen), Zeitreihenprognosen, Bayes-Statistik und -Optimierung, Blockchain, Robotik und Drohnensteuerung, Reinforcement Learning, Anomalieerkennung mit Autoencodern sowie Sport-/Finanzanalysen (NBA-Wurfdaten, Kreditrisiko). Meist als Jupyter-Notebooks und R-Markdown geschrieben, manche allein, andere zu zweit oder in kleinen Gruppen, je nach Kurs. Alle einsehbar auf GitHub.",
+          details: "**26 Repositories** aus Kursarbeiten des Studiums, die ein breites Themenspektrum abdecken: Gesundheits- und Biomedizindaten (Drug Design, Bioinformatik, Hirntumor-Klassifikation aus MRT-Bildern, Stresserkennung aus Handgelenksensoren, Qualität von Olivenöl und Lebensmittelverbindungen), Zeitreihenprognosen, Bayes-Statistik und -Optimierung, Blockchain, Robotik und Drohnensteuerung, Reinforcement Learning, Anomalieerkennung mit Autoencodern sowie Sport-/Finanzanalysen (NBA-Wurfdaten, Kreditrisiko). Meist als Jupyter-Notebooks und R-Markdown geschrieben, manche allein, andere zu zweit oder in kleinen Gruppen, je nach Kurs. Alle einsehbar auf GitHub.",
           folders: {
             biomedical: "Gesundheit & Biomedizin",
             robotics: "Robotik & Drohnen",
@@ -697,6 +711,13 @@ const resources = {
             analytics: "Finanzen, Sport & Forschung"
           },
           gallery: {
+            stress_signals: "Rohe Handgelenksignale eines Probanden: Blutvolumenpuls, Hautleitfähigkeit, Temperatur und Beschleunigung unter den Protokoll-Labels",
+            stress_confusion: "Stress gegen Nicht-Stress: Konfusionsmatrizen von vier Modellen unter Leave-One-Subject-Out-Validierung",
+            stress_shap: "SHAP-Übersicht des Stressklassifikators: mittlere Herzfrequenz und Hautleitfähigkeit tragen den Großteil des Signals",
+            evoo_fluorescence: "Olivenöl unter Fluoreszenzspektroskopie: Anregungs-Emissions-Karten in drei Alterungsstufen",
+            sweet_bitter: "Süße gegen bittere Verbindungen: Validierungsgenauigkeit, während der Selektor weitere Merkmale aufnimmt",
+            gp_estimate: "Gauß-Prozess-Surrogat gegen die wahre Funktion über drei Eingangsdimensionen, innerhalb der Bayes-Optimierungsschleife",
+            autoencoder_error: "Anomalieerkennung mit Autoencoder: die schlechtesten Rekonstruktionen sind die Fashion-MNIST-Stücke, auf die das Modell nie trainiert wurde",
             tumor_confusion: "Hirntumor-Klassifikator: Konfusionsmatrix auf dem Validierungsset, Tumor gegen Nicht-Tumor",
             tumor_roc: "Klassifikatoren im Vergleich: ROC-Kurven von logistischer Regression, CNN und voll verbundenem CNN",
             fleet_forecast: "24-Stunden-Prognose der Flotte: die Fortsetzung des Modells gegen die Naive-, Mittelwert- und saisonale Naive-Baseline",
