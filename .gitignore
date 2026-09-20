@@ -27,6 +27,8 @@ dist-ssr
 # (unzip, move the images into src/assets/projects/<project>/, then delete the archive)
 *.zip
 _archive/
+# Full-resolution screenshot drops: the repo only carries the resized copies
+/*_screenshots_portfolio/
 
 # Raw screenshots dropped in the repo root before being sorted into src/assets/
 /Immagine*.jpg

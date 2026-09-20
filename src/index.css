@@ -249,6 +249,11 @@ ul {
   min-height: var(--header-h);
 }
 
+/* The name is the site's only mark. It stays out of the way while the hero is
+   showing its own big copy and slides in once that one has scrolled under the
+   bar, so the two are never on screen together. It keeps its slot in the flex
+   row the whole time, which is what stops the nav from jumping on handover;
+   `visibility` is what takes it out of the tab order while it is invisible. */
 .brand {
   display: inline-flex;
   align-items: center;
@@ -260,24 +265,17 @@ ul {
   font-size: 1rem;
   min-height: 44px;
   flex-shrink: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.4rem);
+  transition: opacity var(--t-mid) var(--ease), transform var(--t-mid) var(--ease),
+    visibility var(--t-mid) var(--ease);
 }
 
-/* The avatar is the site's logo, so it is always there to click. The gap that
-   used to sit on `.brand` lives on the mark itself, which keeps the name lined
-   up the same way whether or not the image has loaded. */
-.brand-mark {
-  width: 1.85rem;
-  height: 1.85rem;
-  margin-right: 0.55rem;
-  border-radius: 50%;
-  object-fit: cover;
-  background: var(--surface);
-  box-shadow: 0 0 0 1px var(--line);
-  flex-shrink: 0;
-}
-
-.brand-name {
-  display: none;
+.site-header.has-brand .brand {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
 }
 
 .header-nav {
@@ -593,10 +591,6 @@ ul {
   .lang-flag {
     width: 1.3rem;
     height: 0.875rem;
-  }
-
-  .brand-name {
-    display: inline;
   }
 
   .header-nav {

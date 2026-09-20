@@ -6,22 +6,49 @@ import logoImg from './assets/icons/logo.png';
 import portraitImg from './assets/portrait.jpg';
 import motogpHelmet from './assets/icons/motogp_helmet.png';
 
-/* The GitHub avatar is the site's mark: the favicon, the share card and the
-   logo you click to get home. The hero shows the real photo instead, so the
-   two are deliberately separate -- changing one never touches the other. */
-const BRAND_AVATAR_SRC = 'https://github.com/ManuCa93.png';
+/* The header carries the name and nothing else -- no avatar. The hero shows the
+   real photo, and the GitHub avatar stays what it always was outside the page:
+   the favicon and the share card, both set in index.html. */
 const HERO_PORTRAIT_SRC = portraitImg;
-import motogpTimeAttack from './assets/projects/motogp/01_time_attack.jpg';
-import motogpPreRacePace from './assets/projects/motogp/02_pre_race_pace.jpg';
-import motogpLiveSimulation from './assets/projects/motogp/03_live_race_simulation.jpg';
-import motogpWeekendOverview from './assets/projects/motogp/04_weekend_overview.jpg';
-import motogpLapByLap from './assets/projects/motogp/05_lap_by_lap.jpg';
-import motogpRiderGrades from './assets/projects/motogp/06_rider_grades.jpg';
-import motogpRiderProfile from './assets/projects/motogp/07_rider_profile.jpg';
-import motogpRaceVsQuali from './assets/projects/motogp/08_race_vs_quali.jpg';
-import motogpConsistency from './assets/projects/motogp/09_consistency.jpg';
-import motogpTeamPerformance from './assets/projects/motogp/10_team_performance.jpg';
-import motogp3dMapping from './assets/projects/motogp/11_3d_environmental_mapping.jpg';
+import motogpTimeAttack from './assets/projects/motogp/01_live_time_attack_leaderboard.jpg';
+import motogpLiveSectorPrediction from './assets/projects/motogp/02_live_track_feed_ai_prediction.jpg';
+import motogpLiveSimulation from './assets/projects/motogp/03_live_race_simulation_ml_predictor.jpg';
+import motogpPreRacePace from './assets/projects/motogp/04_pre_race_pace_predictor.jpg';
+import motogpAccuracyReport from './assets/projects/motogp/05_ai_accuracy_report.jpg';
+import motogpWeekendOverview from './assets/projects/motogp/06_weekend_overview_report_card.jpg';
+import motogpQualiIdealLap from './assets/projects/motogp/07_qualifying_ideal_lap.jpg';
+import motogpQualiSectorDeltas from './assets/projects/motogp/08_quali_sector_deltas.jpg';
+import motogpRaceClassification from './assets/projects/motogp/09_race_final_classification.jpg';
+import motogpPositionByLap from './assets/projects/motogp/10_position_by_lap.jpg';
+import motogpPaceByLap from './assets/projects/motogp/11_pace_by_lap.jpg';
+import motogpPaceLapRanges from './assets/projects/motogp/12_pace_across_lap_ranges.jpg';
+import motogpCustomLapRange from './assets/projects/motogp/13_custom_lap_range.jpg';
+import motogpLapDistributionRiders from './assets/projects/motogp/14_lap_time_distribution_riders.jpg';
+import motogpRaceTrace from './assets/projects/motogp/15_race_trace_delta_to_winner.jpg';
+import motogpDirtyAirImpact from './assets/projects/motogp/16_traffic_dirty_air_impact.jpg';
+import motogpRiderVsBike from './assets/projects/motogp/17_rider_vs_own_bike.jpg';
+import motogpPredictedVsActual from './assets/projects/motogp/18_predicted_vs_actual_finish.jpg';
+import motogpPaceByTeam from './assets/projects/motogp/19_pace_by_team.jpg';
+import motogpTeamBattles from './assets/projects/motogp/20_team_distribution_and_battles.jpg';
+import motogpPaceByManufacturer from './assets/projects/motogp/21_pace_by_manufacturer.jpg';
+import motogpManufacturerBattles from './assets/projects/motogp/22_manufacturer_distribution_battles.jpg';
+import motogpWeatherConditions from './assets/projects/motogp/23_weather_track_conditions.jpg';
+import motogpSprintAnalysis from './assets/projects/motogp/24_sprint_position_by_lap.jpg';
+import motogpAnalyticsStandings from './assets/projects/motogp/25_analytics_filters_and_standings.jpg';
+import motogpCumulativePoints from './assets/projects/motogp/26_analytics_cumulative_points.jpg';
+import motogpRiderGrades from './assets/projects/motogp/27_analytics_rider_grades.jpg';
+import motogpIdealLapRanking from './assets/projects/motogp/28_analytics_ideal_lap_ranking.jpg';
+import motogpDifferenceMaker from './assets/projects/motogp/29_analytics_difference_maker.jpg';
+import motogpConstructorPerformance from './assets/projects/motogp/30_analytics_constructor_performance.jpg';
+import motogpTeamPerformance from './assets/projects/motogp/31_analytics_team_performance.jpg';
+import motogpFinishingPosition from './assets/projects/motogp/32_analytics_rider_finishing_position.jpg';
+import motogpConsistency from './assets/projects/motogp/33_analytics_dnf_and_consistency.jpg';
+import motogpWetMasters from './assets/projects/motogp/34_analytics_wet_conditions_masters.jpg';
+import motogpRaceVsQuali from './assets/projects/motogp/35_analytics_race_vs_qualifying.jpg';
+import motogp3dMapping from './assets/projects/motogp/36_eda_3d_environmental_mapping.jpg';
+import motogpFeatureImportance from './assets/projects/motogp/37_eda_feature_importance_correlation.jpg';
+import motogpClusteringPca from './assets/projects/motogp/38_eda_clustering_and_pca.jpg';
+import motogpRegressionAnomaly from './assets/projects/motogp/39_eda_regression_and_anomaly.jpg';
 import polifyHome from './assets/projects/polify/home-desktop-scuro.jpg';
 import polifySondaggio from './assets/projects/polify/sondaggio-01-scala-con-spiegazione.jpg';
 import polifyRisultato from './assets/projects/polify/risultato-sintesi.jpg';
@@ -307,16 +334,44 @@ const IconGamepad = () => (
    --------------------------------------------------------------------------- */
 const motogpGallery = [
   { src: motogpTimeAttack, captionKey: 'time_attack' },
-  { src: motogpPreRacePace, captionKey: 'race_pace' },
+  { src: motogpLiveSectorPrediction, captionKey: 'live_sector_prediction' },
   { src: motogpLiveSimulation, captionKey: 'live_prediction' },
+  { src: motogpPreRacePace, captionKey: 'race_pace' },
+  { src: motogpAccuracyReport, captionKey: 'accuracy_report' },
   { src: motogpWeekendOverview, captionKey: 'weekend_overview' },
-  { src: motogpLapByLap, captionKey: 'weekend_charts' },
+  { src: motogpQualiIdealLap, captionKey: 'quali_ideal_lap' },
+  { src: motogpQualiSectorDeltas, captionKey: 'quali_sector_deltas' },
+  { src: motogpRaceClassification, captionKey: 'race_classification' },
+  { src: motogpPositionByLap, captionKey: 'position_by_lap' },
+  { src: motogpPaceByLap, captionKey: 'pace_by_lap' },
+  { src: motogpPaceLapRanges, captionKey: 'pace_lap_ranges' },
+  { src: motogpCustomLapRange, captionKey: 'custom_lap_range' },
+  { src: motogpLapDistributionRiders, captionKey: 'lap_distribution_riders' },
+  { src: motogpRaceTrace, captionKey: 'race_trace' },
+  { src: motogpDirtyAirImpact, captionKey: 'dirty_air_impact' },
+  { src: motogpRiderVsBike, captionKey: 'rider_vs_bike' },
+  { src: motogpPredictedVsActual, captionKey: 'predicted_vs_actual' },
+  { src: motogpPaceByTeam, captionKey: 'pace_by_team' },
+  { src: motogpTeamBattles, captionKey: 'team_battles' },
+  { src: motogpPaceByManufacturer, captionKey: 'pace_by_manufacturer' },
+  { src: motogpManufacturerBattles, captionKey: 'manufacturer_battles' },
+  { src: motogpWeatherConditions, captionKey: 'weather_conditions' },
+  { src: motogpSprintAnalysis, captionKey: 'sprint_analysis' },
+  { src: motogpAnalyticsStandings, captionKey: 'analytics_standings' },
+  { src: motogpCumulativePoints, captionKey: 'cumulative_points' },
   { src: motogpRiderGrades, captionKey: 'rider_grades' },
-  { src: motogpRiderProfile, captionKey: 'rider_profile' },
-  { src: motogpRaceVsQuali, captionKey: 'race_vs_quali' },
-  { src: motogpConsistency, captionKey: 'consistency' },
+  { src: motogpIdealLapRanking, captionKey: 'ideal_lap_ranking' },
+  { src: motogpDifferenceMaker, captionKey: 'difference_maker' },
+  { src: motogpConstructorPerformance, captionKey: 'constructor_performance' },
   { src: motogpTeamPerformance, captionKey: 'team_performance' },
-  { src: motogp3dMapping, captionKey: 'env_mapping_3d' }
+  { src: motogpFinishingPosition, captionKey: 'finishing_position' },
+  { src: motogpConsistency, captionKey: 'consistency' },
+  { src: motogpWetMasters, captionKey: 'wet_masters' },
+  { src: motogpRaceVsQuali, captionKey: 'race_vs_quali' },
+  { src: motogp3dMapping, captionKey: 'env_mapping_3d' },
+  { src: motogpFeatureImportance, captionKey: 'feature_importance' },
+  { src: motogpClusteringPca, captionKey: 'clustering_pca' },
+  { src: motogpRegressionAnomaly, captionKey: 'regression_anomaly' }
 ];
 
 const polifyGallery = [
@@ -1292,8 +1347,11 @@ function App() {
   const [compact, setCompact] = useState(false);
   const [activeId, setActiveId] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [nameInHeader, setNameInHeader] = useState(false);
   const drawerCloseRef = useRef(null);
   const navToggleRef = useRef(null);
+  const headerRef = useRef(null);
+  const heroNameRef = useRef(null);
 
   /* Below 46rem the header nav is hidden and the category chips scroll away with
      the hero, which left no way to jump between categories once you were down
@@ -1346,6 +1404,26 @@ function App() {
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  /* The header only takes the name over once the hero has let go of it: while
+     the big one is still on screen, a second copy in the bar reads as a
+     duplicate. Watching the hero <h1> itself instead of a fixed scroll offset
+     makes the handover land at the right moment on every viewport, and the
+     negative top margin accounts for the name sliding *under* the sticky bar
+     rather than off the top of the window. */
+  useEffect(() => {
+    const el = heroNameRef.current;
+    if (!el || !('IntersectionObserver' in window)) {
+      setNameInHeader(true); // no observer: a name that never hides beats none
+      return;
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => setNameInHeader(!entry.isIntersecting),
+      { rootMargin: `-${headerRef.current?.offsetHeight || 0}px 0px 0px 0px` }
+    );
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
 
   /* Scrollspy: highlights the nav entry for the category currently in view.
@@ -1418,17 +1496,12 @@ function App() {
         {t('ui.skip_to_content')}
       </a>
 
-      <header className={`site-header ${compact ? 'is-compact' : ''}`}>
+      <header
+        ref={headerRef}
+        className={`site-header ${compact ? 'is-compact' : ''} ${nameInHeader ? 'has-brand' : ''}`}
+      >
         <div className="shell site-header-inner">
           <a className="brand" href="#top">
-            <img
-              className="brand-mark"
-              src={BRAND_AVATAR_SRC}
-              alt=""
-              width="120"
-              height="120"
-              aria-hidden="true"
-            />
             <span className="brand-name">{t('profile.title')}</span>
           </a>
 
@@ -1517,7 +1590,7 @@ function App() {
               data-reveal
             />
             <div className="hero-intro">
-              <h1 className="hero-name" data-reveal>
+              <h1 className="hero-name" ref={heroNameRef} data-reveal>
                 <span className="hero-name-part">{nameFirst}</span>
                 {nameLast && <> <span className="hero-name-part">{nameLast}</span></>}
               </h1>
