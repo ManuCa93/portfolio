@@ -697,7 +697,6 @@ ul {
   font-size: clamp(1.05rem, 0.95rem + 0.7vw, 1.4rem);
   line-height: 1.45;
   color: var(--ink-soft);
-  max-width: 40ch;
   text-wrap: pretty;
   margin-bottom: 1.75rem;
 }
