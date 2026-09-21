@@ -10,6 +10,9 @@
       content="Manuel Cattoni — student and software developer from Varese. Data & AI, mobile apps, websites and games."
     />
     <meta name="color-scheme" content="light" />
+    <meta name="author" content="Manuel Cattoni" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://manuca93.github.io/portfolio/" />
     <title>Manuel Cattoni — Portfolio</title>
 
     <!-- The GitHub avatar doubles as the site's mark: the favicon Google shows
@@ -24,9 +27,42 @@
     <meta property="og:url" content="https://manuca93.github.io/portfolio/" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:image" content="https://github.com/ManuCa93.png" />
+
+    <!-- Tells search engines that this page IS a person, so a search for the
+         name can surface the site rather than just the repositories. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Manuel Cattoni",
+        "url": "https://manuca93.github.io/portfolio/",
+        "image": "https://github.com/ManuCa93.png",
+        "jobTitle": "Software Developer",
+        "description": "Student and software developer from Varese. Data & AI, mobile apps, websites and games.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Varese",
+          "addressCountry": "IT"
+        },
+        "sameAs": [
+          "https://github.com/ManuCa93",
+          "https://www.linkedin.com/in/manuel-cattoni-169631339/",
+          "https://instagram.com/cattonii"
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <h1>Manuel Cattoni</h1>
+      <p>
+        Student and software developer from Varese, Italy. Data &amp; AI, mobile
+        apps, websites and games. Find me on
+        <a href="https://github.com/ManuCa93">GitHub</a> and
+        <a href="https://www.linkedin.com/in/manuel-cattoni-169631339/">LinkedIn</a>.
+      </p>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

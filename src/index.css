@@ -1305,7 +1305,15 @@ ul {
   font-weight: 800;
 }
 
-.modal-close {
+.modal-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.modal-close,
+.modal-link {
   display: grid;
   place-items: center;
   width: 44px;
@@ -1316,14 +1324,21 @@ ul {
   transition: background-color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
 }
 
-.modal-close:hover {
+.modal-close:hover,
+.modal-link:hover {
   background: var(--surface);
   border-color: var(--line-strong);
 }
 
-.modal-close svg {
+.modal-close svg,
+.modal-link svg {
   width: 18px;
   height: 18px;
+}
+
+.modal-link {
+  color: var(--accent-ink);
+  border-color: var(--accent-ink);
 }
 
 .modal-body {
@@ -1564,13 +1579,13 @@ ul {
 }
 
 .btn-primary {
-  background: var(--ink);
+  background: var(--accent-ink);
   color: #fff;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  background: var(--accent-ink);
+  background: var(--ink);
 }
 
 .btn-ghost {

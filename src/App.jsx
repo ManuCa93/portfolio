@@ -1069,15 +1069,29 @@ const ProjectModal = ({ project, categoryId, onClose }) => {
               {t(`projects.${id}.title`)}
             </h2>
           </div>
-          <button
-            className="modal-close"
-            ref={closeRef}
-            onClick={requestClose}
-            aria-label={t('ui.close')}
-            type="button"
-          >
-            <IconClose />
-          </button>
+          <div className="modal-head-actions">
+            {link && (
+              <a
+                className="modal-link"
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={t(`ui.${ctaKey || 'visit_project'}`)}
+                title={t(`ui.${ctaKey || 'visit_project'}`)}
+              >
+                <IconExternal />
+              </a>
+            )}
+            <button
+              className="modal-close"
+              ref={closeRef}
+              onClick={requestClose}
+              aria-label={t('ui.close')}
+              type="button"
+            >
+              <IconClose />
+            </button>
+          </div>
         </div>
 
         <div className="modal-body">
