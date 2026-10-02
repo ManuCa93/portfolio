@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="https://github.com/ManuCa93.png" />
+    <link rel="icon" type="image/png" href="/avatar.png" />
+    <link rel="apple-touch-icon" href="/avatar.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#ffffff" />
     <meta
@@ -12,42 +13,70 @@
     <meta name="color-scheme" content="light" />
     <meta name="author" content="Manuel Cattoni" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <link rel="canonical" href="https://manuca93.github.io/portfolio/" />
+    <link rel="canonical" href="https://manuelcattoni.com/" />
     <title>Manuel Cattoni — Portfolio</title>
 
-    <!-- The GitHub avatar doubles as the site's mark: the favicon Google shows
-         beside the result, and the image link previews pull in. -->
+    <!-- The GitHub avatar (self-hosted, so Google can crawl it) doubles as the
+         site's mark: the favicon Google shows beside the result, and the image
+         link previews pull in. -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Manuel Cattoni" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="it_IT" />
+    <meta property="og:locale:alternate" content="de_DE" />
     <meta property="og:title" content="Manuel Cattoni — Portfolio" />
     <meta
       property="og:description"
       content="Manuel Cattoni — student and software developer from Varese. Data & AI, mobile apps, websites and games."
     />
-    <meta property="og:image" content="https://github.com/ManuCa93.png" />
-    <meta property="og:url" content="https://manuca93.github.io/portfolio/" />
+    <meta property="og:image" content="https://manuelcattoni.com/avatar.png" />
+    <meta property="og:image:width" content="460" />
+    <meta property="og:image:height" content="460" />
+    <meta property="og:image:alt" content="Manuel Cattoni" />
+    <meta property="og:url" content="https://manuelcattoni.com/" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:image" content="https://github.com/ManuCa93.png" />
+    <meta name="twitter:title" content="Manuel Cattoni — Portfolio" />
+    <meta name="twitter:image" content="https://manuelcattoni.com/avatar.png" />
 
     <!-- Tells search engines that this page IS a person, so a search for the
          name can surface the site rather than just the repositories. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Manuel Cattoni",
-        "url": "https://manuca93.github.io/portfolio/",
-        "image": "https://github.com/ManuCa93.png",
-        "jobTitle": "Software Developer",
-        "description": "Student and software developer from Varese. Data & AI, mobile apps, websites and games.",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Varese",
-          "addressCountry": "IT"
-        },
-        "sameAs": [
-          "https://github.com/ManuCa93",
-          "https://www.linkedin.com/in/manuel-cattoni-169631339/",
-          "https://instagram.com/cattonii"
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://manuelcattoni.com/#website",
+            "url": "https://manuelcattoni.com/",
+            "name": "Manuel Cattoni",
+            "inLanguage": [
+              "en",
+              "it",
+              "de"
+            ],
+            "author": {
+              "@id": "https://manuelcattoni.com/#person"
+            }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://manuelcattoni.com/#person",
+            "name": "Manuel Cattoni",
+            "url": "https://manuelcattoni.com/",
+            "image": "https://manuelcattoni.com/avatar.png",
+            "jobTitle": "Software Developer",
+            "description": "Student and software developer from Varese. Data & AI, mobile apps, websites and games.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Varese",
+              "addressCountry": "IT"
+            },
+            "sameAs": [
+              "https://github.com/ManuCa93",
+              "https://www.linkedin.com/in/manuel-cattoni-169631339/",
+              "https://instagram.com/cattonii"
+            ]
+          }
         ]
       }
     </script>

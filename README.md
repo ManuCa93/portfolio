@@ -2,7 +2,7 @@
 
 Personal portfolio site: a single page listing my projects grouped by category, each one expandable into a description, tech stack, feature highlights and a screenshot gallery. Trilingual (English, Italian, German) with automatic browser-language detection, and a light/dark theme.
 
-**Live:** https://manuca93.github.io/portfolio/
+**Live:** https://manuelcattoni.com/
 
 ## Stack
 
