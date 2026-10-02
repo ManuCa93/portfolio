@@ -5,6 +5,7 @@ import iconIco from './assets/icons/icon.ico';
 import logoImg from './assets/icons/logo.png';
 import portraitImg from './assets/portrait.jpg';
 import motogpHelmet from './assets/icons/motogp_helmet.png';
+import { projectPath, projectIdFromPath } from './projectRoutes';
 
 /* The header carries the name and nothing else -- no avatar. The hero shows the
    real photo, and the GitHub avatar stays what it always was outside the page:
@@ -623,6 +624,18 @@ const CATEGORIES = [
   { id: 'games', projects: gameProjects }
 ];
 
+const ALL_PROJECTS = CATEGORIES.flatMap(c => c.projects);
+const projectAtPath = path => ALL_PROJECTS.find(p => p.id === projectIdFromPath(path)) || null;
+
+/* Project openers are real links to the project's own page, so crawlers can
+   follow them and a middle- or ctrl-click still opens that page in a new tab. A
+   plain click stays on the page and opens the modal instead. */
+const openInPlace = (e, project, onOpen) => {
+  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  onOpen(project);
+};
+
 /* MotoGP and F1 are one interest, so they share a single Motorsport card. */
 const HOBBIES = [
   { id: 'football', icon: <IconBall /> },
@@ -649,7 +662,7 @@ const SOCIALS = [
     icon: <IconLinkedIn />
   },
   { id: 'email', href: 'mailto:manuel.cattoni93@gmail.com', label: 'Email', icon: <IconMail /> },
-  { id: 'cv', href: './Cattoni_Resume.pdf?v=2', label: 'CV', icon: <IconDoc /> },
+  { id: 'cv', href: '/Cattoni_Resume.pdf?v=2', label: 'CV', icon: <IconDoc /> },
   { id: 'instagram', href: 'https://instagram.com/cattonii', label: 'Instagram', icon: <IconInstagram /> }
 ];
 
@@ -1246,10 +1259,10 @@ const ProjectCard = ({ project, index, onOpen }) => {
   const cover = projectImages(project)[0];
   const title = t(`projects.${id}.title`);
 
-  // The card is an <article>, not a <button>: a button may only contain phrasing
-  // content, and this one holds a heading and a paragraph. The title button
-  // stretches an invisible ::after over the whole card instead, so the entire
-  // card is clickable while the accessible name stays just the project title.
+  // The card is an <article>, not a link: the opener may only wrap the title,
+  // not a heading and a paragraph. The title link stretches an invisible
+  // ::after over the whole card instead, so the entire card is clickable while
+  // the accessible name stays just the project title.
   return (
     <article className="project-card" data-reveal style={{ '--reveal-i': index }}>
       <div className="project-cover">
@@ -1261,9 +1274,14 @@ const ProjectCard = ({ project, index, onOpen }) => {
             {iconImg ? <img src={iconImg} alt="" style={{ '--icon-zoom': iconZoom }} /> : icon}
           </span>
           <h3 className="project-title">
-            <button type="button" className="project-open" data-track={`open: ${id}`} onClick={() => onOpen(project)}>
+            <a
+              className="project-open"
+              href={projectPath(id)}
+              data-track={`open: ${id}`}
+              onClick={e => openInPlace(e, project, onOpen)}
+            >
               {title}
-            </button>
+            </a>
           </h3>
           <span className={`badge ${badgeClass}`}>{t(`badges.${badgeKey}`)}</span>
         </div>
@@ -1298,18 +1316,18 @@ const CondensedCard = ({ projects, index, standalone, onOpen }) => {
         const title = t(`projects.${project.id}.title`);
         return (
           <div className="condensed-row" key={project.id}>
-            <button
-              type="button"
+            <a
               className="condensed-main"
+              href={projectPath(project.id)}
               data-track={`open: ${project.id}`}
-              onClick={() => onOpen(project)}
+              onClick={e => openInPlace(e, project, onOpen)}
             >
               <span className="condensed-name">
                 {title}
                 <span className={`badge ${project.badgeClass}`}>{t(`badges.${project.badgeKey}`)}</span>
               </span>
               <span className="condensed-desc">{t(`projects.${project.id}.summary`)}</span>
-            </button>
+            </a>
             {project.link && (
               <a
                 className="condensed-link"
@@ -1372,7 +1390,8 @@ function App() {
      column happens to end. */
   const [nameFirst, ...nameRest] = t('profile.title').split(' ');
   const nameLast = nameRest.join(' ');
-  const [openProject, setOpenProject] = useState(null);
+  // Landing straight on a project's address opens it over the page.
+  const [openProject, setOpenProject] = useState(() => projectAtPath(window.location.pathname));
   const [compact, setCompact] = useState(false);
   const [activeId, setActiveId] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -1496,8 +1515,35 @@ function App() {
     return () => io.disconnect();
   }, []);
 
-  const handleOpen = useCallback(project => setOpenProject(project), []);
-  const handleClose = useCallback(() => setOpenProject(null), []);
+  /* The address bar follows the modal: opening a project pushes its address,
+     closing goes back to the page. When the visit started on the project's own
+     address there is no page entry to go back to, so that entry is rewritten
+     instead. The browser's Back button closes the modal through popstate. */
+  const handleOpen = useCallback(project => {
+    setOpenProject(project);
+    const path = projectPath(project.id);
+    if (window.location.pathname !== path) window.history.pushState({ project: project.id }, '', path);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setOpenProject(null);
+    if (!projectIdFromPath(window.location.pathname)) return;
+    if (window.history.state?.project) window.history.back();
+    else window.history.replaceState(null, '', '/');
+  }, []);
+
+  useEffect(() => {
+    const onPop = () => setOpenProject(projectAtPath(window.location.pathname));
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
+
+  // Tab title names the open project, so history entries and bookmarks do too.
+  useEffect(() => {
+    document.title = openProject
+      ? `${t(`projects.${openProject.id}.title`)} — Manuel Cattoni`
+      : 'Manuel Cattoni — Portfolio';
+  }, [openProject, t]);
 
   const openCategoryId = useMemo(
     () => (openProject ? CATEGORIES.find(c => c.projects.some(p => p.id === openProject.id))?.id : null),
