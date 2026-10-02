@@ -931,6 +931,32 @@ ul {
   color: var(--ink-mute);
 }
 
+/* Profile links (Hevy, Strava) sit at the foot of the card, so a card with
+   them lines its text up with its neighbours instead of pushing it down. */
+.hobby-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.35rem;
+}
+
+/* Two pills fit on a phone, so they keep their labels where the hero's
+   social pills collapse to bare icons. */
+.hobby-links .icon-link {
+  width: auto;
+  padding-inline: 0.85rem;
+}
+
+.hobby-links .icon-link span {
+  display: inline;
+}
+
+.hobby-links .icon-link svg {
+  width: 14px;
+  height: 14px;
+}
+
 /* ==========================================================================
    Project grid & cards
    ========================================================================== */

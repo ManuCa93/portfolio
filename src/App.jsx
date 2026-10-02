@@ -628,7 +628,14 @@ const HOBBIES = [
   { id: 'football', icon: <IconBall /> },
   { id: 'motorsport', icon: <IconCheckeredFlag /> },
   { id: 'travel', icon: <IconGlobe /> },
-  { id: 'fitness', icon: <IconDumbbell /> },
+  {
+    id: 'fitness',
+    icon: <IconDumbbell />,
+    links: [
+      { label: 'Hevy', href: 'https://hevy.com/user/mmanuca' },
+      { label: 'Strava', href: 'https://www.strava.com/athletes/184003417' }
+    ]
+  },
   { id: 'finance', icon: <IconTrend /> },
   { id: 'tech', icon: <IconPhone /> }
 ];
@@ -1666,6 +1673,16 @@ function App() {
                   <span className="hobby-icon">{h.icon}</span>
                   <h3 className="hobby-title">{t(`hobbies.items.${h.id}.title`)}</h3>
                   <p className="hobby-note">{t(`hobbies.items.${h.id}.note`)}</p>
+                  {h.links && (
+                    <div className="hobby-links">
+                      {h.links.map(l => (
+                        <a key={l.label} className="icon-link" href={l.href} target="_blank" rel="noreferrer">
+                          <span>{l.label}</span>
+                          <IconExternal />
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </article>
               ))}
             </div>
