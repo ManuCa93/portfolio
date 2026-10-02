@@ -141,3 +141,10 @@ manually from a local machine.
   instead of leaving it in the repo.
 - Raw screenshots dumped in the repo root (`Immagine*.jpg`, `*_screen.jpg`) are
   gitignored too: sort them into `src/assets/projects/` before committing.
+
+## License
+
+Two-part license, see [`LICENSE`](LICENSE): the **source code** is MIT, while the
+**personal content** (photos, résumé, screenshots, logos and the site's written
+text in every language) is all rights reserved. Reusing the code is fine;
+swap in your own content.

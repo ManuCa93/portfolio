@@ -1081,6 +1081,7 @@ const ProjectModal = ({ project, categoryId, onClose }) => {
               <a
                 className="modal-link"
                 href={link}
+                data-track={`link: ${id}`}
                 target="_blank"
                 rel="noreferrer"
                 aria-label={t(`ui.${ctaKey || 'visit_project'}`)}
@@ -1117,7 +1118,7 @@ const ProjectModal = ({ project, categoryId, onClose }) => {
           {referenceUrl && (
             <section className="modal-section">
               <p className="modal-ref">
-                <a href={referenceUrl} target="_blank" rel="noreferrer">
+                <a href={referenceUrl} target="_blank" rel="noreferrer" data-track={`reference: ${id}`}>
                   {t(`projects.${id}.reference`)}
                 </a>
               </p>
@@ -1189,6 +1190,7 @@ const ProjectModal = ({ project, categoryId, onClose }) => {
                       tabIndex={0}
                       role="button"
                       aria-label={caption}
+                      data-track={`gallery: ${id}`}
                       onClick={() => setLightboxIndex(i)}
                       onKeyDown={e => {
                         if (e.key === 'Enter' || e.key === ' ') {
@@ -1210,7 +1212,7 @@ const ProjectModal = ({ project, categoryId, onClose }) => {
 
           <div className="modal-actions">
             {link ? (
-              <a href={link} target="_blank" rel="noreferrer" className="btn btn-primary">
+              <a href={link} target="_blank" rel="noreferrer" className="btn btn-primary" data-track={`link: ${id}`}>
                 {t(`ui.${ctaKey || 'visit_project'}`)}
                 <IconExternal />
               </a>
@@ -1259,7 +1261,7 @@ const ProjectCard = ({ project, index, onOpen }) => {
             {iconImg ? <img src={iconImg} alt="" style={{ '--icon-zoom': iconZoom }} /> : icon}
           </span>
           <h3 className="project-title">
-            <button type="button" className="project-open" onClick={() => onOpen(project)}>
+            <button type="button" className="project-open" data-track={`open: ${id}`} onClick={() => onOpen(project)}>
               {title}
             </button>
           </h3>
@@ -1296,7 +1298,12 @@ const CondensedCard = ({ projects, index, standalone, onOpen }) => {
         const title = t(`projects.${project.id}.title`);
         return (
           <div className="condensed-row" key={project.id}>
-            <button type="button" className="condensed-main" onClick={() => onOpen(project)}>
+            <button
+              type="button"
+              className="condensed-main"
+              data-track={`open: ${project.id}`}
+              onClick={() => onOpen(project)}
+            >
               <span className="condensed-name">
                 {title}
                 <span className={`badge ${project.badgeClass}`}>{t(`badges.${project.badgeKey}`)}</span>
@@ -1307,6 +1314,7 @@ const CondensedCard = ({ projects, index, standalone, onOpen }) => {
               <a
                 className="condensed-link"
                 href={project.link}
+                data-track={`link: ${project.id}`}
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`${title} — ${t('ui.visit_project')}`}
@@ -1404,6 +1412,19 @@ function App() {
 
   useScrollReveal();
 
+  /* Click analytics: anything carrying data-track is counted as a GoatCounter
+     event named after it ("open: motogp", "social: cv"). One delegated
+     listener covers elements React mounts later too, such as the modal.
+     count.js skips localhost by itself, so dev clicks never reach the stats. */
+  useEffect(() => {
+    const onClick = e => {
+      const name = e.target.closest?.('[data-track]')?.dataset.track;
+      if (name) window.goatcounter?.count?.({ path: name, title: name, event: true });
+    };
+    document.addEventListener('click', onClick);
+    return () => document.removeEventListener('click', onClick);
+  }, []);
+
   /* Keep <html lang> in step with the chosen language: screen readers pick the
      pronunciation rules from it, so leaving it on "en" reads Italian and German
      copy with English phonetics. */
@@ -1488,6 +1509,7 @@ function App() {
       key={code}
       type="button"
       className={`lang-btn ${i18n.resolvedLanguage === code ? 'is-active' : ''}`}
+      data-track={`lang: ${code}`}
       onClick={() => i18n.changeLanguage(code)}
       aria-label={t(`ui.lang_${code}`)}
       aria-pressed={i18n.resolvedLanguage === code}
@@ -1504,6 +1526,7 @@ function App() {
       className="icon-link"
       href={s.href}
       aria-label={s.label}
+      data-track={`social: ${s.id}`}
       {...(s.href.startsWith('mailto:') ? {} : { target: '_blank', rel: 'noreferrer' })}
     >
       {s.icon}
@@ -1530,7 +1553,7 @@ function App() {
             <ul>
               {CATEGORIES.map(c => (
                 <li key={c.id} data-accent={c.id}>
-                  <a href={`#${c.id}`} className={activeId === c.id ? 'is-active' : ''}>
+                  <a href={`#${c.id}`} className={activeId === c.id ? 'is-active' : ''} data-track={`nav: ${c.id}`}>
                     {t(`sections.${c.id}`)}
                   </a>
                 </li>
@@ -1582,14 +1605,14 @@ function App() {
         <div className="lang-switcher lang-switcher--menu">{langButtons}</div>
         <ul>
           <li>
-            <a href="#hobbies" onClick={() => setMenuOpen(false)}>
+            <a href="#hobbies" data-track="nav: hobbies" onClick={() => setMenuOpen(false)}>
               <span className="chip-dot" aria-hidden="true" />
               <span className="nav-drawer-label">{t('hobbies.title')}</span>
             </a>
           </li>
           {CATEGORIES.map(c => (
             <li key={c.id} data-accent={c.id}>
-              <a href={`#${c.id}`} onClick={() => setMenuOpen(false)}>
+              <a href={`#${c.id}`} data-track={`nav: ${c.id}`} onClick={() => setMenuOpen(false)}>
                 <span className="chip-dot" aria-hidden="true" />
                 <span className="nav-drawer-label">{t(`sections.${c.id}`)}</span>
                 <span className="chip-count">{countProjects(c.projects)}</span>
@@ -1647,6 +1670,7 @@ function App() {
                   key={c.id}
                   className="chip"
                   href={`#${c.id}`}
+                  data-track={`nav: ${c.id}`}
                   data-accent={c.id}
                   data-reveal
                   style={{ '--reveal-i': i }}
@@ -1676,7 +1700,14 @@ function App() {
                   {h.links && (
                     <div className="hobby-links">
                       {h.links.map(l => (
-                        <a key={l.label} className="icon-link" href={l.href} target="_blank" rel="noreferrer">
+                        <a
+                          key={l.label}
+                          className="icon-link"
+                          href={l.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          data-track={`hobby: ${l.label.toLowerCase()}`}
+                        >
                           <span>{l.label}</span>
                           <IconExternal />
                         </a>
