@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://manuelcattoni.com/</loc>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://manuelcattoni.com/Cattoni_Resume.pdf</loc>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
+  <url><loc>https://manuelcattoni.com/</loc></url>
+  <url><loc>https://manuelcattoni.com/projects/ados-clinical-dashboard/</loc></url>
+  <url><loc>https://manuelcattoni.com/projects/motogp-position-estimator/</loc></url>
+  <url><loc>https://manuelcattoni.com/projects/university-projects/</loc></url>
+  <url><loc>https://manuelcattoni.com/projects/football-predictions/</loc></url>
+  <url><loc>https://manuelcattoni.com/projects/f1-predictions-2024/</loc></url>
+  <url><loc>https://manuelcattoni.com/projects/pantrypilot/</loc></url>
+  <url><loc>https://manuelcattoni.com/projects/enjoy-the-night/</loc></url>
+  <url><loc>https://manuelcattoni.com/projects/polify/</loc></url>
+  <url><loc>https://manuelcattoni.com/projects/pomodoro-timer/</loc></url>
+  <url><loc>https://manuelcattoni.com/projects/price-tracker/</loc></url>
+  <url><loc>https://manuelcattoni.com/projects/brickbreakers-f1/</loc></url>
+  <url><loc>https://manuelcattoni.com/Cattoni_Resume.pdf</loc></url>
 </urlset>
