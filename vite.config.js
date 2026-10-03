@@ -26,6 +26,10 @@ const projectPage = (html, id) => {
   const url = SITE + projectPath(id)
   const title = `${p.title} — Manuel Cattoni`
   const description = plain(p.summary)
+  // Each project previews with its own card (scripts/og-images.mjs). The
+  // portrait stays the homepage's alone, so a search for the name shows the
+  // photo linking to the portfolio, never to one of the projects.
+  const image = `${SITE}/og/${PROJECT_SLUGS[id]}.jpg`
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -35,7 +39,9 @@ const projectPage = (html, id) => {
         name: p.title,
         description,
         url,
-        author: { '@id': PERSON_ID },
+        image,
+        // a reference to the Person on the homepage, without its portrait
+        author: { '@type': 'Person', '@id': PERSON_ID, name: 'Manuel Cattoni', url: `${SITE}/` },
         keywords: p.techStack
       },
       {
@@ -68,11 +74,19 @@ const projectPage = (html, id) => {
   out = swap(out, /(property="og:title" content=")[^"]*/, `$1${escapeHtml(title)}`)
   out = swap(out, /(property="og:description"\s+content=")[^"]*/, `$1${escapeHtml(description)}`)
   out = swap(out, /(name="twitter:title" content=")[^"]*/, `$1${escapeHtml(title)}`)
+  out = swap(out, /(property="og:image" content=")[^"]*/, `$1${image}`)
+  out = swap(out, /(property="og:image:width" content=")[^"]*/, '$11200')
+  out = swap(out, /(property="og:image:height" content=")[^"]*/, '$1630')
+  out = swap(out, /(property="og:image:alt" content=")[^"]*/, `$1${escapeHtml(p.title)}`)
+  out = swap(out, /(name="twitter:card" content=")[^"]*/, '$1summary_large_image')
+  out = swap(out, /(name="twitter:image" content=")[^"]*/, `$1${image}`)
   out = swap(out, /<noscript>[\s\S]*?<\/noscript>/, fallback)
+  // The homepage's structured data (WebSite + the Person with the portrait)
+  // is replaced, not appended to: the project page describes the project.
   out = swap(
     out,
-    /<\/head>/,
-    `  <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n  </head>`
+    /<script type="application\/ld\+json">[\s\S]*?<\/script>/,
+    `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`
   )
   return out
 }

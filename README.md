@@ -49,7 +49,8 @@ npm run dev        # dev server with HMR
 │  ├─ favicon.svg / .ico       MC monogram: tab icon, bookmarks, Google result
 │  ├─ icon-192.png             Same mark as a PNG, for Google and Android
 │  ├─ apple-touch-icon.png     Same mark for the iOS home screen
-│  ├─ avatar.png               Share image for link previews
+│  ├─ avatar.png               Homepage share image (the portrait)
+│  ├─ og/<slug>.jpg            Per-project share images, from scripts/og-images.mjs
 │  └─ Cattoni_Resume.pdf       Linked from the CV button
 └─ src/
    ├─ main.jsx                 React root, imports index.css + i18n
@@ -121,6 +122,12 @@ const polifyGallery = [
    `/projects/<slug>/`: the build writes a page there with the project's own
    title and description, and adds it to `sitemap.xml`. Don't rename a slug
    once it's live, since it breaks links already shared or indexed.
+6. Add it to `CARDS` in `scripts/og-images.mjs` and run
+   `node scripts/og-images.mjs` to make its link-preview image
+   (`public/og/<slug>.jpg`), then commit it. The build does not check for it,
+   and without it the project's page points at a missing image. Project pages
+   deliberately never use the portrait: Google would pair the photo with the
+   project instead of with the homepage.
 
 A missing key falls back to English (`fallbackLng: 'en'`), so a forgotten
 translation degrades quietly rather than crashing — worth double-checking.

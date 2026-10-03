@@ -2295,12 +2295,28 @@ function App() {
 
   const closeSearch = useCallback(() => setSearchQuery(null), []);
 
-  // Closing first restores the page's scroll position; the jump runs on the
-  // next frame, after that restore, or it would be undone.
-  const navigateFromSearch = useCallback(id => {
-    setSearchQuery(null);
+  /* Jumping to a section from an overlay (search, mobile menu). Closing the
+     overlay unlocks the page and restores its old scroll position, which used
+     to undo the anchor's own jump: tapping a category in the phone menu left
+     you where you were. So the overlay closes first and the jump runs on the
+     next frame, after that restore. */
+  const jumpTo = useCallback(id => {
     requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }));
   }, []);
+
+  const navigateFromSearch = useCallback(
+    id => {
+      setSearchQuery(null);
+      jumpTo(id);
+    },
+    [jumpTo]
+  );
+
+  const navigateFromMenu = (e, id) => {
+    e.preventDefault();
+    setMenuOpen(false);
+    jumpTo(id);
+  };
 
   // The palette unmounts first and hands focus back, then the modal takes over.
   const openFromSearch = useCallback(
@@ -2450,14 +2466,14 @@ function App() {
         <div className="lang-switcher lang-switcher--menu">{langButtons}</div>
         <ul>
           <li>
-            <a href="#hobbies" data-track="nav: hobbies" onClick={() => setMenuOpen(false)}>
+            <a href="#hobbies" data-track="nav: hobbies" onClick={e => navigateFromMenu(e, 'hobbies')}>
               <span className="chip-dot" aria-hidden="true" />
               <span className="nav-drawer-label">{t('hobbies.title')}</span>
             </a>
           </li>
           {CATEGORIES.map(c => (
             <li key={c.id} data-accent={c.id}>
-              <a href={`#${c.id}`} data-track={`nav: ${c.id}`} onClick={() => setMenuOpen(false)}>
+              <a href={`#${c.id}`} data-track={`nav: ${c.id}`} onClick={e => navigateFromMenu(e, c.id)}>
                 <span className="chip-dot" aria-hidden="true" />
                 <span className="nav-drawer-label">{t(`sections.${c.id}`)}</span>
                 <span className="chip-count">{countProjects(c.projects)}</span>
