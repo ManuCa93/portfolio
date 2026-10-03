@@ -1,45 +1,141 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 /* ==========================================================================
-   Tokens
-   Base is always black on white. Colour enters only as a per-section accent:
-   every category owns the same hue it had before, exposed here as custom
-   properties so a section, a chip and a modal can all inherit one value.
-   --accent      raw hue, for borders, rules and hover states
-   --accent-ink  darkened for text on white (>= 5:1 against #fff)
-   --accent-rgb  channels, so tints can be mixed with rgba()
+   Colour tokens
+   Every colour on the site is defined here and nowhere else: the rules below
+   only ever say var(--something). To change a colour, change it here; to
+   theme something new, add a token here first. Each token exists in both
+   themes, in the same order, so the two blocks can be read side by side.
+
+   The theme follows the device (prefers-color-scheme). Base is ink on paper;
+   colour enters through the per-category accent and, sparingly, the red of
+   the MC monogram.
+
+   Naming
+   --bg, --surface        page background, and the faint fill for inset areas
+   --ink, -soft, -mute    text, from primary to secondary to hints
+   --line, -strong        hairlines and borders
+   --on-ink, --on-accent  text on a solid --ink or --accent-ink fill
+   --*-rgb                bare channels, for tints mixed with rgba()
    ========================================================================== */
 :root {
+  color-scheme: light;
+
+  /* Surfaces */
   --bg: #ffffff;
   --surface: #fafafa;
+  --pill-bg: #f3f3f3;
+  --header-bg: rgba(255, 255, 255, 0.86);
+  --header-bg-solid: rgba(255, 255, 255, 0.94);
+
+  /* Text */
   --ink: #0b0b0b;
   --ink-soft: #444444;
   --ink-mute: #6b6b6b;
+  --ink-rgb: 11, 11, 11;
+
+  /* Lines */
   --line: #e6e6e6;
   --line-strong: #c9c9c9;
 
+  /* Text on solid fills */
+  --on-ink: #ffffff;
+  --on-ink-rgb: 255, 255, 255;
+  --on-accent: #ffffff;
+
+  /* Overlays and depth */
+  --scrim: rgba(11, 11, 11, 0.45);
+  --shadow-rgb: 11, 11, 11;
+  --dialog-shadow: 0 24px 60px rgba(11, 11, 11, 0.25);
+
+  /* The monogram's red, only where the mark itself would be: the surname's
+     initial, the typing caret and text selection. 5.4:1 on white. */
+  --brand-red: #d31618;
+  --brand-red-rgb: 211, 22, 24;
+  --selection: rgba(211, 22, 24, 0.16);
+
+  /* Project status badges */
+  --badge-ended: #1b7a38;
+  --badge-ended-bg: rgba(52, 199, 89, 0.14);
+  --badge-progress: #7a5c00;
+  --badge-progress-bg: rgba(255, 204, 0, 0.2);
+  --badge-publish: #8a4b00;
+  --badge-publish-bg: rgba(255, 149, 0, 0.16);
+
+  /* The lightbox is a dark viewer in both themes, so these do not change. */
+  --lightbox-bg: #0b0b0b;
+  --lightbox-ink: #ffffff;
+  --lightbox-ink-soft: rgba(255, 255, 255, 0.65);
+  --lightbox-line: rgba(255, 255, 255, 0.25);
+  --lightbox-btn: rgba(255, 255, 255, 0.14);
+  --lightbox-btn-hover: rgba(255, 255, 255, 0.28);
+
+  /* Neutral accent, for anything outside a category */
   --accent: #0b0b0b;
   --accent-ink: #0b0b0b;
   --accent-rgb: 11, 11, 11;
-
-  /* The monogram's red. Used sparingly, only where the mark itself would be:
-     the surname's initial, the typing caret and text selection. 5.4:1 on white. */
-  --brand-red: #d31618;
-
-  --shell: 68rem;
-  --gutter: clamp(1rem, 4vw, 2.5rem);
-  --header-h: 3.75rem;
-
-  --r-sm: 6px;
-  --r-md: 10px;
-  --r-lg: 16px;
-
-  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --t-fast: 200ms;
-  --t-mid: 320ms;
-  --t-slow: 480ms;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    /* Surfaces */
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --pill-bg: #1a1a1a;
+    --header-bg: rgba(13, 13, 13, 0.8);
+    --header-bg-solid: rgba(13, 13, 13, 0.94);
+
+    /* Text */
+    --ink: #f2f2f2;
+    --ink-soft: #c2c2c2;
+    --ink-mute: #8e8e8e;
+    --ink-rgb: 242, 242, 242;
+
+    /* Lines */
+    --line: #262626;
+    --line-strong: #3b3b3b;
+
+    /* Text on solid fills */
+    --on-ink: #0d0d0d;
+    --on-ink-rgb: 13, 13, 13;
+    --on-accent: #0d0d0d;
+
+    /* Overlays and depth. A shadow has nothing to darken on a dark page, so
+       dialogs get a hairline edge instead. */
+    --scrim: rgba(0, 0, 0, 0.6);
+    --shadow-rgb: 0, 0, 0;
+    --dialog-shadow: 0 0 0 1px #262626, 0 24px 60px rgba(0, 0, 0, 0.6);
+
+    /* A step brighter, to hold contrast on the dark page. */
+    --brand-red: #ef3b3d;
+    --brand-red-rgb: 239, 59, 61;
+    --selection: rgba(239, 59, 61, 0.3);
+
+    /* Project status badges */
+    --badge-ended: #5fd37e;
+    --badge-ended-bg: rgba(52, 199, 89, 0.16);
+    --badge-progress: #ffd84d;
+    --badge-progress-bg: rgba(255, 204, 0, 0.14);
+    --badge-publish: #ffb35c;
+    --badge-publish-bg: rgba(255, 149, 0, 0.16);
+
+    /* Neutral accent */
+    --accent: #f2f2f2;
+    --accent-ink: #f2f2f2;
+    --accent-rgb: 242, 242, 242;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Category accents
+   Each category owns one hue, inherited by its section, chips and modal.
+   --accent      the raw hue, for borders, rules and tints (same in both themes)
+   --accent-ink  the hue as text: darkened on white, lightened on black, so it
+                 keeps >= 4.5:1 against the page in either theme
+   --accent-rgb  the raw hue's channels
+   -------------------------------------------------------------------------- */
 [data-accent='data_ai'] {
   --accent: #0a84ff;
   --accent-ink: #0060df;
@@ -62,6 +158,42 @@
   --accent: #ff9f0a;
   --accent-ink: #9a5c00;
   --accent-rgb: 255, 159, 10;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-accent='data_ai'] {
+    --accent-ink: #5aaeff;
+  }
+
+  [data-accent='mobile'] {
+    --accent-ink: #d494f7;
+  }
+
+  [data-accent='websites'] {
+    --accent-ink: #30d5c8;
+  }
+
+  [data-accent='games'] {
+    --accent-ink: #ffb340;
+  }
+}
+
+/* ==========================================================================
+   Layout, shape and motion tokens
+   ========================================================================== */
+:root {
+  --shell: 68rem;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --header-h: 3.75rem;
+
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --t-fast: 200ms;
+  --t-mid: 320ms;
+  --t-slow: 480ms;
 }
 
 /* ==========================================================================
@@ -151,7 +283,7 @@ ul {
   top: 0;
   z-index: 200;
   background: var(--ink);
-  color: #fff;
+  color: var(--on-ink);
   padding: 0.75rem 1rem;
   text-decoration: none;
   border-radius: 0 0 var(--r-md) 0;
@@ -234,7 +366,7 @@ ul {
   position: sticky;
   top: 0;
   z-index: 60;
-  background: rgba(255, 255, 255, 0.86);
+  background: var(--header-bg);
   -webkit-backdrop-filter: saturate(1.6) blur(12px);
   backdrop-filter: saturate(1.6) blur(12px);
   border-bottom: 1px solid transparent;
@@ -243,7 +375,7 @@ ul {
 
 .site-header.is-compact {
   border-bottom-color: var(--line);
-  background: rgba(255, 255, 255, 0.94);
+  background: var(--header-bg-solid);
 }
 
 .site-header-inner {
@@ -390,7 +522,7 @@ ul {
   width: 1.5rem;
   height: 1rem;
   border-radius: 2px;
-  box-shadow: 0 0 0 1px rgba(11, 11, 11, 0.16);
+  box-shadow: 0 0 0 1px rgba(var(--ink-rgb), 0.16);
   flex-shrink: 0;
   opacity: 0.55;
   transition: opacity var(--t-fast) var(--ease);
@@ -433,7 +565,7 @@ ul {
   position: fixed;
   inset: 0;
   z-index: 80;
-  background: rgba(11, 11, 11, 0.45);
+  background: var(--scrim);
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   opacity: 0;
@@ -466,7 +598,7 @@ ul {
   padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
   background: var(--bg);
   border-left: 1px solid var(--line);
-  box-shadow: -24px 0 48px -32px rgba(11, 11, 11, 0.7);
+  box-shadow: -24px 0 48px -32px rgba(var(--shadow-rgb), 0.7);
   overflow-y: auto;
   overscroll-behavior: contain;
   visibility: hidden;
@@ -728,7 +860,7 @@ ul {
   transform: translateY(-2px);
   border-color: var(--ink);
   background: var(--ink);
-  color: #fff;
+  color: var(--on-ink);
 }
 
 .icon-link:active {
@@ -832,7 +964,7 @@ ul {
 
 .chip:hover .chip-count {
   background: var(--accent-ink);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 /* Four full-width pills ate most of a phone screen before the hobbies even
@@ -1115,8 +1247,142 @@ ul {
   transition: transform var(--t-fast) var(--ease);
 }
 
-.project-card:hover .project-more svg {
+.project-card:hover .project-more svg,
+.feature-card:hover .project-more svg {
   transform: translateX(3px);
+}
+
+/* One or two cards next to the condensed block: three even columns, the
+   block taking whatever the cards leave (--condensed-span, set inline). */
+@media (min-width: 56rem) {
+  .project-grid--shared {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .project-grid--shared .condensed {
+    grid-column: span var(--condensed-span);
+  }
+}
+
+@media (max-width: 56rem) {
+  .project-grid--shared {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ==========================================================================
+   Featured projects
+   One per row, led by a looping screen recording big enough to actually read.
+   Video and copy swap sides on every other row; on narrow screens the video
+   stacks on top. Hover behaves like the grid cards.
+   ========================================================================== */
+.feature-list {
+  display: grid;
+  gap: clamp(0.85rem, 2vw, 1.25rem);
+  margin-bottom: clamp(0.85rem, 2vw, 1.25rem);
+}
+
+.feature-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--bg);
+  overflow: hidden;
+  transition: transform var(--t-mid) var(--ease), border-color var(--t-mid) var(--ease),
+    box-shadow var(--t-mid) var(--ease);
+}
+
+.feature-card:hover,
+.feature-card:focus-within {
+  transform: translateY(-3px);
+  border-color: rgba(var(--accent-rgb), 0.6);
+  box-shadow: 0 18px 40px -26px rgba(var(--accent-rgb), 0.85);
+}
+
+.feature-media {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+
+/* Recordings are 1440x844. When the copy runs taller than the video, the
+   video fills the column and the overflow is cropped. It is anchored top-left
+   so the crop only ever eats the right edge (scrollbar, empty margin), never
+   the app's logo and title in the top-left corner. */
+.feature-video {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1440 / 844;
+  object-fit: cover;
+  object-position: left top;
+}
+
+.feature-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: clamp(1.1rem, 2.5vw, 1.75rem);
+  min-width: 0;
+}
+
+.feature-body .project-top {
+  justify-content: space-between;
+}
+
+.feature-title {
+  font-size: clamp(1.2rem, 1rem + 0.8vw, 1.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.feature-summary {
+  font-size: 0.93rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.feature-stack {
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-mute);
+  /* Capped at two lines: a long stack (University Projects lists two dozen
+     libraries) would otherwise make the copy taller than the video and force
+     a heavy crop. The full list is in the project's modal. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (min-width: 56rem) {
+  .feature-card {
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+  }
+
+  .feature-media {
+    border-bottom: 0;
+    border-right: 1px solid var(--line);
+  }
+
+  /* The wide track has to move with the video, or the copy gets it. */
+  .feature-card:nth-child(even) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr);
+  }
+
+  .feature-card:nth-child(even) .feature-media {
+    order: 2;
+    border-right: 0;
+    border-left: 1px solid var(--line);
+  }
+
+  .feature-body {
+    justify-content: center;
+  }
 }
 
 /* Status badges keep their own scale, independent of the category accent. */
@@ -1134,25 +1400,27 @@ ul {
 }
 
 .badge-ended {
-  background: rgba(52, 199, 89, 0.14);
-  color: #1b7a38;
+  background: var(--badge-ended-bg);
+  color: var(--badge-ended);
 }
 
 .badge-in-progress {
-  background: rgba(255, 204, 0, 0.2);
-  color: #7a5c00;
+  background: var(--badge-progress-bg);
+  color: var(--badge-progress);
 }
 
 .badge-to-publish {
-  background: rgba(255, 149, 0, 0.16);
-  color: #8a4b00;
+  background: var(--badge-publish-bg);
+  color: var(--badge-publish);
 }
 
 /* ==========================================================================
    Condensed card — every image-less project in a category, in one block
    ========================================================================== */
+/* It sits in the project grid: a row of its own by default, or the rest of
+   the last cards' row when the grid is --shared. */
 .condensed {
-  margin-top: clamp(0.85rem, 2vw, 1.25rem);
+  grid-column: 1 / -1;
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
   background: var(--surface);
@@ -1175,11 +1443,6 @@ ul {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent-ink);
-}
-
-.condensed-count {
-  font-size: 0.78rem;
-  color: var(--ink-mute);
 }
 
 .condensed-row {
@@ -1256,7 +1519,7 @@ ul {
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: rgba(11, 11, 11, 0.45);
+  background: var(--scrim);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   display: flex;
@@ -1274,6 +1537,7 @@ ul {
   max-height: 94dvh;
   background: var(--bg);
   border-radius: var(--r-lg) var(--r-lg) 0 0;
+  box-shadow: var(--dialog-shadow);
   overflow: hidden;
   animation: slide-up var(--t-slow) var(--ease) both;
 }
@@ -1472,7 +1736,7 @@ ul {
 .folder-tab.is-active {
   background: var(--ink);
   border-color: var(--ink);
-  color: #fff;
+  color: var(--on-ink);
 }
 
 .folder-tab-count {
@@ -1490,8 +1754,8 @@ ul {
 }
 
 .folder-tab.is-active .folder-tab-count {
-  background: rgba(255, 255, 255, 0.18);
-  color: #fff;
+  background: rgba(var(--on-ink-rgb), 0.18);
+  color: var(--on-ink);
 }
 
 .gallery {
@@ -1597,7 +1861,7 @@ ul {
 
 .btn-primary {
   background: var(--accent-ink);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .btn-primary:hover {
@@ -1649,7 +1913,7 @@ ul {
   position: fixed;
   inset: 0;
   z-index: 120;
-  background: #0b0b0b;
+  background: var(--lightbox-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1710,7 +1974,7 @@ ul {
 }
 
 .lightbox-caption {
-  color: #fff;
+  color: var(--lightbox-ink);
   margin-top: 1rem;
   font-size: 0.9rem;
   text-align: center;
@@ -1722,13 +1986,13 @@ ul {
   align-items: center;
   gap: 0.75rem;
   margin-top: 0.45rem;
-  color: rgba(255, 255, 255, 0.65);
+  color: var(--lightbox-ink-soft);
   font-size: 0.78rem;
 }
 
 .lightbox-zoom-hint {
   padding-left: 0.75rem;
-  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  border-left: 1px solid var(--lightbox-line);
 }
 
 .lightbox-close,
@@ -1739,8 +2003,8 @@ ul {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.14);
-  color: #fff;
+  background: var(--lightbox-btn);
+  color: var(--lightbox-ink);
   z-index: 121;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -1749,7 +2013,7 @@ ul {
 
 .lightbox-close:hover,
 .lightbox-nav:hover {
-  background: rgba(255, 255, 255, 0.28);
+  background: var(--lightbox-btn-hover);
 }
 
 .lightbox-close {
@@ -1909,7 +2173,7 @@ a.footer-note:hover {
 }
 
 ::selection {
-  background: rgba(211, 22, 24, 0.16);
+  background: var(--selection);
 }
 
 @keyframes type-in {
@@ -1950,12 +2214,19 @@ a.footer-note:hover {
 .skills {
   display: grid;
   gap: 0.5rem;
-  padding-bottom: clamp(2.5rem, 7vw, 4rem);
+}
+
+/* The strip already separates the intro from what follows; a hairline under
+   it as well read as clutter. The next section's own top padding is the only
+   gap below it. */
+.skills + .section {
+  border-top: 0;
 }
 
 .marquee {
   overflow: hidden;
   padding-block: 3px; /* room for the hover lift, which overflow would clip */
+  /* A mask, not a colour: only its alpha matters, so #000 here means "opaque". */
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
 }
@@ -1979,7 +2250,7 @@ a.footer-note:hover {
 }
 
 .skill-pill {
-  --brand: var(--ink);
+  --brand: var(--brand-light, var(--ink));
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -1987,7 +2258,7 @@ a.footer-note:hover {
   padding-inline: 0.95rem 1.1rem;
   border: 1px solid transparent;
   border-radius: 999px;
-  background: #f3f3f3;
+  background: var(--pill-bg);
   color: var(--ink-soft);
   font-size: 0.88rem;
   font-weight: 600;
@@ -2002,8 +2273,16 @@ a.footer-note:hover {
 .skill-pill:focus-visible {
   color: var(--ink);
   border-color: color-mix(in srgb, var(--brand) 45%, transparent);
-  background: color-mix(in srgb, var(--brand) 8%, #fff);
+  background: color-mix(in srgb, var(--brand) 8%, var(--bg));
   transform: translateY(-2px);
+}
+
+/* --brand-light / --brand-dark are set per pill from the brand's own colour
+   (see brandShades in App.jsx); pills without a logo fall back to ink. */
+@media (prefers-color-scheme: dark) {
+  .skill-pill {
+    --brand: var(--brand-dark, var(--ink));
+  }
 }
 
 .skill-logo {
@@ -2095,7 +2374,7 @@ kbd {
   justify-content: center;
   align-items: flex-start;
   padding: clamp(1rem, 12vh, 7rem) 1rem 1rem;
-  background: rgba(11, 11, 11, 0.45);
+  background: var(--scrim);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   animation: fade-in var(--t-fast) var(--ease) both;
@@ -2109,7 +2388,7 @@ kbd {
   max-height: min(34rem, 100%);
   background: var(--bg);
   border-radius: var(--r-lg);
-  box-shadow: 0 24px 60px rgba(11, 11, 11, 0.25);
+  box-shadow: var(--dialog-shadow);
   overflow: hidden;
   animation: search-in var(--t-mid) var(--ease) both;
 }
@@ -2165,6 +2444,21 @@ kbd {
   padding: 0.4rem;
 }
 
+.search-group + .search-group {
+  margin-top: 0.35rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--line);
+}
+
+.search-group-title {
+  padding: 0.5rem 0.75rem 0.3rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
 .search-result {
   display: flex;
   align-items: center;
@@ -2172,6 +2466,41 @@ kbd {
   padding: 0.7rem 0.75rem;
   border-radius: var(--r-md);
   text-decoration: none;
+  color: var(--ink);
+}
+
+/* Links show their own mark in a small tile where sections and projects
+   have the category dot. */
+.search-result-icon {
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  margin-inline: -0.35rem -0.1rem;
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--ink);
+  flex-shrink: 0;
+}
+
+.search-result-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.search-result-go {
+  display: grid;
+  color: var(--ink-mute);
+  flex-shrink: 0;
+}
+
+.search-result-go svg {
+  width: 15px;
+  height: 15px;
+}
+
+.search-result.is-active .search-result-go {
   color: var(--ink);
 }
 
@@ -2293,6 +2622,7 @@ kbd {
 
   .chip:hover,
   .project-card:hover,
+  .feature-card:hover,
   .hobby-card:hover,
   .icon-link:hover,
   .gallery-item:hover,

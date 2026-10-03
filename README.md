@@ -31,7 +31,6 @@ npm run dev        # dev server with HMR
 | `npm run build` | Production build into `dist/` |
 | `npm run preview` | Serve the built `dist/` locally |
 | `npm run lint` | Oxlint over the source |
-| `npm run deploy` | Build, then push `dist/` to the `gh-pages` branch |
 
 ## Project structure
 
@@ -47,7 +46,10 @@ npm run dev        # dev server with HMR
 ├─ public/                     Copied verbatim into the build
 │  ├─ CNAME                    Custom domain for GitHub Pages
 │  ├─ robots.txt
-│  ├─ avatar.png               Favicon and share image
+│  ├─ favicon.svg / .ico       MC monogram: tab icon, bookmarks, Google result
+│  ├─ icon-192.png             Same mark as a PNG, for Google and Android
+│  ├─ apple-touch-icon.png     Same mark for the iOS home screen
+│  ├─ avatar.png               Share image for link previews
 │  └─ Cattoni_Resume.pdf       Linked from the CV button
 └─ src/
    ├─ main.jsx                 React root, imports index.css + i18n
@@ -123,6 +125,27 @@ const polifyGallery = [
 A missing key falls back to English (`fallbackLng: 'en'`), so a forgotten
 translation degrades quietly rather than crashing — worth double-checking.
 
+### Featuring a project with a video
+
+A project with a `video: { src, poster }` entry is shown as a full-width row led
+by a looping preview instead of a grid card. It plays only while on screen and
+never autoplays for reduced motion or Data Saver.
+
+1. Record 10–20 s of the app in 16:9, one action, no idle start. Raw recordings
+   in the repo root are gitignored.
+2. Encode it next to the project's screenshots (speed up with `setpts=PTS/1.5`
+   if it runs long), then take the first frame as the poster:
+
+   ```sh
+   ffmpeg -i raw.mp4 -an -vf "fps=30,scale=1440:-2" -c:v libx264 -preset slow \
+     -crf 28 -pix_fmt yuv420p -movflags +faststart src/assets/projects/<p>/preview.mp4
+   ffmpeg -i src/assets/projects/<p>/preview.mp4 -frames:v 1 -q:v 4 \
+     src/assets/projects/<p>/preview-poster.jpg
+   ```
+
+   Aim for 2–4 MB; raise `-crf` for dense, colourful screens.
+3. Import both in `App.jsx` and add the `video` entry to the project.
+
 ### Screenshot sizing
 
 Gallery screenshots are displayed large, so full-resolution is correct for them.
@@ -140,8 +163,8 @@ switcher in `App.jsx` reads from the same list.
 
 Pushing to `master` triggers `.github/workflows/deploy.yml`, which runs
 `npm ci && npm run build` on Node 22 and publishes `dist/` to the `gh-pages`
-branch via `peaceiris/actions-gh-pages`. `npm run deploy` does the same thing
-manually from a local machine.
+branch via `peaceiris/actions-gh-pages`. To redeploy without a push, run the
+workflow by hand from the Actions tab (it has `workflow_dispatch`).
 
 ## Repo conventions
 

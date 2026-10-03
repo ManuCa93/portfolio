@@ -6,6 +6,7 @@ import logoImg from './assets/icons/logo.png';
 import portraitImg from './assets/portrait.jpg';
 import motogpHelmet from './assets/icons/motogp_helmet.png';
 import { projectPath, projectIdFromPath } from './projectRoutes';
+import { resources } from './locales';
 import {
   siPython, siPandas, siNumpy, siScikitlearn, siPytorch, siTensorflow, siKeras, siScipy, siOpencv,
   siJupyter, siR, siFlask, siDash, siPlotly, siSqlite, siFlutter, siGooglegemini, siNodedotjs,
@@ -56,6 +57,16 @@ import motogp3dMapping from './assets/projects/motogp/36_eda_3d_environmental_ma
 import motogpFeatureImportance from './assets/projects/motogp/37_eda_feature_importance_correlation.jpg';
 import motogpClusteringPca from './assets/projects/motogp/38_eda_clustering_and_pca.jpg';
 import motogpRegressionAnomaly from './assets/projects/motogp/39_eda_regression_and_anomaly.jpg';
+/* Looping previews for the featured projects: short screen recordings, 30fps,
+   no audio, each with its first frame as the poster. */
+import adosPreview from './assets/projects/ados/preview.mp4';
+import adosPreviewPoster from './assets/projects/ados/preview-poster.jpg';
+import motogpPreview from './assets/projects/motogp/preview.mp4';
+import motogpPreviewPoster from './assets/projects/motogp/preview-poster.jpg';
+import polifyPreview from './assets/projects/polify/preview.mp4';
+import polifyPreviewPoster from './assets/projects/polify/preview-poster.jpg';
+import uniPreview from './assets/projects/uni/preview.mp4';
+import uniPreviewPoster from './assets/projects/uni/preview-poster.jpg';
 import polifyHome from './assets/projects/polify/home-desktop-scuro.jpg';
 import polifySondaggio from './assets/projects/polify/sondaggio-01-scala-con-spiegazione.jpg';
 import polifyRisultato from './assets/projects/polify/risultato-sintesi.jpg';
@@ -507,6 +518,8 @@ const alimentiGallery = [
 
 /* ---------------------------------------------------------------------------
    Project data
+   `video` present   => the project is featured: a full-width row led by the
+                        looping preview, ahead of the category's other cards.
    `gallery` present => the project gets its own card, covered by gallery[0].
    `gallery` absent  => it falls into the category's single condensed card.
    --------------------------------------------------------------------------- */
@@ -518,6 +531,7 @@ const dataAiProjects = [
     badgeKey: 'in_progress',
     badgeClass: 'badge-in-progress',
     icon: <IconPulse />,
+    video: { src: adosPreview, poster: adosPreviewPoster },
     gallery: adosGallery,
     hasHighlights: true
   },
@@ -528,6 +542,7 @@ const dataAiProjects = [
     badgeClass: 'badge-ended',
     iconImg: motogpHelmet,
     iconZoom: 1.12,
+    video: { src: motogpPreview, poster: motogpPreviewPoster },
     gallery: motogpGallery,
     hasHighlights: true
   },
@@ -537,6 +552,7 @@ const dataAiProjects = [
     badgeKey: 'in_progress',
     badgeClass: 'badge-in-progress',
     icon: <IconGraduation />,
+    video: { src: uniPreview, poster: uniPreviewPoster },
     galleryGroups: uniGalleryGroups,
     ctaKey: 'visit_projects',
     // one card, but it stands for 26 separate coursework repositories
@@ -591,6 +607,7 @@ const webProjects = [
     badgeKey: 'in_progress',
     badgeClass: 'badge-in-progress',
     icon: <IconBank />,
+    video: { src: polifyPreview, poster: polifyPreviewPoster },
     gallery: polifyGallery,
     hasHighlights: true
   },
@@ -699,15 +716,25 @@ const SKILL_ROWS = [
   ]
 ].map(row => row.map(([name, icon]) => ({ name, icon })));
 
-/* Brand colours too pale to read on the grey pills (React's cyan, Tailwind's
-   teal) are darkened toward ink; the rest are used as they are. */
-const brandOnLight = hex => {
+/* Brand colours come straight from Simple Icons, which is why they are the one
+   colour not defined in index.css. Each pill gets a shade per theme, and the
+   stylesheet picks one: on the light page the pale ones (React's cyan,
+   Tailwind's teal) are pulled toward ink, on the dark page the dark ones
+   (Next.js is pure black, NumPy navy) are pushed toward white. */
+const luminance = hex => {
   const [r, g, b] = [0, 2, 4].map(i => {
     const c = parseInt(hex.slice(i, i + 2), 16) / 255;
     return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
   });
-  const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  return lum > 0.45 ? `color-mix(in srgb, #${hex} 70%, #0b0b0b)` : `#${hex}`;
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+
+const brandShades = hex => {
+  const lum = luminance(hex);
+  return {
+    '--brand-light': lum > 0.45 ? `color-mix(in srgb, #${hex} 70%, var(--ink))` : `#${hex}`,
+    '--brand-dark': lum < 0.12 ? `color-mix(in srgb, #${hex} 25%, var(--ink))` : `#${hex}`
+  };
 };
 
 /* Locking scroll on <body> collapses the document height, because html's
@@ -1343,6 +1370,105 @@ const ProjectCard = ({ project, index, onOpen }) => {
   );
 };
 
+/* A muted looping preview that only plays while it is on screen: off screen
+   it pauses, so a page with three of them is not decoding all three at once.
+   It never autoplays for reduced motion or Data Saver; there the poster stays
+   up and hovering the card plays it instead. */
+const usePlayInView = ref => {
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    const saveData = navigator.connection?.saveData;
+    if (prefersReducedMotion() || saveData || !('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => {}); // a blocked play keeps the poster
+        else video.pause();
+      },
+      { threshold: 0.35 }
+    );
+    io.observe(video);
+    return () => io.disconnect();
+  }, [ref]);
+};
+
+const PreviewVideo = ({ video, label }) => {
+  const ref = useRef(null);
+  usePlayInView(ref);
+  return (
+    <video
+      ref={ref}
+      className="feature-video"
+      src={video.src}
+      poster={video.poster}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-label={label}
+      width="1440"
+      height="844"
+    />
+  );
+};
+
+/* A featured project: the preview leads, the copy sits beside it. Like the
+   grid card, the whole row is one link through the title's stretched ::after. */
+const FeatureCard = ({ project, index, onOpen }) => {
+  const { t } = useTranslation();
+  const { id, badgeKey, badgeClass, icon, iconImg, iconZoom, video } = project;
+  const title = t(`projects.${id}.title`);
+  const hoverPlay = e => {
+    if (prefersReducedMotion() || navigator.connection?.saveData) {
+      const v = e.currentTarget.querySelector('video');
+      if (e.type === 'mouseenter') v?.play().catch(() => {});
+      else v?.pause();
+    }
+  };
+
+  return (
+    <article
+      className="feature-card"
+      data-reveal
+      style={{ '--reveal-i': index }}
+      onMouseEnter={hoverPlay}
+      onMouseLeave={hoverPlay}
+    >
+      <div className="feature-media">
+        <PreviewVideo video={video} label={title} />
+      </div>
+      <div className="feature-body">
+        <div className="project-top">
+          <span className="project-icon">
+            {iconImg ? <img src={iconImg} alt="" style={{ '--icon-zoom': iconZoom }} /> : icon}
+          </span>
+          <span className={`badge ${badgeClass}`}>{t(`badges.${badgeKey}`)}</span>
+        </div>
+        <h3 className="feature-title">
+          <a
+            className="project-open"
+            href={projectPath(id)}
+            data-track={`open: ${id}`}
+            onClick={e => openInPlace(e, project, onOpen)}
+          >
+            {title}
+          </a>
+        </h3>
+        <p className="feature-summary">
+          <RichText text={t(`projects.${id}.summary`)} />
+        </p>
+        <p className="feature-stack">{t(`projects.${id}.techStack`)}</p>
+        <div className="project-foot">
+          <span className="project-more" aria-hidden="true">
+            {t('ui.details')}
+            <IconArrowRight />
+          </span>
+        </div>
+      </div>
+    </article>
+  );
+};
+
 /* Every image-less project of a category, gathered into one compact block. */
 const CondensedCard = ({ projects, index, standalone, onOpen }) => {
   const { t } = useTranslation();
@@ -1394,8 +1520,12 @@ const CondensedCard = ({ projects, index, standalone, onOpen }) => {
 /* --------------------------------------------------------------------------- */
 const CategorySection = ({ category, onOpen }) => {
   const { t } = useTranslation();
-  const withImages = category.projects.filter(p => projectImages(p).length > 0);
+  const featured = category.projects.filter(p => p.video);
+  const withImages = category.projects.filter(p => !p.video && projectImages(p).length > 0);
   const withoutImages = category.projects.filter(p => projectImages(p).length === 0);
+  // With one or two cards left, the condensed block takes the rest of their
+  // row instead of a row of its own, so a lone card is not left stranded.
+  const sharesRow = withoutImages.length > 0 && withImages.length > 0 && withImages.length < 3;
 
   return (
     <section className="section" id={category.id} data-accent={category.id}>
@@ -1406,20 +1536,30 @@ const CategorySection = ({ category, onOpen }) => {
           </p>
           <h2 className="section-title">{t(`sections.${category.id}`)}</h2>
         </header>
-        {withImages.length > 0 && (
-          <div className="project-grid">
-            {withImages.map((project, i) => (
-              <ProjectCard key={project.id} project={project} index={i} onOpen={onOpen} />
+        {featured.length > 0 && (
+          <div className="feature-list">
+            {featured.map((project, i) => (
+              <FeatureCard key={project.id} project={project} index={i} onOpen={onOpen} />
             ))}
           </div>
         )}
-        {withoutImages.length > 0 && (
-          <CondensedCard
-            projects={withoutImages}
-            index={withImages.length}
-            standalone={withImages.length === 0}
-            onOpen={onOpen}
-          />
+        {(withImages.length > 0 || withoutImages.length > 0) && (
+          <div
+            className={`project-grid ${sharesRow ? 'project-grid--shared' : ''}`}
+            style={sharesRow ? { '--condensed-span': 3 - withImages.length } : undefined}
+          >
+            {withImages.map((project, i) => (
+              <ProjectCard key={project.id} project={project} index={i} onOpen={onOpen} />
+            ))}
+            {withoutImages.length > 0 && (
+              <CondensedCard
+                projects={withoutImages}
+                index={withImages.length}
+                standalone={withImages.length === 0 && featured.length === 0}
+                onOpen={onOpen}
+              />
+            )}
+          </div>
         )}
       </div>
     </section>
@@ -1499,7 +1639,7 @@ const SkillsMarquee = ({ onPick }) => {
                   <button
                     type="button"
                     className="skill-pill"
-                    style={icon ? { '--brand': brandOnLight(icon.hex) } : undefined}
+                    style={icon ? brandShades(icon.hex) : undefined}
                     tabIndex={copy === 1 ? -1 : undefined}
                     data-track={`skill: ${name}`}
                     aria-label={t('ui.search_skill', { skill: name })}
@@ -1544,75 +1684,260 @@ const Highlight = ({ text, terms }) => {
   return text.split(re).map((part, i) => (i % 2 ? <mark key={i}>{part}</mark> : part));
 };
 
-/* Field weights: a hit in the title outranks one in the stack, which outranks
-   one buried in the long description. */
-const SEARCH_FIELDS = [
-  ['title', 4],
-  ['techStack', 3],
-  ['summary', 2],
-  ['rest', 1]
-];
+/* ---------------------------------------------------------------------------
+   Search
+   One palette for the whole site: sections to jump to, links out (contacts,
+   CV, profiles), and the projects. Everything is indexed in all three
+   languages, so "calcio" finds Football Predictions on the English page, but
+   always shown in the page's own language.
+   --------------------------------------------------------------------------- */
+const LANGS = Object.keys(resources);
 
-/* Spotlight-style search over every project, in the current language. With no
-   query it lists them all, so opening it is also a quick index of the site. */
-const SearchPalette = ({ initialQuery, onPick, onClose }) => {
-  const { t } = useTranslation();
+/* Words people type for a destination that are not in its visible name. */
+const SECTION_KEYWORDS = {
+  top: 'home inizio start top profilo profile about chi sono',
+  hobbies: 'hobby hobbies passioni passions interessi interests freizeit sport',
+  data_ai: 'data ai ml machine learning ia dati ki daten modelli models',
+  mobile: 'app apps mobile flutter ios android telefono phone',
+  websites: 'web sito siti website websites webseiten',
+  games: 'game games giochi gioco spiele spiel'
+};
+
+const LINK_KEYWORDS = {
+  github: 'github git repo repository codice code source',
+  linkedin: 'linkedin lavoro work job profilo profile carriera career',
+  email: 'email mail e-mail contatto contatti contact kontakt scrivimi write',
+  cv: 'cv curriculum resume lebenslauf pdf',
+  instagram: 'instagram ig insta foto photos',
+  hevy: 'hevy palestra gym workout allenamento training fitness',
+  strava: 'strava corsa running run laufen sport'
+};
+
+/* What each project is about, in words its copy may not use (the football
+   model never says "calcio"). Topics only, in the three languages. */
+const PROJECT_KEYWORDS = {
+  adosDashboard: 'autismo autism autismus tesi thesis abschlussarbeit clinica clinical sensori sensors',
+  motogp: 'moto motorbike motorrad motorsport gare racing rennen previsioni predictions',
+  uni: 'universita university universitat corsi courses esami notebook',
+  football: 'calcio soccer fussball serie a premier league scommesse betting wetten',
+  f1: 'formula 1 formel 1 motorsport gare racing reti neurali neural networks',
+  pantrypilot: 'dieta diet cibo food essen spesa groceries dispensa ricette recipes',
+  driving: 'alcol alcohol tasso alcolemico serata night out patente guida driving',
+  polify: 'politica politics politik partiti parties parteien elezioni elections test',
+  pomodoro: 'timer produttivita productivity studio study focus',
+  priceTracker: 'prezzi prices preise offerte deals scraper amazon',
+  brickbreakers: 'gioco game spiel arcade breakout formula 1'
+};
+
+const HOBBY_LINKS = HOBBIES.flatMap(h =>
+  (h.links || []).map(l => ({ id: l.label.toLowerCase(), label: l.label, href: l.href }))
+);
+
+/* Field weights: a hit in a name outranks one in the stack or keywords,
+   which outranks one buried in the long description. */
+const FIELD_WEIGHTS = { title: 4, techStack: 3, keywords: 3, summary: 2, rest: 1 };
+
+const asList = v => (Array.isArray(v) ? v : v && typeof v === 'object' ? Object.values(v) : []);
+
+/* Typos: a term of 5+ letters may match a word one edit away (two from 8
+   letters), a swapped pair of letters counting as one edit ("pyhton"). Only
+   used when nothing matches exactly, so it never adds noise to real hits. */
+const editDistanceAtMost = (a, b, max) => {
+  if (Math.abs(a.length - b.length) > max) return false;
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    let rowMin = Infinity;
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+        d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+      }
+      rowMin = Math.min(rowMin, d[i][j]);
+    }
+    if (rowMin > max) return false;
+  }
+  return d[a.length][b.length] <= max;
+};
+
+const fuzzyHit = (term, words) => {
+  if (term.length < 5) return false;
+  const max = term.length >= 8 ? 2 : 1;
+  // against the word's start too, so "pytho" still meets "python"
+  return words.some(w => editDistanceAtMost(term, w, max) || editDistanceAtMost(term, w.slice(0, term.length), max));
+};
+
+/* Scores an entry against the query terms: each term must land somewhere,
+   counted at the heaviest field it hits. A one-letter term ("R", "C") has to
+   be a whole word, or it would match every word starting with that letter.
+   With `fuzzy`, a term that hits nothing may still land as a typo, at a
+   lower score than any real hit. */
+const scoreEntry = (entry, terms, fuzzy) => {
+  let score = 0;
+  for (const term of terms) {
+    const re = term.length === 1 ? wholeWord(term) : wordStart(term);
+    let best = 0;
+    for (const [field, weight] of Object.entries(FIELD_WEIGHTS)) {
+      if (weight > best && entry.folded[field] && re.test(entry.folded[field])) best = weight;
+    }
+    if (!best && fuzzy && fuzzyHit(term, entry.words)) best = 0.5;
+    if (!best) return 0;
+    score += best;
+  }
+  return score;
+};
+
+/* A window of the description around the first hit, for projects found only
+   through their long copy: it shows why they matched. */
+const snippetFor = (text, terms) => {
+  const folded = fold(text);
+  let at = -1;
+  for (const term of terms) {
+    const m = folded.match(wordStart(term));
+    if (m && (at < 0 || m.index < at)) at = m.index;
+  }
+  if (at < 0) return null;
+  const start = Math.max(0, folded.lastIndexOf(' ', Math.max(0, at - 40)) + 1);
+  const end = Math.min(text.length, start + 110);
+  return `${start > 0 ? '…' : ''}${text.slice(start, end).replace(/\*\*/g, '').trim()}${end < text.length ? '…' : ''}`;
+};
+
+const buildSearchIndex = (t, i18n) => {
+  const tAll = LANGS.map(lng => i18n.getFixedT(lng));
+  const inAll = fn => fold(tAll.map(fn).join(' '));
+  const finish = entry => ({
+    ...entry,
+    words: [...new Set(Object.values(entry.folded).join(' ').split(/[^a-z0-9]+/).filter(w => w.length > 2))]
+  });
+
+  const sections = [
+    { id: 'top', label: t('ui.search_home'), sub: t('profile.subtitle'), names: tt => tt('ui.search_home') },
+    { id: 'hobbies', label: t('hobbies.title'), sub: t('hobbies.intro'), names: tt => tt('hobbies.title') },
+    ...CATEGORIES.map(c => ({
+      id: c.id,
+      accent: c.id,
+      label: t(`sections.${c.id}`),
+      sub: t('ui.projects_count', { count: countProjects(c.projects) }),
+      names: tt => tt(`sections.${c.id}`)
+    }))
+  ].map(({ names, ...item }) =>
+    finish({
+      kind: 'section',
+      key: `section-${item.id}`,
+      ...item,
+      folded: { title: inAll(names), keywords: SECTION_KEYWORDS[item.id] }
+    })
+  );
+
+  const links = [...SOCIALS, ...HOBBY_LINKS].map(link => {
+    const mail = link.href.startsWith('mailto:');
+    return finish({
+      kind: 'link',
+      key: `link-${link.id}`,
+      id: link.id,
+      label: link.label,
+      sub: mail ? link.href.slice(7) : link.href.replace(/^https?:\/\/(www\.)?/, '').replace(/[?#].*$/, '').replace(/\/$/, ''),
+      href: link.href,
+      icon: link.icon || <IconDumbbell />,
+      external: !mail,
+      folded: { title: fold(link.label), keywords: LINK_KEYWORDS[link.id] || '' }
+    });
+  });
+
+  const projects = ALL_PROJECTS.map(project => {
+    const k = `projects.${project.id}`;
+    const category = CATEGORIES.find(c => c.projects.includes(project)).id;
+    // everything a project says about itself: copy, highlights, every gallery
+    // caption and folder name (so "drone" or "MRI" find University Projects)
+    const longCopy = tt =>
+      [
+        tt(`${k}.details`),
+        ...asList(tt(`${k}.highlights`, { returnObjects: true, defaultValue: [] })),
+        ...asList(tt(`${k}.gallery`, { returnObjects: true, defaultValue: {} })),
+        ...asList(tt(`${k}.folders`, { returnObjects: true, defaultValue: {} })),
+        tt(`sections.${category}`),
+        tt(`badges.${project.badgeKey}`)
+      ].join(' ');
+    return finish({
+      kind: 'project',
+      key: `project-${project.id}`,
+      project,
+      category,
+      label: t(`${k}.title`),
+      techStack: t(`${k}.techStack`),
+      summary: t(`${k}.summary`),
+      longCopy: longCopy(t),
+      folded: {
+        title: inAll(tt => tt(`${k}.title`)),
+        techStack: inAll(tt => tt(`${k}.techStack`)),
+        summary: inAll(tt => tt(`${k}.summary`)),
+        keywords: PROJECT_KEYWORDS[project.id] || '',
+        rest: inAll(longCopy)
+      }
+    });
+  });
+
+  return { sections, links, projects };
+};
+
+const SEARCH_GROUPS = ['sections', 'links', 'projects'];
+
+/* Filler words in a phrase like "contact me" or "i miei progetti", dropped
+   as long as something else is left to search for. */
+const STOPWORDS = new Set(
+  'a an the my me i to of and or in on for il lo la i gli le un una di da del della mio mia miei mie mi me e o per con der die das ein eine mein meine mich und oder zu von'.split(' ')
+);
+
+const SearchPalette = ({ initialQuery, onPick, onNavigate, onClose }) => {
+  const { t, i18n } = useTranslation();
   const [closing, requestClose] = useAnimatedClose(onClose);
   const [query, setQuery] = useState(initialQuery);
   const [active, setActive] = useState(0);
   const inputRef = useRef(null);
   const listRef = useRef(null);
 
-  const index = useMemo(
-    () =>
-      ALL_PROJECTS.map(project => {
-        const k = `projects.${project.id}`;
-        const highlights = t(`${k}.highlights`, { returnObjects: true, defaultValue: [] });
-        const fields = {
-          title: t(`${k}.title`),
-          techStack: t(`${k}.techStack`),
-          summary: t(`${k}.summary`),
-          rest: [t(`${k}.details`), ...(Array.isArray(highlights) ? highlights : [])].join(' ')
-        };
-        const folded = Object.fromEntries(Object.entries(fields).map(([f, v]) => [f, fold(v)]));
-        const category = CATEGORIES.find(c => c.projects.includes(project)).id;
-        return { project, category, fields, folded };
-      }),
-    // t is rebound on a language switch, so results follow the page's copy.
-    [t]
-  );
+  // t is rebound on a language switch, so labels follow the page's copy.
+  const index = useMemo(() => buildSearchIndex(t, i18n), [t, i18n]);
 
   const terms = useMemo(() => query.trim().split(/\s+/).filter(Boolean), [query]);
 
-  const results = useMemo(() => {
+  const groups = useMemo(() => {
     if (!terms.length) return index;
+    const all = terms.map(fold);
+    const meaningful = all.filter(term => !STOPWORDS.has(term));
+    const folded = meaningful.length ? meaningful : all;
+    const rankWith = fuzzy => list =>
+      list
+        .map((entry, order) => ({ entry, order, score: scoreEntry(entry, folded, fuzzy) }))
+        .filter(r => r.score > 0)
+        .sort((a, b) => b.score - a.score || a.order - b.order)
+        .map(r => r.entry);
+    // Typo matching only kicks in when the exact pass finds nothing at all.
+    const exact = rankWith(false);
+    const anyExact = ['sections', 'links', 'projects'].some(g => exact(index[g]).length);
+    const rank = anyExact ? exact : rankWith(true);
+
     // A query that names a technology outright, as a skill pill does, means
     // "projects built with it": whole-word hits only, so "R" or "Dash" stop
-    // matching every "race" and "dashboard". Stack hits come first, then the
-    // projects that only mention it in their description.
-    const whole = wholeWord(fold(terms.join(' ')));
-    if (index.some(entry => whole.test(entry.folded.techStack))) {
-      const inStack = index.filter(entry => whole.test(entry.folded.techStack));
-      const inText = index.filter(
-        entry => !inStack.includes(entry) && SEARCH_FIELDS.some(([f]) => whole.test(entry.folded[f]))
+    // matching every "race" and "dashboard". Stack hits first, then projects
+    // that only mention it.
+    const whole = wholeWord(folded.join(' '));
+    let projects;
+    if (index.projects.some(e => whole.test(e.folded.techStack))) {
+      const inStack = index.projects.filter(e => whole.test(e.folded.techStack));
+      const inText = index.projects.filter(
+        e => !inStack.includes(e) && ['title', 'summary', 'rest'].some(f => whole.test(e.folded[f]))
       );
-      return [...inStack, ...inText];
+      projects = [...inStack, ...inText];
+    } else {
+      projects = rank(index.projects);
     }
-    const patterns = terms.map(term => wordStart(fold(term)));
-    return index
-      .map((entry, order) => {
-        let score = 0;
-        for (const re of patterns) {
-          const hit = SEARCH_FIELDS.find(([f]) => re.test(entry.folded[f]));
-          if (!hit) return null; // every term has to land somewhere
-          score += hit[1];
-        }
-        return { entry, score, order };
-      })
-      .filter(Boolean)
-      .sort((a, b) => b.score - a.score || a.order - b.order)
-      .map(r => r.entry);
+    return { sections: rank(index.sections), links: rank(index.links), projects };
   }, [index, terms]);
+
+  // One flat list for the keyboard, in the order the groups are drawn.
+  const flat = useMemo(() => SEARCH_GROUPS.flatMap(g => groups[g]), [groups]);
 
   useEffect(() => setActive(0), [query]);
 
@@ -1633,18 +1958,28 @@ const SearchPalette = ({ initialQuery, onPick, onClose }) => {
     listRef.current?.querySelector(`[data-index="${active}"]`)?.scrollIntoView({ block: 'nearest' });
   }, [active]);
 
+  const choose = entry => {
+    if (entry.kind === 'project') onPick(entry.project);
+    else if (entry.kind === 'section') onNavigate(entry.id);
+    else {
+      if (entry.external) window.open(entry.href, '_blank', 'noopener');
+      else window.location.href = entry.href;
+      requestClose();
+    }
+  };
+
   const onKeyDown = e => {
     if (e.key === 'Escape') {
       e.preventDefault();
       requestClose();
     } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
       e.preventDefault();
-      if (!results.length) return;
+      if (!flat.length) return;
       const step = e.key === 'ArrowDown' ? 1 : -1;
-      setActive(i => (i + step + results.length) % results.length);
-    } else if (e.key === 'Enter' && results[active]) {
+      setActive(i => (i + step + flat.length) % flat.length);
+    } else if (e.key === 'Enter' && flat[active]) {
       e.preventDefault();
-      onPick(results[active].project);
+      choose(flat[active]);
     } else if (e.key === 'Tab') {
       e.preventDefault(); // the input is the dialog's only stop; arrows move the list
     }
@@ -1652,6 +1987,48 @@ const SearchPalette = ({ initialQuery, onPick, onClose }) => {
 
   const optionId = i => `search-option-${i}`;
 
+  // Rows are real links, so middle- and ctrl-click still open in a new tab;
+  // a plain click goes through choose() like Enter does.
+  const rowProps = (entry, i) => {
+    const props = {
+      id: optionId(i),
+      className: `search-result ${i === active ? 'is-active' : ''}`,
+      role: 'option',
+      'aria-selected': i === active,
+      tabIndex: -1,
+      'data-index': i,
+      'data-track': `search: ${entry.key}`,
+      onMouseMove: () => i !== active && setActive(i)
+    };
+    if (entry.kind === 'project') {
+      return { ...props, href: projectPath(entry.project.id), onClick: e => openInPlace(e, entry.project, onPick) };
+    }
+    if (entry.kind === 'section') {
+      return {
+        ...props,
+        href: `#${entry.id}`,
+        onClick: e => {
+          e.preventDefault();
+          choose(entry);
+        }
+      };
+    }
+    return {
+      ...props,
+      href: entry.href,
+      ...(entry.external ? { target: '_blank', rel: 'noreferrer' } : {}),
+      onClick: () => requestClose()
+    };
+  };
+
+  const projectDetail = entry => {
+    const visible = fold(`${entry.label} ${entry.techStack} ${entry.summary}`);
+    const foundUpFront = terms.some(term => wordStart(fold(term)).test(visible));
+    const snippet = terms.length && !foundUpFront ? snippetFor(entry.longCopy, terms.map(fold)) : null;
+    return snippet || entry.techStack;
+  };
+
+  let i = -1;
   return createPortal(
     <div className={`search-backdrop ${closing ? 'is-closing' : ''}`} onClick={requestClose}>
       <div
@@ -1675,43 +2052,58 @@ const SearchPalette = ({ initialQuery, onPick, onClose }) => {
             role="combobox"
             aria-expanded="true"
             aria-controls="search-results"
-            aria-activedescendant={results.length ? optionId(active) : undefined}
+            aria-activedescendant={flat.length ? optionId(active) : undefined}
             autoComplete="off"
             spellCheck="false"
           />
           <kbd className="search-esc">Esc</kbd>
         </div>
 
-        {results.length ? (
-          <ul className="search-results" id="search-results" role="listbox" ref={listRef}>
-            {results.map(({ project, category, fields }, i) => (
-              <li key={project.id} role="presentation" data-accent={category}>
-                <a
-                  id={optionId(i)}
-                  className={`search-result ${i === active ? 'is-active' : ''}`}
-                  href={projectPath(project.id)}
-                  role="option"
-                  aria-selected={i === active}
-                  tabIndex={-1}
-                  data-index={i}
-                  data-track={`search: ${project.id}`}
-                  onMouseMove={() => i !== active && setActive(i)}
-                  onClick={e => openInPlace(e, project, onPick)}
-                >
-                  <span className="chip-dot" aria-hidden="true" />
-                  <span className="search-result-main">
-                    <span className="search-result-title">
-                      <Highlight text={fields.title} terms={terms} />
-                    </span>
-                    <span className="search-result-stack">
-                      <Highlight text={fields.techStack} terms={terms} />
-                    </span>
-                  </span>
-                  <span className="search-result-cat">{t(`sections.${category}`)}</span>
-                </a>
-              </li>
+        {flat.length ? (
+          <div className="search-results" id="search-results" role="listbox" ref={listRef}>
+            {SEARCH_GROUPS.filter(g => groups[g].length).map(g => (
+              <div className="search-group" role="group" aria-labelledby={`search-group-${g}`} key={g}>
+                <p className="search-group-title" id={`search-group-${g}`}>
+                  {t(`ui.search_group_${g}`)}
+                </p>
+                {groups[g].map(entry => {
+                  i += 1;
+                  return (
+                    <a key={entry.key} {...rowProps(entry, i)} data-accent={entry.accent || entry.category}>
+                      {entry.kind === 'link' ? (
+                        <span className="search-result-icon" aria-hidden="true">
+                          {entry.icon}
+                        </span>
+                      ) : (
+                        <span className="chip-dot" aria-hidden="true" />
+                      )}
+                      <span className="search-result-main">
+                        <span className="search-result-title">
+                          <Highlight text={entry.label} terms={terms} />
+                        </span>
+                        <span className="search-result-stack">
+                          <Highlight text={entry.kind === 'project' ? projectDetail(entry) : entry.sub} terms={terms} />
+                        </span>
+                      </span>
+                      {entry.kind === 'project' && (
+                        <span className="search-result-cat">{t(`sections.${entry.category}`)}</span>
+                      )}
+                      {entry.kind === 'link' && entry.external && (
+                        <span className="search-result-go" aria-hidden="true">
+                          <IconExternal />
+                        </span>
+                      )}
+                      {entry.kind === 'section' && (
+                        <span className="search-result-go" aria-hidden="true">
+                          <IconArrowRight />
+                        </span>
+                      )}
+                    </a>
+                  );
+                })}
+              </div>
             ))}
-          </ul>
+          </div>
         ) : (
           <p className="search-empty">{t('ui.search_empty', { query: query.trim() })}</p>
         )}
@@ -1902,6 +2294,13 @@ function App() {
   }, [openProject, searchQuery]);
 
   const closeSearch = useCallback(() => setSearchQuery(null), []);
+
+  // Closing first restores the page's scroll position; the jump runs on the
+  // next frame, after that restore, or it would be undone.
+  const navigateFromSearch = useCallback(id => {
+    setSearchQuery(null);
+    requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }));
+  }, []);
 
   // The palette unmounts first and hands focus back, then the modal takes over.
   const openFromSearch = useCallback(
@@ -2194,7 +2593,12 @@ function App() {
       )}
 
       {searchQuery !== null && (
-        <SearchPalette initialQuery={searchQuery} onPick={openFromSearch} onClose={closeSearch} />
+        <SearchPalette
+          initialQuery={searchQuery}
+          onPick={openFromSearch}
+          onNavigate={navigateFromSearch}
+          onClose={closeSearch}
+        />
       )}
     </>
   );

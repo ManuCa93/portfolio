@@ -35,3 +35,8 @@ _archive/
 /Immagine*.png
 /*_screen.jpg
 /*_screen.png
+
+# Raw screen recordings dropped in the repo root; the site carries the
+# trimmed, compressed copies in src/assets/projects/<project>/preview.mp4
+/*.mp4
+/*.mov
