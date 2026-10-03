@@ -2,8 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/avatar.png" />
-    <link rel="apple-touch-icon" href="/avatar.png" />
+    <!-- The MC monogram is the site's mark: the browser tab, bookmarks, the home
+         screen and the favicon Google shows beside the result. Google wants a
+         square in multiples of 48px, hence the 192 PNG next to the SVG. -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#ffffff" />
     <meta
@@ -16,9 +21,8 @@
     <link rel="canonical" href="https://manuelcattoni.com/" />
     <title>Manuel Cattoni - AI Engineer Portfolio</title>
 
-    <!-- The GitHub avatar (self-hosted, so Google can crawl it) doubles as the
-         site's mark: the favicon Google shows beside the result, and the image
-         link previews pull in. -->
+    <!-- Link previews keep the GitHub avatar (self-hosted, so Google can crawl
+         it): a face reads better in a shared card than the monogram does. -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Manuel Cattoni" />
     <meta property="og:locale" content="en_US" />

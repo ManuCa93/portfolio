@@ -22,6 +22,10 @@
   --accent-ink: #0b0b0b;
   --accent-rgb: 11, 11, 11;
 
+  /* The monogram's red. Used sparingly, only where the mark itself would be:
+     the surname's initial, the typing caret and text selection. 5.4:1 on white. */
+  --brand-red: #d31618;
+
   --shell: 68rem;
   --gutter: clamp(1rem, 4vw, 2.5rem);
   --header-h: 3.75rem;
@@ -354,10 +358,12 @@ ul {
   margin-left: 0.75rem;
 }
 
+/* The flag is the button's only content now, so it is centred in the 44px
+   target instead of sitting against its left padding. */
 .lang-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  justify-content: center;
   min-height: 44px;
   min-width: 44px;
   padding-inline: 0.5rem;
@@ -1885,7 +1891,7 @@ a.footer-note:hover {
   bottom: 0.08em;
   width: 0.07em;
   margin-left: 0.04em;
-  background: currentColor;
+  background: var(--brand-red);
   opacity: 0;
   animation: caret-on var(--type-step) steps(1) both;
   animation-delay: inherit;
@@ -1895,6 +1901,15 @@ a.footer-note:hover {
 .type-char.is-last::after {
   animation: caret-blink 1s steps(1) 3;
   animation-delay: inherit;
+}
+
+.type-char.is-brand,
+.brand-red {
+  color: var(--brand-red);
+}
+
+::selection {
+  background: rgba(211, 22, 24, 0.16);
 }
 
 @keyframes type-in {

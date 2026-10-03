@@ -14,8 +14,8 @@ import {
 } from 'simple-icons';
 
 /* The header carries the name and nothing else -- no avatar. The hero shows the
-   real photo, and the GitHub avatar stays what it always was outside the page:
-   the favicon and the share card, both set in index.html. */
+   real photo, the GitHub avatar stays the share card outside the page, and the
+   favicon is the MC monogram; both are set in index.html. */
 const HERO_PORTRAIT_SRC = portraitImg;
 import motogpTimeAttack from './assets/projects/motogp/01_live_time_attack_leaderboard.jpg';
 import motogpLiveSectorPrediction from './assets/projects/motogp/02_live_track_feed_ai_prediction.jpg';
@@ -1453,10 +1453,16 @@ const TypedName = React.forwardRef(({ parts }, ref) => {
         <React.Fragment key={p}>
           {p > 0 && ' '}
           <span className="hero-name-part" aria-hidden="true">
-            {[...part].map(char => {
+            {[...part].map((char, c) => {
               const n = i++;
+              // The surname's initial takes the monogram's red, as the logo's C does.
+              const brand = p > 0 && c === 0;
               return (
-                <span key={n} className={`type-char ${n === total - 1 ? 'is-last' : ''}`} style={{ '--i': n }}>
+                <span
+                  key={n}
+                  className={`type-char${n === total - 1 ? ' is-last' : ''}${brand ? ' is-brand' : ''}`}
+                  style={{ '--i': n }}
+                >
                   {char}
                 </span>
               );
@@ -1965,7 +1971,16 @@ function App() {
       >
         <div className="shell site-header-inner">
           <a className="brand" href="#top">
-            <span className="brand-name">{t('profile.title')}</span>
+            <span className="brand-name">
+              {nameFirst}
+              {nameLast && (
+                <>
+                  {' '}
+                  <span className="brand-red">{nameLast[0]}</span>
+                  {nameLast.slice(1)}
+                </>
+              )}
+            </span>
           </a>
 
           <nav className="header-nav" aria-label={t('ui.projects_label')}>
