@@ -6,6 +6,12 @@ import logoImg from './assets/icons/logo.png';
 import portraitImg from './assets/portrait.jpg';
 import motogpHelmet from './assets/icons/motogp_helmet.png';
 import { projectPath, projectIdFromPath } from './projectRoutes';
+import {
+  siPython, siPandas, siNumpy, siScikitlearn, siPytorch, siTensorflow, siKeras, siScipy, siOpencv,
+  siJupyter, siR, siFlask, siDash, siPlotly, siSqlite, siFlutter, siGooglegemini, siNodedotjs,
+  siNextdotjs, siReact, siTailwindcss, siGsap, siElectron, siChartdotjs, siTelegram, siRender,
+  siGithubpages
+} from 'simple-icons';
 
 /* The header carries the name and nothing else -- no avatar. The hero shows the
    real photo, and the GitHub avatar stays what it always was outside the page:
@@ -165,6 +171,12 @@ const IconExternal = () => (
   </Ico>
 );
 const IconClose = () => <Ico d="M6 18L18 6M6 6l12 12" />;
+const IconSearch = () => (
+  <Ico>
+    <circle cx="11" cy="11" r="6.5" />
+    <path d="M20 20l-4.4-4.4" />
+  </Ico>
+);
 const IconMenu = () => <Ico d="M4 7h16M4 12h16M4 17h16" />;
 const IconChevronLeft = () => <Ico d="M15 19l-7-7 7-7" />;
 const IconChevronRight = () => <Ico d="M9 5l7 7-7 7" />;
@@ -665,6 +677,38 @@ const SOCIALS = [
   { id: 'cv', href: '/Cattoni_Resume.pdf?v=2', label: 'CV', icon: <IconDoc /> },
   { id: 'instagram', href: 'https://instagram.com/cattonii', label: 'Instagram', icon: <IconInstagram /> }
 ];
+
+/* The skills strip. Every name here is also a search term: clicking one opens
+   the search with it, so each must appear in at least one project's stack.
+   The top row is the data and ML core, the bottom one the app, web and
+   platform side. Brands without a Simple Icons glyph get a
+   plain dot in their place. */
+const SKILL_ROWS = [
+  [
+    ['Python', siPython], ['Pandas', siPandas], ['NumPy', siNumpy], ['scikit-learn', siScikitlearn],
+    ['XGBoost'], ['LightGBM'], ['PyTorch', siPytorch], ['TensorFlow', siTensorflow], ['Keras', siKeras],
+    ['SciPy', siScipy], ['statsmodels'], ['PyMC'], ['SHAP'], ['OpenCV', siOpencv], ['RDKit'],
+    ['Matplotlib'], ['Seaborn'], ['Jupyter', siJupyter], ['R', siR]
+  ],
+  [
+    ['Flask', siFlask], ['Dash', siDash], ['Plotly', siPlotly], ['SQLite', siSqlite], ['Flutter', siFlutter],
+    ['Riverpod'], ['Gemini', siGooglegemini], ['Node.js', siNodedotjs], ['Next.js', siNextdotjs],
+    ['React', siReact], ['Tailwind CSS', siTailwindcss], ['GSAP', siGsap], ['Electron', siElectron],
+    ['Chart.js', siChartdotjs], ['BeautifulSoup'], ['Telegram', siTelegram], ['Render', siRender],
+    ['GitHub Pages', siGithubpages]
+  ]
+].map(row => row.map(([name, icon]) => ({ name, icon })));
+
+/* Brand colours too pale to read on the grey pills (React's cyan, Tailwind's
+   teal) are darkened toward ink; the rest are used as they are. */
+const brandOnLight = hex => {
+  const [r, g, b] = [0, 2, 4].map(i => {
+    const c = parseInt(hex.slice(i, i + 2), 16) / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return lum > 0.45 ? `color-mix(in srgb, #${hex} 70%, #0b0b0b)` : `#${hex}`;
+};
 
 /* Locking scroll on <body> collapses the document height, because html's
    `overflow-x: clip` stops body's overflow from propagating to the viewport,
@@ -1383,6 +1427,300 @@ const CategorySection = ({ category, onOpen }) => {
 };
 
 /* --------------------------------------------------------------------------- */
+/* The hero name types itself in, one letter every TYPE_STEP_MS. Every letter is
+   in the DOM from the first paint and only its opacity is animated, so the
+   heading never changes size, crawlers read the whole name, and screen readers
+   get it once through aria-label instead of letter by letter. A caret rides on
+   the letter just typed and blinks out at the end. The rest of the hero waits
+   for the first name, via --type-lead. */
+const TYPE_STEP_MS = 85;
+const TYPE_START_MS = 250;
+
+const TypedName = React.forwardRef(({ parts }, ref) => {
+  const total = parts.join('').length;
+  let i = 0;
+  return (
+    <h1
+      className="hero-name"
+      ref={ref}
+      aria-label={parts.join(' ')}
+      style={{
+        '--type-step': `${TYPE_STEP_MS}ms`,
+        '--type-start': `${TYPE_START_MS}ms`
+      }}
+    >
+      {parts.map((part, p) => (
+        <React.Fragment key={p}>
+          {p > 0 && ' '}
+          <span className="hero-name-part" aria-hidden="true">
+            {[...part].map(char => {
+              const n = i++;
+              return (
+                <span key={n} className={`type-char ${n === total - 1 ? 'is-last' : ''}`} style={{ '--i': n }}>
+                  {char}
+                </span>
+              );
+            })}
+          </span>
+        </React.Fragment>
+      ))}
+    </h1>
+  );
+});
+
+/* --------------------------------------------------------------------------- */
+/* Two endless rows of the tools behind the projects. Each row is its list
+   twice over, and the track slides by exactly half its width, so the second
+   copy lands where the first started and the loop has no seam. The copy is
+   hidden from screen readers and the tab order, so they meet each name once. */
+const SkillsMarquee = ({ onPick }) => {
+  const { t } = useTranslation();
+  return (
+    <section className="skills" aria-labelledby="skills-title">
+      <h2 className="visually-hidden" id="skills-title">
+        {t('ui.skills_title')}
+      </h2>
+      {SKILL_ROWS.map((row, r) => (
+        <div
+          className={`marquee ${r ? 'marquee--secondary' : ''}`}
+          key={r}
+          style={{ '--marquee-n': row.length }}
+        >
+          <ul className="marquee-track">
+            {[0, 1].map(copy =>
+              row.map(({ name, icon }) => (
+                <li key={`${copy}-${name}`} aria-hidden={copy === 1 || undefined}>
+                  <button
+                    type="button"
+                    className="skill-pill"
+                    style={icon ? { '--brand': brandOnLight(icon.hex) } : undefined}
+                    tabIndex={copy === 1 ? -1 : undefined}
+                    data-track={`skill: ${name}`}
+                    aria-label={t('ui.search_skill', { skill: name })}
+                    onClick={() => onPick(name)}
+                  >
+                    {icon ? (
+                      <svg className="skill-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d={icon.path} />
+                      </svg>
+                    ) : (
+                      <span className="skill-dot" aria-hidden="true" />
+                    )}
+                    {name}
+                  </button>
+                </li>
+              ))
+            )}
+          </ul>
+        </div>
+      ))}
+    </section>
+  );
+};
+
+const MOD_KEY =
+  typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform) ? '⌘' : 'Ctrl';
+
+/* Lowercase and accent-free, so "funzionalita" finds "funzionalità". */
+const fold = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+const escapeRegExp = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/* Terms match from the start of a word: "pyt" finds Python, but "ai" no longer
+   finds every "detail" and "R" every word with an r in it. */
+const wordStart = term => new RegExp(`(?<![a-z0-9])${escapeRegExp(term)}`);
+const wholeWord = term => new RegExp(`(?<![a-z0-9])${escapeRegExp(term)}(?![a-z0-9])`);
+
+/* Wraps every word-initial occurrence of the query terms in <mark>. */
+const Highlight = ({ text, terms }) => {
+  if (!terms.length) return text;
+  const re = new RegExp(`(?<![a-z0-9])(${terms.map(escapeRegExp).join('|')})`, 'gi');
+  return text.split(re).map((part, i) => (i % 2 ? <mark key={i}>{part}</mark> : part));
+};
+
+/* Field weights: a hit in the title outranks one in the stack, which outranks
+   one buried in the long description. */
+const SEARCH_FIELDS = [
+  ['title', 4],
+  ['techStack', 3],
+  ['summary', 2],
+  ['rest', 1]
+];
+
+/* Spotlight-style search over every project, in the current language. With no
+   query it lists them all, so opening it is also a quick index of the site. */
+const SearchPalette = ({ initialQuery, onPick, onClose }) => {
+  const { t } = useTranslation();
+  const [closing, requestClose] = useAnimatedClose(onClose);
+  const [query, setQuery] = useState(initialQuery);
+  const [active, setActive] = useState(0);
+  const inputRef = useRef(null);
+  const listRef = useRef(null);
+
+  const index = useMemo(
+    () =>
+      ALL_PROJECTS.map(project => {
+        const k = `projects.${project.id}`;
+        const highlights = t(`${k}.highlights`, { returnObjects: true, defaultValue: [] });
+        const fields = {
+          title: t(`${k}.title`),
+          techStack: t(`${k}.techStack`),
+          summary: t(`${k}.summary`),
+          rest: [t(`${k}.details`), ...(Array.isArray(highlights) ? highlights : [])].join(' ')
+        };
+        const folded = Object.fromEntries(Object.entries(fields).map(([f, v]) => [f, fold(v)]));
+        const category = CATEGORIES.find(c => c.projects.includes(project)).id;
+        return { project, category, fields, folded };
+      }),
+    // t is rebound on a language switch, so results follow the page's copy.
+    [t]
+  );
+
+  const terms = useMemo(() => query.trim().split(/\s+/).filter(Boolean), [query]);
+
+  const results = useMemo(() => {
+    if (!terms.length) return index;
+    // A query that names a technology outright, as a skill pill does, means
+    // "projects built with it": whole-word hits only, so "R" or "Dash" stop
+    // matching every "race" and "dashboard". Stack hits come first, then the
+    // projects that only mention it in their description.
+    const whole = wholeWord(fold(terms.join(' ')));
+    if (index.some(entry => whole.test(entry.folded.techStack))) {
+      const inStack = index.filter(entry => whole.test(entry.folded.techStack));
+      const inText = index.filter(
+        entry => !inStack.includes(entry) && SEARCH_FIELDS.some(([f]) => whole.test(entry.folded[f]))
+      );
+      return [...inStack, ...inText];
+    }
+    const patterns = terms.map(term => wordStart(fold(term)));
+    return index
+      .map((entry, order) => {
+        let score = 0;
+        for (const re of patterns) {
+          const hit = SEARCH_FIELDS.find(([f]) => re.test(entry.folded[f]));
+          if (!hit) return null; // every term has to land somewhere
+          score += hit[1];
+        }
+        return { entry, score, order };
+      })
+      .filter(Boolean)
+      .sort((a, b) => b.score - a.score || a.order - b.order)
+      .map(r => r.entry);
+  }, [index, terms]);
+
+  useEffect(() => setActive(0), [query]);
+
+  useEffect(() => {
+    const returnTo = document.activeElement;
+    const unlockScroll = lockScroll();
+    const input = inputRef.current;
+    input?.focus({ preventScroll: true });
+    input?.select(); // a prefilled skill is replaced by the first keystroke
+    return () => {
+      unlockScroll();
+      if (returnTo instanceof HTMLElement) returnTo.focus({ preventScroll: true });
+    };
+  }, []);
+
+  // Keep the highlighted row in view while arrowing through a long list.
+  useEffect(() => {
+    listRef.current?.querySelector(`[data-index="${active}"]`)?.scrollIntoView({ block: 'nearest' });
+  }, [active]);
+
+  const onKeyDown = e => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      requestClose();
+    } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!results.length) return;
+      const step = e.key === 'ArrowDown' ? 1 : -1;
+      setActive(i => (i + step + results.length) % results.length);
+    } else if (e.key === 'Enter' && results[active]) {
+      e.preventDefault();
+      onPick(results[active].project);
+    } else if (e.key === 'Tab') {
+      e.preventDefault(); // the input is the dialog's only stop; arrows move the list
+    }
+  };
+
+  const optionId = i => `search-option-${i}`;
+
+  return createPortal(
+    <div className={`search-backdrop ${closing ? 'is-closing' : ''}`} onClick={requestClose}>
+      <div
+        className="search"
+        role="dialog"
+        aria-modal="true"
+        aria-label={t('ui.search')}
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="search-field">
+          <IconSearch />
+          <input
+            ref={inputRef}
+            className="search-input"
+            type="search"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            onKeyDown={onKeyDown}
+            placeholder={t('ui.search_placeholder')}
+            aria-label={t('ui.search_placeholder')}
+            role="combobox"
+            aria-expanded="true"
+            aria-controls="search-results"
+            aria-activedescendant={results.length ? optionId(active) : undefined}
+            autoComplete="off"
+            spellCheck="false"
+          />
+          <kbd className="search-esc">Esc</kbd>
+        </div>
+
+        {results.length ? (
+          <ul className="search-results" id="search-results" role="listbox" ref={listRef}>
+            {results.map(({ project, category, fields }, i) => (
+              <li key={project.id} role="presentation" data-accent={category}>
+                <a
+                  id={optionId(i)}
+                  className={`search-result ${i === active ? 'is-active' : ''}`}
+                  href={projectPath(project.id)}
+                  role="option"
+                  aria-selected={i === active}
+                  tabIndex={-1}
+                  data-index={i}
+                  data-track={`search: ${project.id}`}
+                  onMouseMove={() => i !== active && setActive(i)}
+                  onClick={e => openInPlace(e, project, onPick)}
+                >
+                  <span className="chip-dot" aria-hidden="true" />
+                  <span className="search-result-main">
+                    <span className="search-result-title">
+                      <Highlight text={fields.title} terms={terms} />
+                    </span>
+                    <span className="search-result-stack">
+                      <Highlight text={fields.techStack} terms={terms} />
+                    </span>
+                  </span>
+                  <span className="search-result-cat">{t(`sections.${category}`)}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="search-empty">{t('ui.search_empty', { query: query.trim() })}</p>
+        )}
+
+        <p className="search-foot" aria-hidden="true">
+          <span><kbd>↑</kbd><kbd>↓</kbd> {t('ui.search_move')}</span>
+          <span><kbd>↵</kbd> {t('ui.search_open')}</span>
+        </p>
+      </div>
+    </div>,
+    document.body
+  );
+};
+
+/* --------------------------------------------------------------------------- */
 function App() {
   const { t, i18n } = useTranslation();
   /* On a phone the name sits beside the portrait with the surname on its own
@@ -1396,6 +1734,8 @@ function App() {
   const [activeId, setActiveId] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [nameInHeader, setNameInHeader] = useState(false);
+  // null when closed, otherwise the query the palette opens with.
+  const [searchQuery, setSearchQuery] = useState(null);
   const drawerCloseRef = useRef(null);
   const navToggleRef = useRef(null);
   const headerRef = useRef(null);
@@ -1532,6 +1872,40 @@ function App() {
     else window.history.replaceState(null, '', '/');
   }, []);
 
+  /* Ctrl/Cmd+F anywhere, or "/" outside a text field, opens the search in place
+     of the browser's own find bar. Not while a project is open: the modal owns
+     the keyboard then, and the browser's find is the useful one in there. */
+  useEffect(() => {
+    const onKey = e => {
+      if (openProject) return;
+      const combo = e.key.toLowerCase() === 'f' && (e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey;
+      // Already open: a second Ctrl+F stays here instead of opening the find bar.
+      if (searchQuery !== null) {
+        if (combo) e.preventDefault();
+        return;
+      }
+      const typing = e.target.closest?.('input, textarea, [contenteditable="true"]');
+      if (combo || (e.key === '/' && !typing)) {
+        e.preventDefault();
+        setMenuOpen(false);
+        setSearchQuery('');
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [openProject, searchQuery]);
+
+  const closeSearch = useCallback(() => setSearchQuery(null), []);
+
+  // The palette unmounts first and hands focus back, then the modal takes over.
+  const openFromSearch = useCallback(
+    project => {
+      setSearchQuery(null);
+      handleOpen(project);
+    },
+    [handleOpen]
+  );
+
   useEffect(() => {
     const onPop = () => setOpenProject(projectAtPath(window.location.pathname));
     window.addEventListener('popstate', onPop);
@@ -1542,7 +1916,7 @@ function App() {
   useEffect(() => {
     document.title = openProject
       ? `${t(`projects.${openProject.id}.title`)} — Manuel Cattoni`
-      : 'Manuel Cattoni — Portfolio';
+      : 'Manuel Cattoni - AI Engineer Portfolio';
   }, [openProject, t]);
 
   const openCategoryId = useMemo(
@@ -1561,7 +1935,6 @@ function App() {
       aria-pressed={i18n.resolvedLanguage === code}
     >
       {flag}
-      <span className="lang-code">{code.toUpperCase()}</span>
     </button>
   ));
 
@@ -1608,6 +1981,18 @@ function App() {
           </nav>
 
           <div className="lang-switcher lang-switcher--header">{langButtons}</div>
+
+          <button
+            type="button"
+            className="search-btn"
+            aria-label={t('ui.search')}
+            aria-keyshortcuts="Control+F Meta+F"
+            data-track="search: open"
+            onClick={() => setSearchQuery('')}
+          >
+            <IconSearch />
+            <kbd className="search-btn-kbd">{MOD_KEY} F</kbd>
+          </button>
 
           <button
             type="button"
@@ -1679,11 +2064,11 @@ function App() {
               height="600"
               data-reveal
             />
-            <div className="hero-intro">
-              <h1 className="hero-name" ref={heroNameRef} data-reveal>
-                <span className="hero-name-part">{nameFirst}</span>
-                {nameLast && <> <span className="hero-name-part">{nameLast}</span></>}
-              </h1>
+            <div
+              className="hero-intro"
+              style={{ '--type-lead': `${TYPE_START_MS + nameFirst.length * TYPE_STEP_MS}ms` }}
+            >
+              <TypedName ref={heroNameRef} parts={nameLast ? [nameFirst, nameLast] : [nameFirst]} />
               <p className="hero-meta" data-reveal style={{ '--reveal-i': 1 }}>
                 <span className="hero-meta-item">
                   <IconPin />
@@ -1729,6 +2114,8 @@ function App() {
             </div>
           </div>
         </section>
+
+        <SkillsMarquee onPick={setSearchQuery} />
 
         <section className="section" id="hobbies">
           <div className="shell">
@@ -1789,6 +2176,10 @@ function App() {
 
       {openProject && (
         <ProjectModal project={openProject} categoryId={openCategoryId} onClose={handleClose} />
+      )}
+
+      {searchQuery !== null && (
+        <SearchPalette initialQuery={searchQuery} onPick={openFromSearch} onClose={closeSearch} />
       )}
     </>
   );

@@ -126,7 +126,7 @@ export const resources = {
         uni: {
           title: "University Projects",
           summary: "**26 academic repositories** from my Bachelor's, spanning healthcare and biomedical ML, wearable sensing, time series forecasting, Bayesian statistics, blockchain, robotics and reinforcement learning.",
-          techStack: "Python (Jupyter Notebook), R",
+          techStack: "Python (Jupyter Notebook), R | NumPy, Pandas, scikit-learn, SciPy, statsmodels, Matplotlib, Seaborn, PyTorch, PyTorch Geometric, TensorFlow, XGBoost, LightGBM, SHAP, PyMC, ArviZ, RDKit, OpenCV, scikit-image, Stable-Baselines3, Robotics Toolbox, fairlearn | tidyverse, tidymodels, ggplot2",
           details: "**26 repositories** from coursework across the degree, covering a wide range of topics: healthcare and biomedical data (drug design, bioinformatics, brain tumor classification from MRI, stress detection from wrist-worn sensors, olive oil and food-compound quality), time series forecasting, Bayesian statistics and optimization, blockchain, robotics and drone control, reinforcement learning, anomaly detection with autoencoders, and sports/finance analytics (NBA shot data, credit risk). Written mostly as Jupyter notebooks and R Markdown, some solved individually and others in pairs or small groups depending on the course. Browse them all on GitHub.",
           folders: {
             biomedical: "Healthcare & biomedical",
@@ -301,6 +301,13 @@ export const resources = {
         }
       },
       ui: {
+        search: "Search",
+        search_placeholder: "Search projects, tech, tools…",
+        search_empty: "No projects match “{{query}}”",
+        search_move: "to move",
+        search_open: "to open",
+        search_skill: "Search projects using {{skill}}",
+        skills_title: "What I build with",
         visit_project: "Visit Project",
         visit_projects: "Visit Projects",
         coming_soon: "Coming soon",
@@ -454,7 +461,7 @@ export const resources = {
         uni: {
           title: "Progetti Universitari",
           summary: "**26 repository accademici** della triennale, con lavori di ambito sanitario e biomedico, sensori indossabili, previsione di serie storiche, statistica bayesiana, blockchain, robotica e reinforcement learning.",
-          techStack: "Python (Jupyter Notebook), R",
+          techStack: "Python (Jupyter Notebook), R | NumPy, Pandas, scikit-learn, SciPy, statsmodels, Matplotlib, Seaborn, PyTorch, PyTorch Geometric, TensorFlow, XGBoost, LightGBM, SHAP, PyMC, ArviZ, RDKit, OpenCV, scikit-image, Stable-Baselines3, Robotics Toolbox, fairlearn | tidyverse, tidymodels, ggplot2",
           details: "**26 repository** nati dagli esami del corso di laurea, che coprono un ampio ventaglio di temi: dati sanitari e biomedici (drug design, bioinformatica, classificazione di tumori cerebrali da risonanza, rilevamento dello stress da sensori da polso, qualità dell'olio d'oliva e dei composti alimentari), previsione di serie storiche, statistica bayesiana e ottimizzazione, blockchain, robotica e controllo di droni, reinforcement learning, anomaly detection con autoencoder, e analisi sportive/finanziarie (dati sui tiri NBA, rischio di credito). Scritti perlopiù in notebook Jupyter e R Markdown, alcuni svolti da solo e altri in coppia o piccoli gruppi a seconda del corso. Si possono sfogliare tutti su GitHub.",
           folders: {
             biomedical: "Sanitario e biomedico",
@@ -629,6 +636,13 @@ export const resources = {
         }
       },
       ui: {
+        search: "Cerca",
+        search_placeholder: "Cerca progetti, tecnologie, strumenti…",
+        search_empty: "Nessun progetto per “{{query}}”",
+        search_move: "per spostarti",
+        search_open: "per aprire",
+        search_skill: "Cerca i progetti con {{skill}}",
+        skills_title: "Con cosa lavoro",
         visit_project: "Visita il Progetto",
         visit_projects: "Visita i Progetti",
         coming_soon: "Presto online",
@@ -782,7 +796,7 @@ export const resources = {
         uni: {
           title: "Universitätsprojekte",
           summary: "**26 akademische Repositories** aus dem Bachelorstudium, mit Arbeiten aus dem Gesundheits- und Biomedizinbereich, Wearable-Sensorik, Zeitreihenprognosen, Bayes-Statistik, Blockchain, Robotik und Reinforcement Learning.",
-          techStack: "Python (Jupyter Notebook), R",
+          techStack: "Python (Jupyter Notebook), R | NumPy, Pandas, scikit-learn, SciPy, statsmodels, Matplotlib, Seaborn, PyTorch, PyTorch Geometric, TensorFlow, XGBoost, LightGBM, SHAP, PyMC, ArviZ, RDKit, OpenCV, scikit-image, Stable-Baselines3, Robotics Toolbox, fairlearn | tidyverse, tidymodels, ggplot2",
           details: "**26 Repositories** aus Kursarbeiten des Studiums, die ein breites Themenspektrum abdecken: Gesundheits- und Biomedizindaten (Drug Design, Bioinformatik, Hirntumor-Klassifikation aus MRT-Bildern, Stresserkennung aus Handgelenksensoren, Qualität von Olivenöl und Lebensmittelverbindungen), Zeitreihenprognosen, Bayes-Statistik und -Optimierung, Blockchain, Robotik und Drohnensteuerung, Reinforcement Learning, Anomalieerkennung mit Autoencodern sowie Sport-/Finanzanalysen (NBA-Wurfdaten, Kreditrisiko). Meist als Jupyter-Notebooks und R-Markdown geschrieben, manche allein, andere zu zweit oder in kleinen Gruppen, je nach Kurs. Alle einsehbar auf GitHub.",
           folders: {
             biomedical: "Gesundheit & Biomedizin",
@@ -957,6 +971,13 @@ export const resources = {
         }
       },
       ui: {
+        search: "Suchen",
+        search_placeholder: "Projekte, Technologien, Tools suchen…",
+        search_empty: "Keine Projekte zu „{{query}}“",
+        search_move: "zum Bewegen",
+        search_open: "zum Öffnen",
+        search_skill: "Projekte mit {{skill}} suchen",
+        skills_title: "Womit ich arbeite",
         visit_project: "Projekt besuchen",
         visit_projects: "Projekte besuchen",
         coming_soon: "Demnächst verfügbar",

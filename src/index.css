@@ -331,12 +331,6 @@ ul {
   flex-shrink: 0;
 }
 
-/* On phones the flag carries the meaning on its own (the button keeps its
-   aria-label), so the code is dropped and the burger takes the far right. */
-.lang-code {
-  display: none;
-}
-
 .lang-switcher--header {
   display: none;
 }
@@ -353,10 +347,6 @@ ul {
 
   .lang-switcher--menu {
     display: none;
-  }
-
-  .lang-code {
-    display: inline;
   }
 }
 
@@ -568,10 +558,6 @@ ul {
   flex: 1;
   justify-content: center;
   padding-inline: 0.4rem;
-}
-
-.lang-switcher--menu .lang-code {
-  display: inline;
 }
 
 @media (min-width: 46rem) {
@@ -1878,6 +1864,395 @@ a.footer-note:hover {
 }
 
 /* ==========================================================================
+   Typed hero name
+   Letters are always laid out; each one just switches on at its turn. The
+   caret is a pseudo-element on the letter being typed, absolutely placed so it
+   never nudges the text, and shown only for that letter's slot. The last
+   letter keeps it for a few blinks, then it goes.
+   ========================================================================== */
+.type-char {
+  position: relative;
+  opacity: 0;
+  animation: type-in 1ms linear forwards;
+  animation-delay: calc(var(--type-start) + var(--i) * var(--type-step));
+}
+
+.type-char::after {
+  content: '';
+  position: absolute;
+  left: 100%;
+  top: 0.12em;
+  bottom: 0.08em;
+  width: 0.07em;
+  margin-left: 0.04em;
+  background: currentColor;
+  opacity: 0;
+  animation: caret-on var(--type-step) steps(1) both;
+  animation-delay: inherit;
+  animation-fill-mode: none;
+}
+
+.type-char.is-last::after {
+  animation: caret-blink 1s steps(1) 3;
+  animation-delay: inherit;
+}
+
+@keyframes type-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes caret-on {
+  from,
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes caret-blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* The meta line, tagline and links come in once the first name is down. */
+.hero-intro [data-reveal] {
+  transition-delay: calc(var(--type-lead, 0ms) + var(--reveal-i, 0) * 70ms);
+}
+
+/* ==========================================================================
+   Skills marquee
+   Just the pills, sliding in two rows in opposite directions, tinted grey so
+   they sit a step back from the white cards around them. Duration scales with
+   the row's length so speed stays even; the edges fade out instead of cutting
+   pills off mid-word. Hovering or focusing a pill pauses its row and lights
+   it in the brand's colour.
+   ========================================================================== */
+.skills {
+  display: grid;
+  gap: 0.5rem;
+  padding-bottom: clamp(2.5rem, 7vw, 4rem);
+}
+
+.marquee {
+  overflow: hidden;
+  padding-block: 3px; /* room for the hover lift, which overflow would clip */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 0.5rem;
+  padding-right: 0.5rem; /* the gap after the last pill, so the seam spacing matches */
+  list-style: none;
+  animation: marquee calc(var(--marquee-n) * 3.4s) linear infinite;
+}
+
+.marquee--secondary .marquee-track {
+  animation-direction: reverse;
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+.skill-pill {
+  --brand: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.6rem;
+  padding-inline: 0.95rem 1.1rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: #f3f3f3;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease),
+    background-color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+}
+
+.skill-pill:hover,
+.skill-pill:focus-visible {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--brand) 45%, transparent);
+  background: color-mix(in srgb, var(--brand) 8%, #fff);
+  transform: translateY(-2px);
+}
+
+.skill-logo {
+  width: 1.15em;
+  height: 1.15em;
+  fill: var(--brand);
+  flex-shrink: 0;
+}
+
+.skill-dot {
+  width: 0.45em;
+  height: 0.45em;
+  margin-inline: 0.35em;
+  border-radius: 50%;
+  background: var(--line-strong);
+  flex-shrink: 0;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ==========================================================================
+   Search
+   ========================================================================== */
+.search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
+  margin-left: auto;
+  padding-inline: 0.55rem;
+  border-radius: var(--r-sm);
+  color: var(--ink-soft);
+  flex-shrink: 0;
+  transition: color var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+}
+
+.search-btn:hover {
+  color: var(--ink);
+  background: var(--surface);
+}
+
+.search-btn svg {
+  width: 19px;
+  height: 19px;
+}
+
+.search-btn + .nav-toggle {
+  margin-left: 0;
+}
+
+.search-btn-kbd {
+  display: none;
+}
+
+@media (min-width: 46rem) {
+  .search-btn {
+    margin-left: 0.25rem;
+  }
+
+  .search-btn-kbd {
+    display: inline;
+  }
+}
+
+kbd {
+  font-family: inherit;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ink-mute);
+  padding: 0.12rem 0.4rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--bg);
+  white-space: nowrap;
+}
+
+.search-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(1rem, 12vh, 7rem) 1rem 1rem;
+  background: rgba(11, 11, 11, 0.45);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  animation: fade-in var(--t-fast) var(--ease) both;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 38rem;
+  max-height: min(34rem, 100%);
+  background: var(--bg);
+  border-radius: var(--r-lg);
+  box-shadow: 0 24px 60px rgba(11, 11, 11, 0.25);
+  overflow: hidden;
+  animation: search-in var(--t-mid) var(--ease) both;
+}
+
+.search-backdrop.is-closing {
+  animation: fade-out var(--t-mid) var(--ease) both;
+  pointer-events: none;
+}
+
+.search-backdrop.is-closing .search {
+  animation: search-out var(--t-mid) var(--ease) both;
+}
+
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1.1rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-mute);
+}
+
+.search-field > svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  height: 3.6rem;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.05rem;
+}
+
+.search-input::placeholder {
+  color: var(--ink-mute);
+}
+
+.search-input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.search-results {
+  list-style: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.4rem;
+}
+
+.search-result {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem 0.75rem;
+  border-radius: var(--r-md);
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.search-result.is-active {
+  background: rgba(var(--accent-rgb), 0.08);
+}
+
+.search-result-main {
+  display: grid;
+  gap: 0.1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.search-result-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+}
+
+.search-result-stack {
+  font-size: 0.78rem;
+  color: var(--ink-mute);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result-cat {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent-ink);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.search-result mark {
+  background: rgba(var(--accent-rgb), 0.18);
+  color: inherit;
+  border-radius: 2px;
+}
+
+.search-empty {
+  padding: 2.5rem 1.25rem;
+  text-align: center;
+  color: var(--ink-mute);
+  font-size: 0.9rem;
+}
+
+.search-foot {
+  display: flex;
+  gap: 1.25rem;
+  padding: 0.65rem 1.1rem;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  font-size: 0.75rem;
+  color: var(--ink-mute);
+}
+
+.search-foot kbd + kbd {
+  margin-left: 0.2rem;
+}
+
+/* Touch screens have no arrow keys to explain. */
+@media (hover: none) {
+  .search-foot,
+  .search-esc {
+    display: none;
+  }
+}
+
+@media (max-width: 46rem) {
+  .search-result-cat {
+    display: none;
+  }
+}
+
+@keyframes search-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes search-out {
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+}
+
+/* ==========================================================================
    Reduced motion — nothing moves, everything stays visible
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
@@ -1912,6 +2287,29 @@ a.footer-note:hover {
 
   .project-card:hover .project-cover img {
     transform: none;
+  }
+
+  /* The strip stops scrolling and wraps, with the duplicate copy dropped. */
+  .marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .skill-pill:hover,
+  .skill-pill:focus-visible {
+    transform: none;
+  }
+
+  .marquee-track {
+    animation: none !important;
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-inline: var(--gutter);
+  }
+
+  .marquee-track [aria-hidden='true'] {
+    display: none;
   }
 
 }
