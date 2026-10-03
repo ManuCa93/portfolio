@@ -2,8 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/avatar.png" />
-    <link rel="apple-touch-icon" href="/avatar.png" />
+    <!-- The MC monogram is the site's mark: the browser tab, bookmarks, the home
+         screen and the favicon Google shows beside the result. Google wants a
+         square in multiples of 48px, hence the 192 PNG next to the SVG. -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#ffffff" />
     <meta
@@ -16,9 +21,8 @@
     <link rel="canonical" href="https://manuelcattoni.com/projects/pomodoro-timer/" />
     <title>Pomodoro Timer — Manuel Cattoni</title>
 
-    <!-- The GitHub avatar (self-hosted, so Google can crawl it) doubles as the
-         site's mark: the favicon Google shows beside the result, and the image
-         link previews pull in. -->
+    <!-- Link previews keep the GitHub avatar (self-hosted, so Google can crawl
+         it): a face reads better in a shared card than the monogram does. -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Manuel Cattoni" />
     <meta property="og:locale" content="en_US" />
@@ -82,8 +86,8 @@
         ]
       }
     </script>
-    <script type="module" crossorigin src="/assets/index-BSZ01YqB.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BI23ixEt.css">
+    <script type="module" crossorigin src="/assets/index-Dmt0qKBt.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BfP1ECIj.css">
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CreativeWork","name":"Pomodoro Timer","description":"A highly customizable Pomodoro timer and study analytics dashboard, available as a web app and an Electron desktop app.","url":"https://manuelcattoni.com/projects/pomodoro-timer/","author":{"@id":"https://manuelcattoni.com/#person"},"keywords":"Vanilla JS, Electron, Chart.js, LocalStorage | GitHub Pages"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manuel Cattoni","item":"https://manuelcattoni.com/"},{"@type":"ListItem","position":2,"name":"Pomodoro Timer","item":"https://manuelcattoni.com/projects/pomodoro-timer/"}]}]}</script>
   </head>
   <body>
