@@ -10,12 +10,14 @@
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#ffffff" />
+    <!-- Light and dark follow the device; the bar colours match --bg in each. -->
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)" />
     <meta
       name="description"
       content="A virtual pit wall for MotoGP: live lap-time and position calls, race pace and tyre strategy, read off roughly 73,000 real laps."
     />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="author" content="Manuel Cattoni" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://manuelcattoni.com/projects/motogp-position-estimator/" />
@@ -86,8 +88,8 @@
         ]
       }
     </script>
-    <script type="module" crossorigin src="/assets/index-Dmt0qKBt.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BfP1ECIj.css">
+    <script type="module" crossorigin src="/assets/index-BqOpY5aQ.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BYyt7PY1.css">
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CreativeWork","name":"MotoGP Position Estimator","description":"A virtual pit wall for MotoGP: live lap-time and position calls, race pace and tyre strategy, read off roughly 73,000 real laps.","url":"https://manuelcattoni.com/projects/motogp-position-estimator/","author":{"@id":"https://manuelcattoni.com/#person"},"keywords":"Python, Flask, scikit-learn, XGBoost, Pandas, SQLite | Render"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Manuel Cattoni","item":"https://manuelcattoni.com/"},{"@type":"ListItem","position":2,"name":"MotoGP Position Estimator","item":"https://manuelcattoni.com/projects/motogp-position-estimator/"}]}]}</script>
   </head>
   <body>
