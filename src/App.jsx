@@ -603,7 +603,7 @@ const mobileProjects = [
 const webProjects = [
   {
     id: 'polify',
-    link: null,
+    link: 'https://polifyy.netlify.app/',
     badgeKey: 'in_progress',
     badgeClass: 'badge-in-progress',
     icon: <IconBank />,
