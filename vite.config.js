@@ -21,6 +21,17 @@ const swap = (html, pattern, replacement) => {
   return html.replace(pattern, replacement)
 }
 
+/* The fallback the host serves for an unknown address. It is the homepage's
+   markup, so left alone it is a second copy of the homepage — and /404.html is
+   itself a real file the host answers with 200. Keep it out of the index, and
+   drop the canonical so it never claims to be the homepage. */
+const notFoundPage = html =>
+  swap(
+    html,
+    /<meta name="robots" content="[^"]*" \/>\s*<link rel="canonical" href="[^"]*" \/>/,
+    '<meta name="robots" content="noindex, follow" />'
+  )
+
 const projectPage = (html, id) => {
   const p = resources.en.translation.projects[id]
   const url = SITE + projectPath(id)
@@ -111,7 +122,7 @@ const projectPages = () => {
         fs.mkdirSync(dir, { recursive: true })
         fs.writeFileSync(path.join(dir, 'index.html'), projectPage(html, id))
       }
-      fs.writeFileSync(path.join(outDir, '404.html'), html)
+      fs.writeFileSync(path.join(outDir, '404.html'), notFoundPage(html))
 
       const urls = [`${SITE}/`, ...Object.keys(PROJECT_SLUGS).map(id => SITE + projectPath(id)), `${SITE}/Cattoni_Resume.pdf`]
       fs.writeFileSync(
