@@ -37,7 +37,7 @@ which remains the exclusive property of Manuel Cattoni. This includes:
 
   - photographs and portraits (src/assets/portrait.jpg, public/avatar.png,
     "fototessera 900.jpg");
-  - the résumé (public/Cattoni_Resume.pdf);
+  - the résumé (public/cattoni_manuel_cv.pdf);
   - project screenshots, logos and icons (src/assets/);
   - the written text of the site — biography, project descriptions and hobby
     notes, in every language (the translation strings in src/i18n.js);

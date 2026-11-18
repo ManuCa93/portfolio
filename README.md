@@ -51,7 +51,7 @@ npm run dev        # dev server with HMR
 │  ├─ apple-touch-icon.png     Same mark for the iOS home screen
 │  ├─ avatar.png               Homepage share image (the portrait)
 │  ├─ og/<slug>.jpg            Per-project share images, from scripts/og-images.mjs
-│  └─ Cattoni_Resume.pdf       Linked from the CV button
+│  └─ cattoni_manuel_cv.pdf     Linked from the CV button
 └─ src/
    ├─ main.jsx                 React root, imports index.css + i18n
    ├─ App.jsx                  The whole UI: asset imports, galleries,

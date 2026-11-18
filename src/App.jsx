@@ -691,7 +691,7 @@ const SOCIALS = [
     icon: <IconLinkedIn />
   },
   { id: 'email', href: 'mailto:manuel.cattoni93@gmail.com', label: 'Email', icon: <IconMail /> },
-  { id: 'cv', href: '/Cattoni_Resume.pdf?v=2', label: 'CV', icon: <IconDoc /> },
+  { id: 'cv', href: '/cattoni_manuel_cv.pdf', label: 'CV', icon: <IconDoc /> },
   { id: 'instagram', href: 'https://instagram.com/cattonii', label: 'Instagram', icon: <IconInstagram /> }
 ];
 

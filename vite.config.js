@@ -113,7 +113,7 @@ const projectPages = () => {
       }
       fs.writeFileSync(path.join(outDir, '404.html'), html)
 
-      const urls = [`${SITE}/`, ...Object.keys(PROJECT_SLUGS).map(id => SITE + projectPath(id)), `${SITE}/Cattoni_Resume.pdf`]
+      const urls = [`${SITE}/`, ...Object.keys(PROJECT_SLUGS).map(id => SITE + projectPath(id)), `${SITE}/cattoni_manuel_cv.pdf`]
       fs.writeFileSync(
         path.join(outDir, 'sitemap.xml'),
         `<?xml version="1.0" encoding="UTF-8"?>
