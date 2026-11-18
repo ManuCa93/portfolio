@@ -15,35 +15,35 @@
     <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)" />
     <meta
       name="description"
-      content="Manuel Cattoni — student and software developer from Varese. Data & AI, mobile apps, websites and games."
+      content="%SITE_DESCRIPTION%"
     />
     <meta name="color-scheme" content="light dark" />
-    <meta name="author" content="Manuel Cattoni" />
+    <meta name="author" content="%NAME%" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <link rel="canonical" href="https://manuelcattoni.com/" />
-    <title>Manuel Cattoni - AI Engineer Portfolio</title>
+    <link rel="canonical" href="%SITE_URL%/" />
+    <title>%SITE_TITLE%</title>
 
     <!-- Link previews. The homepage uses the portrait (self-hosted, so Google
          can crawl it); each project page gets its own card instead, swapped in
          at build time by vite.config.js. -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Manuel Cattoni" />
+    <meta property="og:site_name" content="%NAME%" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="it_IT" />
     <meta property="og:locale:alternate" content="de_DE" />
-    <meta property="og:title" content="Manuel Cattoni - AI Engineer Portfolio" />
+    <meta property="og:title" content="%SITE_TITLE%" />
     <meta
       property="og:description"
-      content="Manuel Cattoni — student and software developer from Varese. Data & AI, mobile apps, websites and games."
+      content="%SITE_DESCRIPTION%"
     />
-    <meta property="og:image" content="https://manuelcattoni.com/avatar.png" />
+    <meta property="og:image" content="%AVATAR_URL%" />
     <meta property="og:image:width" content="460" />
     <meta property="og:image:height" content="460" />
-    <meta property="og:image:alt" content="Manuel Cattoni" />
-    <meta property="og:url" content="https://manuelcattoni.com/" />
+    <meta property="og:image:alt" content="%NAME%" />
+    <meta property="og:url" content="%SITE_URL%/" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Manuel Cattoni - AI Engineer Portfolio" />
-    <meta name="twitter:image" content="https://manuelcattoni.com/avatar.png" />
+    <meta name="twitter:title" content="%SITE_TITLE%" />
+    <meta name="twitter:image" content="%AVATAR_URL%" />
 
     <!-- Tells search engines that this page IS a person, so a search for the
          name can surface the site rather than just the repositories. -->
@@ -53,24 +53,24 @@
         "@graph": [
           {
             "@type": "WebSite",
-            "@id": "https://manuelcattoni.com/#website",
-            "url": "https://manuelcattoni.com/",
-            "name": "Manuel Cattoni",
+            "@id": "%SITE_URL%/#website",
+            "url": "%SITE_URL%/",
+            "name": "%NAME%",
             "inLanguage": [
               "en",
               "it",
               "de"
             ],
             "author": {
-              "@id": "https://manuelcattoni.com/#person"
+              "@id": "%SITE_URL%/#person"
             }
           },
           {
             "@type": "Person",
-            "@id": "https://manuelcattoni.com/#person",
-            "name": "Manuel Cattoni",
-            "url": "https://manuelcattoni.com/",
-            "image": "https://manuelcattoni.com/avatar.png",
+            "@id": "%SITE_URL%/#person",
+            "name": "%NAME%",
+            "url": "%SITE_URL%/",
+            "image": "%AVATAR_URL%",
             "jobTitle": "Software Developer",
             "description": "Student and software developer from Varese. Data & AI, mobile apps, websites and games.",
             "address": {
@@ -79,11 +79,11 @@
               "addressCountry": "IT"
             },
             "sameAs": [
-              "https://github.com/ManuCa93",
-              "https://www.linkedin.com/in/manuel-cattoni-169631339/",
-              "https://instagram.com/cattonii",
-              "https://hevy.com/user/mmanuca",
-              "https://www.strava.com/athletes/184003417"
+              "%GITHUB_URL%",
+              "%LINKEDIN_URL%",
+              "%INSTAGRAM_URL%",
+              "%HEVY_URL%",
+              "%STRAVA_URL%"
             ]
           }
         ]
@@ -93,18 +93,18 @@
   <body>
     <div id="root"></div>
     <noscript>
-      <h1>Manuel Cattoni</h1>
+      <h1>%NAME%</h1>
       <p>
         Student and software developer from Varese, Italy. Data &amp; AI, mobile
         apps, websites and games. Find me on
-        <a href="https://github.com/ManuCa93">GitHub</a> and
-        <a href="https://www.linkedin.com/in/manuel-cattoni-169631339/">LinkedIn</a>.
+        <a href="%GITHUB_URL%">GitHub</a> and
+        <a href="%LINKEDIN_URL%">LinkedIn</a>.
       </p>
     </noscript>
     <!-- Cookieless analytics (no consent banner needed); dashboard at
-         manuca.goatcounter.com. Click events are sent from App.jsx. -->
+         %GOATCOUNTER_CODE%.goatcounter.com. Click events are sent from App.jsx. -->
     <script
-      data-goatcounter="https://manuca.goatcounter.com/count"
+      data-goatcounter="https://%GOATCOUNTER_CODE%.goatcounter.com/count"
       async
       src="https://gc.zgo.at/count.js"
     ></script>

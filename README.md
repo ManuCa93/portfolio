@@ -44,18 +44,18 @@ npm run dev        # dev server with HMR
 │  └─ portfolio-package-prompt.md   Reusable prompt for generating a project's
 │                                   screenshot package from its own repo
 ├─ public/                     Copied verbatim into the build
-│  ├─ CNAME                    Custom domain for GitHub Pages
-│  ├─ robots.txt
 │  ├─ favicon.svg / .ico       MC monogram: tab icon, bookmarks, Google result
 │  ├─ icon-192.png             Same mark as a PNG, for Google and Android
 │  ├─ apple-touch-icon.png     Same mark for the iOS home screen
 │  ├─ avatar.png               Homepage share image (the portrait)
 │  ├─ og/<slug>.jpg            Per-project share images, from scripts/og-images.mjs
-│  └─ cattoni_manuel_cv.pdf     Linked from the CV button
+│  └─ cattoni_manuel_cv.pdf    The CV; its name is CV_FILE in src/siteConfig.js
 └─ src/
    ├─ main.jsx                 React root, imports index.css + i18n
    ├─ App.jsx                  The whole UI: asset imports, galleries,
    │                           project definitions, components
+   ├─ siteConfig.js            Single source for domain, profiles, email, CV file;
+   │                           also fills index.html and writes CNAME/robots/sitemap
    ├─ i18n.js                  i18next setup
    ├─ locales.js               All copy for all three languages
    ├─ projectRoutes.js         Project id → /projects/<slug>/ address

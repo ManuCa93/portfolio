@@ -17,6 +17,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { resources } from '../src/locales.js';
 import { PROJECT_SLUGS } from '../src/projectRoutes.js';
+import { NAME, DOMAIN } from '../src/siteConfig.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const asset = p => `file://${path.join(root, 'src/assets/projects', p)}`;
@@ -74,7 +75,7 @@ const page = (id, card) => {
       ${logo(150)}
       <p class="eyebrow"><span class="dot"></span>${esc(section)}</p>
       <h1>${esc(title)}</h1>
-      <p class="by">Manuel Cattoni · manuelcattoni.com</p>
+      <p class="by">${NAME} · ${DOMAIN}</p>
     </div>`;
   }
 

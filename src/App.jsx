@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect, useCallback, useRef, useMemo } from 'react';
 import { createPortal } from 'react-dom';
+import { NAME, SITE_TITLE, EMAIL, CV_PATH, GITHUB_URL, githubRepo, LINKEDIN_URL, INSTAGRAM_URL } from './siteConfig.js';
 import { useTranslation } from 'react-i18next';
 import iconIco from './assets/icons/icon.ico';
 import logoImg from './assets/icons/logo.png';
@@ -548,7 +549,7 @@ const dataAiProjects = [
   },
   {
     id: 'uni',
-    link: 'https://github.com/ManuCa93?tab=repositories',
+    link: `${GITHUB_URL}?tab=repositories`,
     badgeKey: 'in_progress',
     badgeClass: 'badge-in-progress',
     icon: <IconGraduation />,
@@ -560,7 +561,7 @@ const dataAiProjects = [
   },
   {
     id: 'football',
-    link: 'https://github.com/ManuCa93/top-5-football-leagues-predictions',
+    link: githubRepo('top-5-football-leagues-predictions'),
     badgeKey: 'ended',
     badgeClass: 'badge-ended',
     icon: <IconBall />,
@@ -568,7 +569,7 @@ const dataAiProjects = [
   },
   {
     id: 'f1',
-    link: 'https://github.com/ManuCa93/F1_pred_2024',
+    link: githubRepo('F1_pred_2024'),
     badgeKey: 'ended',
     badgeClass: 'badge-ended',
     icon: <IconCar />
@@ -589,7 +590,7 @@ const mobileProjects = [
   },
   {
     id: 'driving',
-    link: 'https://github.com/ManuCa93/when_can_I_drive_app',
+    link: githubRepo('when_can_I_drive_app'),
     badgeKey: 'to_publish',
     badgeClass: 'badge-to-publish',
     iconImg: enjoyLogo,
@@ -623,7 +624,7 @@ const webProjects = [
   },
   {
     id: 'priceTracker',
-    link: 'https://github.com/ManuCa93/price-tracker',
+    link: githubRepo('price-tracker'),
     badgeKey: 'ended',
     badgeClass: 'badge-ended',
     icon: <IconTag />
@@ -633,7 +634,7 @@ const webProjects = [
 const gameProjects = [
   {
     id: 'brickbreakers',
-    link: 'https://github.com/ManuCa93/brickbrakers-F1',
+    link: githubRepo('brickbrakers-F1'),
     badgeKey: 'ended',
     badgeClass: 'badge-ended',
     icon: <IconGamepad />
@@ -683,16 +684,16 @@ const HOBBIES = [
 ];
 
 const SOCIALS = [
-  { id: 'github', href: 'https://github.com/ManuCa93', label: 'GitHub', icon: <IconGitHub /> },
+  { id: 'github', href: GITHUB_URL, label: 'GitHub', icon: <IconGitHub /> },
   {
     id: 'linkedin',
-    href: 'https://www.linkedin.com/in/manuel-cattoni-169631339/',
+    href: LINKEDIN_URL,
     label: 'LinkedIn',
     icon: <IconLinkedIn />
   },
-  { id: 'email', href: 'mailto:manuel.cattoni93@gmail.com', label: 'Email', icon: <IconMail /> },
-  { id: 'cv', href: '/cattoni_manuel_cv.pdf', label: 'CV', icon: <IconDoc /> },
-  { id: 'instagram', href: 'https://instagram.com/cattonii', label: 'Instagram', icon: <IconInstagram /> }
+  { id: 'email', href: `mailto:${EMAIL}`, label: 'Email', icon: <IconMail /> },
+  { id: 'cv', href: CV_PATH, label: 'CV', icon: <IconDoc /> },
+  { id: 'instagram', href: INSTAGRAM_URL, label: 'Instagram', icon: <IconInstagram /> }
 ];
 
 /* The skills strip. Every name here is also a search term: clicking one opens
@@ -2336,8 +2337,8 @@ function App() {
   // Tab title names the open project, so history entries and bookmarks do too.
   useEffect(() => {
     document.title = openProject
-      ? `${t(`projects.${openProject.id}.title`)} — Manuel Cattoni`
-      : 'Manuel Cattoni - AI Engineer Portfolio';
+      ? `${t(`projects.${openProject.id}.title`)} — ${NAME}`
+      : SITE_TITLE;
   }, [openProject, t]);
 
   const openCategoryId = useMemo(

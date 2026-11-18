@@ -4,8 +4,10 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { resources } from './src/locales.js'
 import { PROJECT_SLUGS, projectPath } from './src/projectRoutes.js'
+import * as site from './src/siteConfig.js'
 
-const SITE = 'https://manuelcattoni.com'
+const { NAME, DOMAIN, CV_PATH } = site
+const SITE = site.SITE_URL
 const PERSON_ID = `${SITE}/#person`
 
 const escapeHtml = s =>
@@ -24,7 +26,7 @@ const swap = (html, pattern, replacement) => {
 const projectPage = (html, id) => {
   const p = resources.en.translation.projects[id]
   const url = SITE + projectPath(id)
-  const title = `${p.title} — Manuel Cattoni`
+  const title = `${p.title} — ${NAME}`
   const description = plain(p.summary)
   // Each project previews with its own card (scripts/og-images.mjs). The
   // portrait stays the homepage's alone, so a search for the name shows the
@@ -41,13 +43,13 @@ const projectPage = (html, id) => {
         url,
         image,
         // a reference to the Person on the homepage, without its portrait
-        author: { '@type': 'Person', '@id': PERSON_ID, name: 'Manuel Cattoni', url: `${SITE}/` },
+        author: { '@type': 'Person', '@id': PERSON_ID, name: NAME, url: `${SITE}/` },
         keywords: p.techStack
       },
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Manuel Cattoni', item: `${SITE}/` },
+          { '@type': 'ListItem', position: 1, name: NAME, item: `${SITE}/` },
           { '@type': 'ListItem', position: 2, name: p.title, item: url }
         ]
       }
@@ -63,7 +65,7 @@ const projectPage = (html, id) => {
       <p>${escapeHtml(plain(p.details))}</p>
       ${highlights}
       <p>Tech stack: ${escapeHtml(p.techStack)}</p>
-      <p>A project by <a href="/">Manuel Cattoni</a>.</p>
+      <p>A project by <a href="/">${NAME}</a>.</p>
     </noscript>`
 
   let out = html
@@ -112,8 +114,11 @@ const projectPages = () => {
         fs.writeFileSync(path.join(dir, 'index.html'), projectPage(html, id))
       }
       fs.writeFileSync(path.join(outDir, '404.html'), html)
+      // Derived from the domain, so there is no file in public/ to keep in step.
+      fs.writeFileSync(path.join(outDir, 'CNAME'), `${DOMAIN}\n`)
+      fs.writeFileSync(path.join(outDir, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`)
 
-      const urls = [`${SITE}/`, ...Object.keys(PROJECT_SLUGS).map(id => SITE + projectPath(id)), `${SITE}/cattoni_manuel_cv.pdf`]
+      const urls = [`${SITE}/`, ...Object.keys(PROJECT_SLUGS).map(id => SITE + projectPath(id)), SITE + CV_PATH]
       fs.writeFileSync(
         path.join(outDir, 'sitemap.xml'),
         `<?xml version="1.0" encoding="UTF-8"?>
@@ -126,10 +131,24 @@ ${urls.map(u => `  <url><loc>${u}</loc></url>`).join('\n')}
   }
 }
 
+/* index.html is written with %NAME%-style placeholders for every value in
+   src/siteConfig.js (the build and the dev server both fill them in). */
+const siteValues = () => ({
+  name: 'site-config-placeholders',
+  transformIndexHtml: {
+    order: 'pre',
+    handler: html =>
+      html.replace(/%([A-Z_]+)%/g, (match, key) => {
+        if (!(key in site)) throw new Error(`index.html: ${match} is not exported by src/siteConfig.js`)
+        return escapeHtml(site[key])
+      })
+  }
+})
+
 // https://vite.dev/config/
 export default defineConfig({
   // Absolute, not './': project pages live two folders deep and must still
   // resolve /assets/... from the domain root.
   base: '/',
-  plugins: [react(), projectPages()],
+  plugins: [react(), siteValues(), projectPages()],
 })
